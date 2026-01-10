@@ -1,0 +1,113 @@
+/* Shared theme for pages.evilkittens.co
+   Put shared variables and common layout rules here so pages can reuse them.
+*/
+:root{
+  /* Dark (default) theme — professional neutrals with blue accent */
+  --bg: #0b0f14;         /* very dark navy */
+  --card: #0f1720;       /* dark slate for panels */
+  --muted: #94a3b8;      /* cool gray-blue for secondary text */
+  --accent: #d1d6e0;     /* professional blue */
+  --text: #e6eef6;       /* soft off-white for body text */
+  --hero-title: #f9f9f9; /* hero title (separate from body text) */
+  --hero-subtext: #ececec; /* hero subtext (smaller, softer than title) */
+  --card-title: #e6eef6; /* card title color (dark theme) */
+}
+
+
+/* Theme support: set [data-theme="light"] on <html> to flip variables */
+:root[data-theme="light"]{
+  /* Light theme — clean neutrals with same blue accent */
+  --bg: #f7fafc;         /* very light gray-blue */
+  --card: #ffffff;       /* white cards */
+  --muted: #6b7280;      /* neutral muted text */
+  --accent: #293757;     /* same professional blue */
+  --text: #2c3a55;       /* darker slate for improved contrast in light mode */
+  --hero-title: #f9f9f9; /* slightly darker hero title in light mode */
+  --hero-subtext: #ececec; /* hero subtext for light theme */
+  --card-title: #0b1220; /* card title color (light theme) */
+}
+
+*{box-sizing:border-box}
+
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  color:var(--text);
+  background:linear-gradient(180deg,#243453 0%, #1d246b 60%);
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+.wrap{max-width:880px;margin:24px auto;padding:24px;flex:1;display:flex;flex-direction:column}
+.wrap main{flex:1}
+
+header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+h1{margin:0;font-size:1.5rem}
+.header-left{display:flex;align-items:center;gap:12px}
+.header-left{--avatar-size:72px}
+.header-left .avatar{width:var(--avatar-size);height:var(--avatar-size);border-radius:999px;object-fit:cover;border:2px solid color-mix(in srgb, var(--text) 8%, transparent)}
+
+/* Avatar popup */
+.avatar-wrap{position:relative;display:inline-block}
+.avatar-popup{position:absolute;left:calc(var(--avatar-size) * 0.75);top:14px;width:260px;height:260px;max-width:calc(100vw - 48px);max-height:calc(100vw - 48px);border-radius:50%;overflow:hidden;box-shadow:0 8px 24px rgba(2,6,23,.6);display:block;opacity:0;transform:translateY(-6px);transition:opacity .18s ease,transform .18s ease;pointer-events:none;z-index:60;object-fit:cover}
+.avatar-popup.open{opacity:1;transform:translateY(0);pointer-events:auto}
+.avatar-popup[alt]{background:var(--card)}
+
+.sub{color:var(--muted);font-size:.9rem}
+.card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,.03);padding:18px;border-radius:10px;margin-top:18px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+.gist{display:flex;flex-direction:column;padding:12px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,.01),transparent);border:1px solid rgba(255,255,255,.02)}
+.gist a{color:var(--accent);text-decoration:none;font-weight:600}
+.meta{color:var(--muted);font-size:.9rem;margin-top:6px}
+footer{margin-top:28px;color:var(--muted);font-size:.85rem;text-align:center}
+.small{font-size:.85rem;color:var(--muted)}
+.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.03);font-size:.85rem}
+.list-empty{color:var(--muted);padding:12px}
+
+/* Hero/banner under the header */
+.hero{
+  width:100%;
+  margin:0;
+  border-radius:10px;overflow:hidden;position:relative;/* increased height by 75% from 140px to 245px */min-height:245px;display:flex;align-items:flex-end;padding:32px;color:var(--text)
+}
+.hero .hero-inner{padding:20px 32px 12px 32px;z-index:2}
+.hero .hero-inner h2{color:var(--hero-title)}
+.hero .hero-inner p.small{color:var(--hero-subtext)}
+.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.36));pointer-events:none}
+
+/* Card title color separate from body text */
+.card h2{color:var(--card-title)}
+
+/* Theme toggle button */
+.theme-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:36px;
+  background:transparent;
+  border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  color:var(--muted);
+  padding:4px;
+  border-radius:8px;
+  cursor:pointer;
+}
+.theme-toggle[aria-pressed="true"]{color:var(--accent);border-color:color-mix(in srgb, var(--accent) 18%, transparent)}
+.theme-toggle:focus{outline:2px solid color-mix(in srgb, var(--accent) 18%, transparent);outline-offset:2px}
+.theme-toggle svg{width:18px;height:18px;display:block}
+
+
+/* make cards and page background use variables */
+.card{background:linear-gradient(180deg, color-mix(in srgb, var(--card) 8%, transparent), var(--card));border:1px solid color-mix(in srgb, var(--text) 6%, transparent)}
+body{background:linear-gradient(180deg, color-mix(in srgb, var(--bg) 90%, #0b1220 10%), var(--bg));}
+.pill{background:color-mix(in srgb, var(--card) 8%, transparent);border:1px solid color-mix(in srgb, var(--text) 4%, transparent)}
+.gist{background:linear-gradient(180deg,color-mix(in srgb,var(--card)8%,transparent),transparent);border:1px solid color-mix(in srgb,var(--text)4%,transparent)}
+.gist a{color:var(--accent)}
+.meta{color:var(--muted)}
+.small{color:var(--muted)}
+.list-empty{color:var(--muted)}
+
