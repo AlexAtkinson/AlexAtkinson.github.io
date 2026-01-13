@@ -74,7 +74,7 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;text-align:center}
 .hero{
   width:100%;
   margin:0;
-  border-radius:10px;overflow:hidden;position:relative;/* increased height by 75% from 140px to 245px */min-height:245px;display:flex;align-items:flex-end;padding:32px;color:var(--text)
+  border-radius:0;overflow:hidden;position:relative;/* increased height by 75% from 140px to 245px */min-height:245px;display:flex;align-items:flex-end;padding:32px;color:var(--text)
 }
 .hero .hero-inner{padding:20px 32px 12px 32px;z-index:2}
 .hero .hero-inner h2{color:var(--hero-title)}
