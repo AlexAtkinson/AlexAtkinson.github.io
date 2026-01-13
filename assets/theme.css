@@ -76,8 +76,8 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;text-align:center}
   margin:0;
   border-radius:0;overflow:hidden;position:relative;/* increased height by 75% from 140px to 245px */min-height:245px;display:flex;align-items:flex-end;padding:32px;color:var(--text)
 }
-.hero .hero-inner{padding:20px 32px 12px 32px;z-index:2}
-.hero .hero-inner h2{color:var(--hero-title)}
+.hero .hero-inner{padding:20px 24px 12px 24px;z-index:2;max-width:880px;margin-left:calc((100% - 880px)/2);margin-right:0}
+.hero .hero-inner h2{color:var(--hero-title);font-size:clamp(1.75rem,4.5vw,2.75rem);line-height:1.05;margin:0}
 .hero .hero-inner p.small{color:var(--hero-subtext)}
 .hero::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.36));pointer-events:none}
 
