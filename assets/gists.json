@@ -1,0 +1,194 @@
+[
+  {
+    "id": "42d91031604aaedc0ec5a879afb3410f",
+    "html_url": "https://gist.github.com/AlexAtkinson/42d91031604aaedc0ec5a879afb3410f",
+    "description": "Domain Names, DNS, and URLs for DevOps & Friends",
+    "files": {
+      "Domain Names, DNS & URLs.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/42d91031604aaedc0ec5a879afb3410f/raw/914e8f30eba5fc14fc71e477144e50d3ac105daa/Domain%20Names%2C%20DNS%20%26%20URLs.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "7be00d6be71fab970210006b9574e1e5",
+    "html_url": "https://gist.github.com/AlexAtkinson/7be00d6be71fab970210006b9574e1e5",
+    "description": "DevOps Primer: Versioning",
+    "files": {
+      "Versioning.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/7be00d6be71fab970210006b9574e1e5/raw/cd59b3a46f82aa459fc3c33515fbd8d294873dc6/Versioning.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "37d64e4e0527f6e5f9d57280669ad055",
+    "html_url": "https://gist.github.com/AlexAtkinson/37d64e4e0527f6e5f9d57280669ad055",
+    "description": "DevOps Primer: Artifacting.",
+    "files": {
+      "Artifacting.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/37d64e4e0527f6e5f9d57280669ad055/raw/29b62c2d8bbff7c5933748f7b4a69cfb0b3c6ca0/Artifacting.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "31b5bc527b07406950618a7e6bd1ec81",
+    "html_url": "https://gist.github.com/AlexAtkinson/31b5bc527b07406950618a7e6bd1ec81",
+    "description": "Guide: iptables",
+    "files": {
+      "iptables.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/31b5bc527b07406950618a7e6bd1ec81/raw/de708953171aa151153d8810cffdc68352d0d678/iptables.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "7246dfafa76973c6cc60ac5fa5ce0858",
+    "html_url": "https://gist.github.com/AlexAtkinson/7246dfafa76973c6cc60ac5fa5ce0858",
+    "description": "Some Fastly ProTips",
+    "files": {
+      "Fastly.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/7246dfafa76973c6cc60ac5fa5ce0858/raw/98018b2840d147a5997feea71c2cc66681b3946d/Fastly.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "f0bf8c89dda97ef42b5ba3575ab20363",
+    "html_url": "https://gist.github.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363",
+    "description": "Images for use in other Gists",
+    "files": {
+      ".Gist Image Repo.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/f2738edfa58e1248e1ac73041aaa94be3c7c1215/.Gist%20Image%20Repo.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      },
+      "Burndown_anit-patterns.jpg": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/365702faa1cfce8e8f8a2d100d5a7a95e60dd705/Burndown_anit-patterns.jpg",
+        "type": "image/jpeg",
+        "language": null
+      },
+      "GH_Actions_Skipped_Job.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/04b9409324611dd37e7bff1f09698d35377143f3/GH_Actions_Skipped_Job.png",
+        "type": "image/png",
+        "language": null
+      },
+      "GH_Actions_Skipped_Run.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/0c6dd60567514690ce802e8133cbab82660a1e16/GH_Actions_Skipped_Run.png",
+        "type": "image/png",
+        "language": null
+      },
+      "Jira-Workflow-Bugs-Diagram-Labels.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/0971105b1fec0b9fed8387abdd3153d1c07cc5dd/Jira-Workflow-Bugs-Diagram-Labels.png",
+        "type": "image/png",
+        "language": null
+      },
+      "Jira-Workflow-Bugs-Diagram.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/de617fb82a68ffa0f5234042f3be090162ac3f52/Jira-Workflow-Bugs-Diagram.png",
+        "type": "image/png",
+        "language": null
+      },
+      "Jira-Workflow-Epics-Diagram-Labels.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/319450b04e500585382dd83b71ff39827551497f/Jira-Workflow-Epics-Diagram-Labels.png",
+        "type": "image/png",
+        "language": null
+      },
+      "Jira-Workflow-Epics-Diagram.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/4c426ff8dacb013d6fa951c22e64fa6bcfeff49c/Jira-Workflow-Epics-Diagram.png",
+        "type": "image/png",
+        "language": null
+      },
+      "Jira-Workflow-Stories-and-Tasks-Diagram-Labels.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/4744b67d921ba8a5dff50d84c70f16730ad30bbc/Jira-Workflow-Stories-and-Tasks-Diagram-Labels.png",
+        "type": "image/png",
+        "language": null
+      },
+      "Jira-Workflow-Stories-and-Tasks-Diagram.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/f0e0b57b4c896b5375aa2821e1e23bdbaf277a40/Jira-Workflow-Stories-and-Tasks-Diagram.png",
+        "type": "image/png",
+        "language": null
+      },
+      "Jira-Workflow-SubTasks-Diagram-Labels.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/9a05cd4187bf30b2444cdce6df8dd2ce13187f2f/Jira-Workflow-SubTasks-Diagram-Labels.png",
+        "type": "image/png",
+        "language": null
+      },
+      "Jira-Workflow-SubTasks-Diagram.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/a201aca7512e31151c4d594b7d521175ee2a3322/Jira-Workflow-SubTasks-Diagram.png",
+        "type": "image/png",
+        "language": null
+      },
+      "SAFe_slash_Basic_Project_Mgmt.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/8e6e55cb3c50a4610dcc4304180c5b6a4a9cbd42/SAFe_slash_Basic_Project_Mgmt.png",
+        "type": "image/png",
+        "language": null
+      },
+      "awful_jira_workflow.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/98236eaad58af87260b6363442fbfe14d6e6646e/awful_jira_workflow.png",
+        "type": "image/png",
+        "language": null
+      },
+      "diagram_agile_team_posture.jpg": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/82e9d98148dd6b925306997e9feba73edc3ec928/diagram_agile_team_posture.jpg",
+        "type": "image/jpeg",
+        "language": null
+      },
+      "dns_domain_segments.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/9cf3e847c8320cbd8e2d8e28e79b7775347b4539/dns_domain_segments.png",
+        "type": "image/png",
+        "language": null
+      },
+      "emoji_conspiracy_theory.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/449377f4a348236382354aa4eb89d791b0816b78/emoji_conspiracy_theory.png",
+        "type": "image/png",
+        "language": null
+      },
+      "icon_qbittorrent.svg": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/d96bbbd5d04744cbe23432c3822387719715f6b1/icon_qbittorrent.svg",
+        "type": "image/svg+xml",
+        "language": null
+      },
+      "kitten-cropped.jpg": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/de4ede0b52aed672ef55eb2f7453734086e7eab0/kitten-cropped.jpg",
+        "type": "image/jpeg",
+        "language": null
+      },
+      "linux_netfilter.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/1b26230c204f88df4e77576c57912da8d27e2ee5/linux_netfilter.png",
+        "type": "image/png",
+        "language": null
+      },
+      "logo_evernote.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/a5f80f30ff9640bdd1934a8efe82c78eb2d034ae/logo_evernote.png",
+        "type": "image/png",
+        "language": null
+      },
+      "logo_obsidian.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/21924a22fe7b5dee445fa9a76e649e788412001f/logo_obsidian.png",
+        "type": "image/png",
+        "language": null
+      },
+      "rec-logo-outline.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/fc1bc4fb9e83004fe8a9c2c94eb32b94c69b0612/rec-logo-outline.png",
+        "type": "image/png",
+        "language": null
+      },
+      "zen-browser-icon-128.png": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/eb8478e5fa7c7969364e35821996e4a3421fc1c1/zen-browser-icon-128.png",
+        "type": "image/png",
+        "language": null
+      },
+      "zen-browser-icon.svg": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/799837929022b9cbb520c83d2745707e3ca1f0aa/zen-browser-icon.svg",
+        "type": "image/svg+xml",
+        "language": null
+      }
+    }
+  }
+]

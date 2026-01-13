@@ -64,6 +64,8 @@
 
     <script>
         // Curated list: replace these IDs with real GIST IDs to display titles and description automatically.
+        // The site will prefer a pre-generated `assets/gists.json` (created by
+        // `scripts/fetch_gists.py`) if present to avoid live API calls.
         const curated = [
             /* Example: 'a1b2c3d4e5f6g7h8i9j0' */
             '42d91031604aaedc0ec5a879afb3410f',
@@ -82,12 +84,48 @@
             return res.json();
         }
 
+        function titleFromFilename(fn){
+            if(!fn) return '';
+            let name = fn.replace(/^[^a-zA-Z0-9]+/, '');
+            name = name.replace(/\.[^/.]+$/, '');
+            return name || fn;
+        }
+
         (async function render(){
+            container.innerHTML = ''; // clear placeholder
+
+            // 1) Try to load a local pre-built asset to avoid API calls
+            try{
+                const res = await fetch('assets/gists.json', {cache: 'no-cache'});
+                if(res.ok){
+                    const local = await res.json();
+                    if(Array.isArray(local) && local.length){
+                        for(const gist of local){
+                            const wrapper = document.createElement('div');
+                            wrapper.className = 'gist card';
+                            const firstFile = Object.keys(gist.files || {})[0];
+                            const title = titleFromFilename(firstFile) || gist.description || gist.id;
+                            const html = [
+                                `<a href="${escapeHtml(gist.html_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>`,
+                                `<div class="meta">${escapeHtml(gist.description || '')}</div>`
+                            ].join('');
+                            wrapper.innerHTML = html;
+                            container.appendChild(wrapper);
+                        }
+                        return; // done
+                    }
+                }
+            }catch(e){
+                // fall through to live-fetch fallback
+                console.warn('Local gists.json not found or invalid, falling back to API');
+            }
+
+            // 2) Fallback: live fetch using curated IDs
             if(!curated.length){
                 container.innerHTML = '<div class="list-empty card">No gists configured.</div>';
                 return;
             }
-            container.innerHTML = ''; // clear placeholder
+
             for(const id of curated){
                 const wrapper = document.createElement('div');
                 wrapper.className = 'gist card';
@@ -96,29 +134,16 @@
 
                 try{
                     if(id.startsWith('PLACEHOLDER')){
-                        // placeholder entry — show editable template
                         wrapper.innerHTML = '<strong>Replace PLACEHOLDER_GIST_ID with a real Gist ID</strong><div class="meta">Edit index in index.html to point to curated gists.</div>';
                         continue;
                     }
                     const gist = await fetchGist(id);
-                        // Derive a clean title from the first filename: strip leading special
-                        // characters (like dots) and remove the extension (e.g. `.md`).
-                        function titleFromFilename(fn){
-                            if(!fn) return '';
-                            // remove leading non-alphanumeric characters (dots, underscores, etc.)
-                            let name = fn.replace(/^[^a-zA-Z0-9]+/, '');
-                            // remove final extension (e.g. .md, .txt)
-                            name = name.replace(/\.[^/.]+$/, '');
-                            return name || fn;
-                        }
-
-                        const firstFile = Object.keys(gist.files)[0];
-                        const title = titleFromFilename(firstFile) || gist.description || id;
-                        const fileList = Object.keys(gist.files).map(fn => `<span style="margin-right:8px">${escapeHtml(fn)}</span>`).join('');
-                        const html = [
-                            `<a href="${gist.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>`,
-                            `<div class="meta">${escapeHtml(gist.description || '')}</div>`
-                        ].join('');
+                    const firstFile = Object.keys(gist.files)[0];
+                    const title = titleFromFilename(firstFile) || gist.description || id;
+                    const html = [
+                        `<a href="${gist.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>`,
+                        `<div class="meta">${escapeHtml(gist.description || '')}</div>`
+                    ].join('');
                     wrapper.innerHTML = html;
                 }catch(err){
                     wrapper.innerHTML = '<strong>Unable to load gist: ' + escapeHtml(id) + '</strong><div class="meta">' + escapeHtml(err.message) + '</div>';
