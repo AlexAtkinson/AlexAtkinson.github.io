@@ -46,10 +46,22 @@ body{
 .wrap{max-width:880px;margin:24px auto;padding:24px;flex:1;display:flex;flex-direction:column}
 .wrap main{flex:1}
 
-header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
 h1{margin:0;font-size:1.5rem}
 .header-left{display:flex;align-items:center;gap:12px}
 .header-left{--avatar-size:72px}
+
+/* Responsive header tweaks to avoid clipped text on narrow screens */
+@media (max-width:520px){
+  /* allow header content to wrap cleanly */
+  header{align-items:flex-start}
+  /* make the right-side controls span full width below on very small screens */
+  header > div:last-child{width:100%;text-align:right;margin-top:10px}
+  /* reduce avatar size to save horizontal space */
+  .header-left{--avatar-size:48px}
+  /* slightly reduce title size so it can wrap naturally */
+  .header-left h1{font-size:1.125rem;line-height:1.1}
+}
 .header-left .avatar{width:var(--avatar-size);height:var(--avatar-size);border-radius:999px;object-fit:cover;border:2px solid color-mix(in srgb, var(--text) 8%, transparent)}
 
 /* Avatar popup */
