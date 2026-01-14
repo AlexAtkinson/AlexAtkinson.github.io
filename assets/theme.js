@@ -67,6 +67,8 @@
           p.className = 'avatar-popup';
           p.src = img.src;
           p.alt = img.alt || 'Avatar (large)';
+          // popup is not critical for initial paint: mark as low priority
+          p.setAttribute('fetchpriority', 'low');
           wrap.appendChild(p);
           // clicking popup toggles (close)
           p.addEventListener('click', e => { e.stopPropagation(); p.classList.remove('open'); });

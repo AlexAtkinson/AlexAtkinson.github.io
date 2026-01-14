@@ -6,6 +6,7 @@
     <title>Alex Atkinson — pages.evilkittens.co</title>
     <meta name="description" content="Curated index of useful GISTs." />
     <link rel="canonical" href="https://pages.evilkittens.co/" />
+    <link rel="preload" as="image" href="assets/images/bike-in-summer.webp">
     <link rel="stylesheet" href="assets/theme.css">
     <script src="assets/theme.js" defer></script>
 </head>
@@ -16,8 +17,8 @@
         </div>
         <div class="hero-inner">
                 <div class="container">
-                    <h2>Github Pages</h2>
-                    <p class="small">A lightweight index of tools and knowledge that I share publicly.</p>
+                    <h2>Articles</h2>
+                    <p class="small">An index for the tools and knowledge that I share publicly.</p>
                 </div>
         </div>
     </div>
@@ -26,7 +27,14 @@
         <header>
         <div class="header-left">
             <div class="avatar-wrap">
-                <img class="avatar" src="assets/images/avatar-alex-in-summer.jpg" alt="Alex Atkinson avatar">
+                                <img
+                                    class="avatar"
+                                    fetchpriority="high"
+                                    srcset="assets/images/avatar-alex-in-summer_128.webp 128w, assets/images/avatar-alex-in-summer_256.webp 256w, assets/images/avatar-alex-in-summer_512.webp 512w"
+                                    sizes="(max-width:520px) 48px, 72px"
+                                    src="assets/images/avatar-alex-in-summer.webp"
+                                    alt="Alex Atkinson avatar"
+                                    loading="lazy">
             </div>
             <div>
                 <h1>Alex Atkinson</h1>
@@ -37,9 +45,14 @@
 
         <main>
             <section class="card" id="intro">
-                <h2>Introduction</h2>
+                <h1>Introduction</h1>
                 <p class="small">
-                    This is a lightweight landing page and an index of curated GISTs I maintain. Use it to browse snippets, tools, and knowledge that I share publicly.
+                    Modern technologies are dependent upon a broad landscape of varying disciplines and deep expertise to be well executed. These articles and tools are authored with the greatest hope that they improve Quality of Life for both ourselves and our customers.
+                    <br>In short: A 4-hour work week for us, and amazing UX for them.
+                </p>
+                <h2>A Note to Founders & Product Owners</h2>
+                <p class="small">
+                    As time to market shrinks daily, it's less about the idea than the execution than ever. Having a solid foundation in DevOps, Infrastructure, Security, and Compliance is critical to delivering reliable, scalable, and maintainable products. The resources here can help your team build that foundation efficiently.
                 </p>
             </section>
 
@@ -68,10 +81,10 @@
         // The site will prefer a pre-generated `assets/gists.json` (created by
         // `scripts/fetch_gists.py`) if present to avoid live API calls.
         const curated = [
-            /* Example: 'a1b2c3d4e5f6g7h8i9j0' */
             '42d91031604aaedc0ec5a879afb3410f',
             '7be00d6be71fab970210006b9574e1e5',
             '37d64e4e0527f6e5f9d57280669ad055',
+            '164c45f981355fba2dd59cf7632720a5',
             '31b5bc527b07406950618a7e6bd1ec81',
             '7246dfafa76973c6cc60ac5fa5ce0858',
             'f0bf8c89dda97ef42b5ba3575ab20363'
@@ -156,5 +169,13 @@
 
         function escapeHtml(str){ return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])); }
     </script>
+        <script>
+            // Register the service worker to enable offline and caching strategies
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(reg => console.log('Service worker registered:', reg.scope))
+                    .catch(err => console.warn('Service worker registration failed:', err));
+            }
+        </script>
 </body>
 </html>
