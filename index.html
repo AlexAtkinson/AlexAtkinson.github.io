@@ -95,6 +95,19 @@
         (async function render(){
             container.innerHTML = ''; // clear placeholder
 
+            function gistCardLink(gist, title){
+                const link = document.createElement('a');
+                link.className = 'gist card';
+                link.href = gist.html_url;
+                link.target = '_blank';
+                link.rel = 'noopener noreferrer';
+                link.innerHTML = [
+                    `<div class="gist-title">${escapeHtml(title)}</div>`,
+                    `<div class="meta">${escapeHtml(gist.description || '')}</div>`
+                ].join('');
+                return link;
+            }
+
             // 1) Try to load a local pre-built asset to avoid API calls
             try{
                 const res = await fetch('assets/gists.json', {cache: 'no-cache'});
@@ -102,16 +115,9 @@
                     const local = await res.json();
                     if(Array.isArray(local) && local.length){
                         for(const gist of local){
-                            const wrapper = document.createElement('div');
-                            wrapper.className = 'gist card';
                             const firstFile = Object.keys(gist.files || {})[0];
                             const title = titleFromFilename(firstFile) || gist.description || gist.id;
-                            const html = [
-                                `<a href="${escapeHtml(gist.html_url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>`,
-                                `<div class="meta">${escapeHtml(gist.description || '')}</div>`
-                            ].join('');
-                            wrapper.innerHTML = html;
-                            container.appendChild(wrapper);
+                            container.appendChild(gistCardLink(gist, title));
                         }
                         return; // done
                     }
@@ -128,26 +134,22 @@
             }
 
             for(const id of curated){
-                const wrapper = document.createElement('div');
-                wrapper.className = 'gist card';
-                wrapper.innerHTML = '<div class="small">Loading…</div>';
-                container.appendChild(wrapper);
+                const placeholder = document.createElement('div');
+                placeholder.className = 'gist card gist-loading';
+                placeholder.innerHTML = '<div class="small">Loading…</div>';
+                container.appendChild(placeholder);
 
                 try{
                     if(id.startsWith('PLACEHOLDER')){
-                        wrapper.innerHTML = '<strong>Replace PLACEHOLDER_GIST_ID with a real Gist ID</strong><div class="meta">Edit index in index.html to point to curated gists.</div>';
+                        placeholder.innerHTML = '<strong>Replace PLACEHOLDER_GIST_ID with a real Gist ID</strong><div class="meta">Edit index in index.html to point to curated gists.</div>';
                         continue;
                     }
                     const gist = await fetchGist(id);
                     const firstFile = Object.keys(gist.files)[0];
                     const title = titleFromFilename(firstFile) || gist.description || id;
-                    const html = [
-                        `<a href="${gist.html_url}" target="_blank" rel="noopener noreferrer">${escapeHtml(title)}</a>`,
-                        `<div class="meta">${escapeHtml(gist.description || '')}</div>`
-                    ].join('');
-                    wrapper.innerHTML = html;
+                    placeholder.replaceWith(gistCardLink(gist, title));
                 }catch(err){
-                    wrapper.innerHTML = '<strong>Unable to load gist: ' + escapeHtml(id) + '</strong><div class="meta">' + escapeHtml(err.message) + '</div>';
+                    placeholder.innerHTML = '<strong>Unable to load gist: ' + escapeHtml(id) + '</strong><div class="meta">' + escapeHtml(err.message) + '</div>';
                 }
             }
         })();

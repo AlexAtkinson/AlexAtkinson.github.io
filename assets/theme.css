@@ -14,6 +14,10 @@
   --hero-subtext: #ececec;
   --card-title: #e6eef6;
   --tile-border: color-mix(in srgb, var(--text) 6%, transparent);
+
+  /* Gist hover glow (dark mode) */
+  --gist-glow: color-mix(in srgb, var(--accent) 10%, transparent);
+  --gist-glow-soft: color-mix(in srgb, var(--accent) 4%, transparent);
 }
 
 :root[data-theme="light"]{
@@ -26,6 +30,10 @@
   --hero-subtext: #ececec;
   --card-title: #0b1220;
   --tile-border: color-mix(in srgb, var(--text) 67%, transparent);
+
+  /* Gist hover glow (light mode) */
+  --gist-glow: color-mix(in srgb, var(--accent) 40%, transparent);
+  --gist-glow-soft: color-mix(in srgb, var(--accent) 16%, transparent);
 }
 
 *{box-sizing:border-box}
@@ -182,8 +190,46 @@ h1{margin:0;font-size:1.5rem}
   border-radius:8px;
   background:linear-gradient(180deg,color-mix(in srgb,var(--card) 8%, transparent),transparent);
   border:1px solid var(--tile-border);
+  position:relative;
+  overflow:hidden;
+  transition:border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 }
-.gist a{color:var(--accent);text-decoration:none;font-weight:600}
+
+/* Make entire card clickable when it is a link */
+a.gist{color:inherit;text-decoration:none;cursor:pointer}
+a.gist:hover{
+  border-color:color-mix(in srgb, var(--accent) 28%, var(--tile-border));
+  box-shadow:
+    0 0 0 1px var(--gist-glow-soft),
+    0 0 22px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
+    0 0 52px -20px var(--gist-glow);
+}
+a.gist:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 25%, transparent);outline-offset:2px}
+
+.gist-title{color:var(--accent);text-decoration:none;font-weight:650}
+a.gist:hover .gist-title{text-decoration:underline}
+
+/* Soft glow wash on hover/focus */
+.gist::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  border-radius:inherit;
+  background:color-mix(in srgb, var(--gist-glow-soft) 35%, transparent);
+  transition:opacity 180ms ease;
+}
+
+a.gist:hover::before,
+a.gist:focus-visible::before{
+  opacity:1;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .gist{transition:none}
+  .gist::before{transition:none}
+}
 .meta{color:var(--muted);font-size:.9rem;margin-top:6px}
 .small{font-size:.85rem;color:var(--muted)}
 .list-empty{color:var(--muted);padding:12px}
