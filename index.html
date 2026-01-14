@@ -10,55 +10,56 @@
     <script src="assets/theme.js" defer></script>
 </head>
 <body>
-    <section class="hero" style="background:linear-gradient(to bottom, rgba(0,0,0,0.20), rgba(0,0,0,0.28)), url('assets/images/bike-in-summer.webp');background-size:cover;background-position:center">
+    <div class="hero">
         <div class="hero-inner">
-            <h2 style="margin:0 0 8px 0">Github Pages</h2>
-            <p class="small" style="margin:0">An index for some of the tools, practice, and knowledge, that I share publicly.</p>
+                <div class="container">
+                    <h2>Github Pages</h2>
+                    <p class="small">A lightweight index of tools and knowledge that I share publicly.</p>
+                </div>
         </div>
-    </section>
+    </div>
 
     <div class="wrap">
         <header>
-            <div class="header-left">
-                <div class="avatar-wrap">
-                    <img class="avatar" src="assets/images/avatar-alex-in-summer.jpg" alt="Alex Atkinson avatar">
-                </div>
-                <div>
-                    <h1>Alex Atkinson</h1>
-                    <div class="sub">Dev*Ops, Infrastructure, and Platform Engineer</div>
-                </div>
+        <div class="header-left">
+            <div class="avatar-wrap">
+                <img class="avatar" src="assets/images/avatar-alex-in-summer.jpg" alt="Alex Atkinson avatar">
             </div>
-            <div style="text-align:right">
-                <button class="theme-toggle" data-theme-toggle aria-pressed="false" title="Toggle theme"></button>
-                <div style="display:inline-block;margin-left:8px" class="pill"><a href="https://github.com/AlexAtkinson" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:none">GitHub: AlexAtkinson</a></div>
+            <div>
+                <h1>Alex Atkinson</h1>
+                <div class="sub">Dev*Ops, Infrastructure, and Platform Engineer</div>
             </div>
+        </div>
+        <div class="header-right">
+            <button class="theme-toggle" data-theme-toggle aria-pressed="false" title="Toggle theme"></button>
+        </div>
         </header>
 
         <main>
             <section class="card" id="intro">
-                <h2 style="margin:0 0 8px 0">Introduction</h2>
-                <p class="small" style="margin:0">
+                <h2>Introduction</h2>
+                <p class="small">
                     This is a lightweight landing page and an index of curated GISTs I maintain. Use it to browse snippets, tools, and knowledge that I share publicly.
                 </p>
             </section>
 
             <section class="card" id="gists">
-                <h2 style="margin:0 0 8px 0">Curated GISTs</h2>
-                <p class="small" style="margin:0 0 12px 0">Primers represent foundational material on a subject, which may contain guides, while Guides and references are just that.</p>
+                <h2>Curated GISTs</h2>
+                <p class="small">Primers represent foundational material on a subject, which may contain guides, while Guides and references are just that.</p>
 
                 <div id="gist-list" class="grid" aria-live="polite">
                     <!-- Placeholder content while JS populates -->
                     <div class="list-empty card">Loading gists…</div>
                 </div>
 
-                <noscript class="small" style="display:block;margin-top:12px;color:var(--muted)">
+                <noscript class="small">
                     JavaScript is disabled. To populate this index, enable JavaScript or edit this page with static links to your gists.
                 </noscript>
             </section>
         </main>
 
         <footer>
-            <div>Hosted at <a href="https://pages.evilkittens.co" target="_blank" rel="noopener noreferrer" style="color:var(--accent)">pages.evilkittens.co</a></div>
+            <div>Stay Cool</div>
         </footer>
     </div>
 

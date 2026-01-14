@@ -1,102 +1,193 @@
-/* Shared theme for pages.evilkittens.co
-   Put shared variables and common layout rules here so pages can reuse them.
-*/
+/* Shared theme for pages.evilkittens.co */
+
 :root{
-  /* Dark (default) theme — professional neutrals with blue accent */
-  --bg: #0b0f14;         /* very dark navy */
-  --card: #0f1720;       /* dark slate for panels */
-  --muted: #94a3b8;      /* cool gray-blue for secondary text */
-  --accent: #d1d6e0;     /* professional blue */
-  --text: #e6eef6;       /* soft off-white for body text */
-  --hero-title: #f9f9f9; /* hero title (separate from body text) */
-  --hero-subtext: #ececec; /* hero subtext (smaller, softer than title) */
-  --card-title: #e6eef6; /* card title color (dark theme) */
-  --tile-border: color-mix(in srgb, var(--text) 6%, transparent); /* subtle border for cards/tiles */
+  --content-width: 880px;
+  --gutter: 24px;
+
+  /* Dark (default) */
+  --bg: #0b0f14;
+  --card: #0f1720;
+  --muted: #94a3b8;
+  --accent: #d1d6e0;
+  --text: #e6eef6;
+  --hero-title: #f9f9f9;
+  --hero-subtext: #ececec;
+  --card-title: #e6eef6;
+  --tile-border: color-mix(in srgb, var(--text) 6%, transparent);
 }
 
-
-/* Theme support: set [data-theme="light"] on <html> to flip variables */
 :root[data-theme="light"]{
-  /* Light theme — clean neutrals with same blue accent */
-  --bg: #f7fafc;         /* very light gray-blue */
-  --card: #ffffff;       /* white cards */
-  --muted: #3f444e;      /* neutral muted text */
-  --accent: #293757;     /* same professional blue */
-  --text: #2c3a55;       /* darker slate for improved contrast in light mode */
-  --hero-title: #f9f9f9; /* slightly darker hero title in light mode */
-  --hero-subtext: #ececec; /* hero subtext for light theme */
-  --card-title: #0b1220; /* card title color (light theme) */
-  --tile-border: color-mix(in srgb, var(--text) 6%, transparent); /* subtle border for cards/tiles */
+  --bg: hsl(210, 25%, 97%);
+  --card: #ffffff;
+  --muted: #3f444e;
+  --accent: #293757;
+  --text: #2c3a55;
+  --hero-title: #f9f9f9;
+  --hero-subtext: #ececec;
+  --card-title: #0b1220;
+  --tile-border: color-mix(in srgb, var(--text) 67%, transparent);
 }
 
 *{box-sizing:border-box}
-
 html,body{height:100%}
+
 body{
   margin:0;
   font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
-  color:var(--text);
-  background:linear-gradient(180deg,#243453 0%, #1d246b 60%);
   -webkit-font-smoothing:antialiased;
   min-height:100vh;
   display:flex;
   flex-direction:column;
+  color:var(--text);
+  background:linear-gradient(180deg, color-mix(in srgb, var(--bg) 90%, #0b1220 10%), var(--bg));
 }
 
-.wrap{max-width:880px;margin:24px auto;padding:24px;flex:1;display:flex;flex-direction:column}
+/* Layout */
+.container{
+  width:100%;
+  max-width:var(--content-width);
+  margin:0 auto;
+  padding:var(--gutter);
+}
+
+.wrap{
+  width:100%;
+  max-width:var(--content-width);
+  margin:0px auto;
+  padding:var(--gutter);
+  flex:1;
+  display:flex;
+  flex-direction:column;
+}
 .wrap main{flex:1}
 
-header{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+/* Header */
+header{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
 h1{margin:0;font-size:1.5rem}
-.header-left{display:flex;align-items:center;gap:12px}
-.header-left{--avatar-size:72px}
 
-/* Responsive header tweaks to avoid clipped text on narrow screens */
-@media (max-width:520px){
-  /* allow header content to wrap cleanly */
-  header{align-items:flex-start}
-  /* make the right-side controls span full width below on very small screens */
-  header > div:last-child{width:100%;text-align:right;margin-top:10px}
-  /* reduce avatar size to save horizontal space */
-  .header-left{--avatar-size:48px}
-  /* slightly reduce title size so it can wrap naturally */
-  .header-left h1{font-size:1.125rem;line-height:1.1}
+.header-left{display:flex;align-items:center;gap:12px;--avatar-size:72px}
+
+/* Key alignment rule: keep toggle pinned to avatar top */
+.header-right{align-self:flex-start;text-align:right;display:flex;align-items:flex-start;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+
+/* Avatar */
+.header-left .avatar{
+  width:var(--avatar-size);
+  height:var(--avatar-size);
+  border-radius:999px;
+  object-fit:cover;
+  border:2px solid color-mix(in srgb, var(--text) 8%, transparent);
 }
-.header-left .avatar{width:var(--avatar-size);height:var(--avatar-size);border-radius:999px;object-fit:cover;border:2px solid color-mix(in srgb, var(--text) 8%, transparent)}
 
-/* Avatar popup */
 .avatar-wrap{position:relative;display:inline-block}
-.avatar-popup{position:absolute;left:calc(var(--avatar-size) * 0.10);top:calc(var(--avatar-size) * 0.1);width:340px;height:340px;max-width:calc(100vw - 48px);max-height:calc(100vw - 48px);border-radius:50%;overflow:hidden;box-shadow:0 8px 24px rgba(2,6,23,.6);display:block;opacity:0;transform:translateY(-6px);transition:opacity .18s ease,transform .18s ease;pointer-events:none;z-index:60;object-fit:cover}
+
+.avatar-popup{
+  position:absolute;
+  left:calc(var(--avatar-size) * 0.10);
+  top:calc(var(--avatar-size) * 0.10);
+  width:340px;
+  height:340px;
+  max-width:calc(100vw - 48px);
+  max-height:calc(100vw - 48px);
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(2,6,23,.6);
+  display:block;
+  opacity:0;
+  transform:translateY(-6px);
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
+  z-index:60;
+  object-fit:cover;
+}
 .avatar-popup.open{opacity:1;transform:translateY(0);pointer-events:auto}
 .avatar-popup[alt]{background:var(--card)}
 
 .sub{color:var(--muted);font-size:.9rem}
-.card{background:rgba(255,255,255,0.02);border:1px solid var(--tile-border);padding:18px;border-radius:10px;margin-top:18px}
-.grid{display:grid;grid-template-columns:1fr;gap:12px}
-@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
-.gist{display:flex;flex-direction:column;padding:12px;border-radius:8px;background:linear-gradient(180deg,rgba(255,255,255,.01),transparent);border:1px solid var(--tile-border)}
-.gist a{color:var(--accent);text-decoration:none;font-weight:600}
-.meta{color:var(--muted);font-size:.9rem;margin-top:6px}
-footer{margin-top:28px;color:var(--muted);font-size:.85rem;text-align:center}
-.small{font-size:.85rem;color:var(--muted)}
-.pill{display:inline-block;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.02);border:1px solid var(--tile-border);font-size:.85rem}
-.list-empty{color:var(--muted);padding:12px}
 
-/* Hero/banner under the header */
+/* Hero */
 .hero{
   width:100%;
   margin:0;
-  border-radius:0;overflow:hidden;position:relative;/* increased height by 75% from 140px to 245px */min-height:245px;display:flex;align-items:flex-end;padding:32px;color:var(--text)
+  border-radius:0;
+  overflow:hidden;
+  position:relative;
+  min-height:245px;
+  display:flex;
+  align-items:flex-end;
+  padding-block:32px;
+  color:var(--text);
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.20), rgba(0,0,0,0.28)),
+    url('images/bike-in-summer.webp');
+  background-size:cover;
+  background-position:center;
 }
-.hero .hero-inner{padding:20px 24px 12px 24px;z-index:2;max-width:880px;margin-left:calc((100% - 880px)/2);margin-right:0}
-.hero .hero-inner h2{color:var(--hero-title);font-size:clamp(1.75rem,4.5vw,2.75rem);line-height:1.05;margin:0}
-.hero .hero-inner p.small{color:var(--hero-subtext)}
-.hero::before{content:"";position:absolute;inset:0;background:linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.36));pointer-events:none}
 
-/* Card title color separate from body text */
-.card h2{color:var(--card-title)}
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.36));
+  pointer-events:none;
+}
 
-/* Theme toggle button */
+.hero .hero-inner{width:100%;z-index:2}
+
+.hero .hero-inner > .container{
+  padding-top:0;
+  padding-bottom:0;
+  text-align:left;
+}
+
+.hero .hero-inner h2{
+  color:var(--hero-title);
+  font-size:clamp(1.75rem,4.5vw,2.75rem);
+  line-height:1.05;
+  margin:0 0 8px 0;
+  text-align:left;
+}
+
+.hero .hero-inner p.small{
+  color:var(--hero-subtext);
+  margin:0;
+  text-align:left;
+}
+
+/* Cards and lists */
+.card{
+  background:linear-gradient(180deg, color-mix(in srgb, var(--card) 8%, transparent), var(--card));
+  border:1px solid var(--tile-border);
+  padding:18px;
+  border-radius:10px;
+  margin-top:8px;
+}
+
+.card h2{color:var(--card-title);margin:0 0 8px 0}
+.card p.small{margin:0}
+
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+.gist{
+  display:flex;
+  flex-direction:column;
+  padding:12px;
+  border-radius:8px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--card) 8%, transparent),transparent);
+  border:1px solid var(--tile-border);
+}
+.gist a{color:var(--accent);text-decoration:none;font-weight:600}
+.meta{color:var(--muted);font-size:.9rem;margin-top:6px}
+.small{font-size:.85rem;color:var(--muted)}
+.list-empty{color:var(--muted);padding:12px}
+
+#gists > p.small{margin:0 0 12px 0}
+
+noscript.small{display:block;margin-top:12px;color:var(--muted)}
+
+/* Theme toggle */
 .theme-toggle{
   display:inline-flex;
   align-items:center;
@@ -110,18 +201,32 @@ footer{margin-top:28px;color:var(--muted);font-size:.85rem;text-align:center}
   border-radius:8px;
   cursor:pointer;
 }
-.theme-toggle[aria-pressed="true"]{color:var(--accent);border-color:color-mix(in srgb, var(--accent) 18%, transparent)}
+
+.theme-toggle[aria-pressed="true"]{
+  color:var(--accent);
+  border-color:color-mix(in srgb, var(--accent) 18%, transparent);
+}
+
 .theme-toggle:focus{outline:2px solid color-mix(in srgb, var(--accent) 18%, transparent);outline-offset:2px}
 .theme-toggle svg{width:18px;height:18px;display:block}
 
+/* Pill link */
+.pill{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:999px;
+  background:color-mix(in srgb, var(--card) 8%, transparent);
+  border:1px solid var(--tile-border);
+  font-size:.85rem;
+}
+.pill a{color:inherit;text-decoration:none}
 
-/* make cards and page background use variables */
-.card{background:linear-gradient(180deg, color-mix(in srgb, var(--card) 8%, transparent), var(--card));border:1px solid var(--tile-border)}
-body{background:linear-gradient(180deg, color-mix(in srgb, var(--bg) 90%, #0b1220 10%), var(--bg));}
-.pill{background:color-mix(in srgb, var(--card) 8%, transparent);border:1px solid var(--tile-border)}
-.gist{background:linear-gradient(180deg,color-mix(in srgb,var(--card)8%,transparent),transparent);border:1px solid var(--tile-border)}
-.gist a{color:var(--accent)}
-.meta{color:var(--muted)}
-.small{color:var(--muted)}
-.list-empty{color:var(--muted)}
+/* Footer */
+footer{margin-top:28px;color:var(--muted);font-size:.85rem;text-align:center}
 
+/* Responsive tweaks */
+@media (max-width:520px){
+  .header-left{--avatar-size:48px}
+  .header-left h1{font-size:1.125rem;line-height:1.1}
+  .header-right{width:100%}
+}
