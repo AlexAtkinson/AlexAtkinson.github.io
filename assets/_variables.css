@@ -1,0 +1,46 @@
+/* Design tokens and theme variables */
+:root{
+  --content-width: 880px;
+  --gutter: 24px;
+
+  /* Dark (default) */
+  --bg: #0b0f14;
+  /* Body background (separate override if desired) */
+  --body-bg: var(--bg);
+  --card: #0f1720;
+  --muted: #d5dbe4;
+  --accent: #d1d6e0;
+  --text: #e6eef6;
+  --hero-title: #f9f9f9;
+  --hero-subtext: #ececec;
+  --card-title: #e0e6ec;
+  --tile-border: color-mix(in srgb, var(--text) 6%, transparent);
+
+  /* Footer text color (separate control from --muted) */
+  --footer-text: #e6eef6;
+
+  /* Gist hover glow (dark mode) */
+  --gist-glow: color-mix(in srgb, var(--accent) 10%, transparent);
+  --gist-glow-soft: color-mix(in srgb, var(--accent) 4%, transparent);
+}
+
+:root[data-theme="light"]{
+  --bg: hsl(210, 25%, 97%);
+  /* Body background (separate override if desired) */
+  --body-bg: var(--bg);
+  --card: #ffffff;
+  --muted: #3f444e;
+  --accent: #293757;
+  --text: #2c3a55;
+  --hero-title: #f9f9f9;
+  --hero-subtext: #ececec;
+  --card-title: #242f45;
+  --tile-border: color-mix(in srgb, var(--text) 67%, transparent);
+
+  /* Gist hover glow (light mode) */
+  --gist-glow: color-mix(in srgb, var(--accent) 40%, transparent);
+  --gist-glow-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+
+  /* Footer text color (separate control from --muted) */
+  --footer-text: #2c3a55;
+}

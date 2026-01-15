@@ -1,0 +1,53 @@
+/* Hero and hero-related controls */
+.hero-theme{position:absolute;top:16px;right:max(22px, calc((100% - var(--content-width)) / 2 + var(--gutter)));z-index:3}
+.hero-theme .theme-toggle{backdrop-filter:blur(1px);background:color-mix(in srgb, var(--card) 18%, transparent)}
+
+.hero{
+  width:100%;
+  margin:0;
+  border-radius:0;
+  overflow:hidden;
+  position:relative;
+  min-height:245px;
+  display:flex;
+  align-items:flex-end;
+  padding-block:32px;
+  color:var(--text);
+  background:
+    linear-gradient(to bottom, rgba(0,0,0,0.20), rgba(0,0,0,0.28)),
+    url('images/bike-in-summer.webp');
+  background-size:cover;
+  background-position:center;
+}
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to bottom, rgba(0,0,0,0.18), rgba(0,0,0,0.36));
+  pointer-events:none;
+}
+
+.hero .hero-inner{width:100%;z-index:2}
+
+.hero .hero-inner > .container{
+  padding-top:0;
+  padding-bottom:0;
+  text-align:left;
+  transform:translateY(18px);
+  will-change:transform;
+}
+
+.hero .hero-inner h2{
+  color:var(--hero-title);
+  font-size:clamp(1.75rem,4.5vw,2.75rem);
+  line-height:1.05;
+  margin:0 0 8px 0;
+  text-align:left;
+}
+
+.hero .hero-inner p.small{
+  color:var(--hero-subtext);
+  margin:0;
+  text-align:left;
+}

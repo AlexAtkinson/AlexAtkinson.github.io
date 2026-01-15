@@ -1,0 +1,88 @@
+/* header & avatar styles */
+header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:16px;
+  flex-wrap:wrap;
+}
+
+h1{margin:0;font-size:1.5rem}
+
+.header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  --avatar-size:72px;
+  padding-bottom:10px;
+}
+
+.header-right{
+  align-self:flex-start;
+  text-align:right;
+  display:flex;
+  align-items:flex-start;
+  justify-content:flex-end;
+  gap:8px;
+  flex-wrap:wrap;
+}
+
+.header-left .avatar{
+  width:var(--avatar-size);
+  height:var(--avatar-size);
+  border-radius:999px;
+  object-fit:cover;
+  border:2px solid color-mix(in srgb, var(--text) 8%, transparent);
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.avatar-wrap{position:relative;display:inline-block}
+
+.avatar-popup{
+  position:absolute;
+  left:calc(var(--avatar-size) * 0.10);
+  top:calc(var(--avatar-size) * 0.10);
+  width:340px;
+  height:340px;
+  max-width:calc(100vw - 48px);
+  max-height:calc(100vw - 48px);
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 8px 24px rgba(2,6,23,.6);
+  display:block;
+  opacity:0;
+  transform:translateY(-6px);
+  transition:opacity .18s ease,transform .18s ease;
+  pointer-events:none;
+  z-index:60;
+  object-fit:cover;
+}
+.avatar-popup.open{opacity:1;transform:translateY(0);pointer-events:auto}
+.avatar-popup[alt]{background:var(--card)}
+
+.avatar-wrap::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  pointer-events:none;
+  opacity:0;
+  background:color-mix(in srgb, var(--gist-glow-soft) 35%, transparent);
+  transition:opacity 180ms ease;
+}
+
+.avatar-wrap:hover::before,
+.avatar-wrap:focus-within::before{opacity:1}
+
+.avatar-wrap:hover .avatar,
+.avatar-wrap:focus-within .avatar{
+  border-color:color-mix(in srgb, var(--accent) 28%, var(--tile-border));
+  box-shadow:
+    0 0 0 3px var(--gist-glow-soft),
+    0 0 18px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
+    0 0 40px -16px var(--gist-glow);
+}
+
+.avatar:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 25%, transparent);outline-offset:2px}
+
+.sub{color:var(--muted);font-size:.9rem}

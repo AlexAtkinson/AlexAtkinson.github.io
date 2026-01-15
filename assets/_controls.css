@@ -1,0 +1,28 @@
+/* Controls: theme toggle and small interactive controls */
+.theme-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:36px;
+  background:transparent;
+  border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
+  color:inherit;
+  padding:4px;
+  border-radius:8px;
+  cursor:pointer;
+}
+
+.theme-toggle[aria-pressed="true"]{
+  color:var(--accent);
+  border-color:color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.theme-toggle svg{width:18px;height:18px;display:block}
+
+/* Footer and responsive tweaks */
+footer{margin-top:28px;color:var(--footer-text);font-size:.85rem;text-align:center}
+
+@media (max-width:520px){
+  .header-left{--avatar-size:48px}
+  .header-left h1{font-size:1.125rem;line-height:1.1}
+}
