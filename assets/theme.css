@@ -93,7 +93,7 @@ header{display:flex;align-items:flex-start;justify-content:space-between;gap:16p
 
 h1{margin:0;font-size:1.5rem}
 
-.header-left{display:flex;align-items:center;gap:12px;--avatar-size:72px}
+.header-left{display:flex;align-items:center;gap:12px;--avatar-size:72px;padding-bottom:10px}
 
 /* Header right-side controls (used on non-hero pages) */
 .header-right{align-self:flex-start;text-align:right;display:flex;align-items:flex-start;justify-content:flex-end;gap:8px;flex-wrap:wrap}
