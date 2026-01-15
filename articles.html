@@ -9,6 +9,7 @@
     <link rel="preload" as="image" href="assets/images/bike-in-summer.webp">
     <link rel="stylesheet" href="assets/theme.css">
     <script src="assets/theme.js" defer></script>
+    <script src="assets/header-loader.js" defer></script>
 </head>
 <body>
     <div class="hero" fetchpriority="high">
@@ -24,25 +25,7 @@
     </div>
 
     <div class="wrap">
-        <header>
-        <div class="header-left">
-            <div class="avatar-wrap">
-                <img
-                    class="avatar"
-                    fetchpriority="high"
-                    srcset="assets/images/avatar-alex-in-summer_128.webp 128w, assets/images/avatar-alex-in-summer_256.webp 256w, assets/images/avatar-alex-in-summer_512.webp 512w"
-                    sizes="(max-width:520px) 48px, 72px"
-                    src="assets/images/avatar-alex-in-summer.webp"
-                    alt="Alex Atkinson avatar"
-                    loading="lazy">
-            </div>
-            <div>
-                <h1>Alex Atkinson</h1>
-                <div class="sub">Dev*Ops, Infra, and Platform Engineering</div>
-            </div>
-        </div>
-        
-        </header>
+        <!-- header injected at runtime from assets/header.html -->
 
         <main>
             <section class="card" id="intro">
