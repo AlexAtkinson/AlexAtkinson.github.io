@@ -6,13 +6,15 @@
 
   /* Dark (default) */
   --bg: #0b0f14;
+  /* Body background (separate override if desired) */
+  --body-bg: var(--bg);
   --card: #0f1720;
   --muted: #d5dbe4;
   --accent: #d1d6e0;
   --text: #e6eef6;
   --hero-title: #f9f9f9;
   --hero-subtext: #ececec;
-  --card-title: #e6eef6;
+  --card-title: #e0e6ec;
   --tile-border: color-mix(in srgb, var(--text) 6%, transparent);
 
   /* Footer text color (separate control from --muted) */
@@ -25,6 +27,8 @@
 
 :root[data-theme="light"]{
   --bg: hsl(210, 25%, 97%);
+  /* Body background (separate override if desired) */
+  --body-bg: var(--bg);
   --card: #ffffff;
   --muted: #3f444e;
   --accent: #293757;
@@ -53,7 +57,8 @@ body{
   display:flex;
   flex-direction:column;
   color:var(--text);
-  background:linear-gradient(180deg, color-mix(in srgb, var(--bg) 90%, #0b1220 10%), var(--bg));
+  background:linear-gradient(180deg, color-mix(in srgb, var(--body-bg) 90%, #0b1220 10%), var(--body-bg)) fixed;
+
 }
 
 /* Layout */
