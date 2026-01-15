@@ -82,6 +82,8 @@ body{
   max-width:var(--content-width);
   margin:0px auto;
   padding:var(--gutter);
+  /* reduce space between hero and header slightly */
+  padding-top:16px;
   flex:1;
   display:flex;
   flex-direction:column;
@@ -135,6 +137,38 @@ h1{margin:0;font-size:1.5rem}
 }
 .avatar-popup.open{opacity:1;transform:translateY(0);pointer-events:auto}
 .avatar-popup[alt]{background:var(--card)}
+
+/* Avatar glow: reuse gist glow variables for a consistent hover effect */
+.header-left .avatar{
+  transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.avatar-wrap::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:999px;
+  pointer-events:none;
+  opacity:0;
+  background:color-mix(in srgb, var(--gist-glow-soft) 35%, transparent);
+  transition:opacity 180ms ease;
+}
+
+.avatar-wrap:hover::before,
+.avatar-wrap:focus-within::before{
+  opacity:1;
+}
+
+.avatar-wrap:hover .avatar,
+.avatar-wrap:focus-within .avatar{
+  border-color:color-mix(in srgb, var(--accent) 28%, var(--tile-border));
+  box-shadow:
+    0 0 0 3px var(--gist-glow-soft),
+    0 0 18px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
+    0 0 40px -16px var(--gist-glow);
+}
+
+.avatar:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 25%, transparent);outline-offset:2px}
 
 .sub{color:var(--muted);font-size:.9rem}
 
