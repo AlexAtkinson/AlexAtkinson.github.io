@@ -38,20 +38,15 @@
   const CLOSE_DELAY = 1000; // ms to wait after mouse-off/blur
   function scheduleClose(){
     clearTimeout(closeTimer);
-    console.log('menu:scheduleClose - scheduling in', CLOSE_DELAY);
     closeTimer = setTimeout(() => {
-      console.log('menu:timer fired - checking state');
       const pointerOver = wrap.matches(':hover') || btn.matches(':hover') || menu.matches(':hover');
       const active = document.activeElement;
       // only treat anchors or actual menuitem elements as interactive focus that should keep the menu open
       const interactiveFocused = !!(active && (active.tagName === 'A' || (active.closest && active.closest('[role="menuitem"]'))));
       const focusedInside = wrap.contains(active) && interactiveFocused;
-      console.log('menu:state', {pointerOver, focusedInside, active: active && active.tagName});
       if(!pointerOver && !focusedInside) {
-        console.log('menu:closing (timer)');
         closeMenu();
       } else {
-        console.log('menu:not closing - user re-entered or focused; not rescheduling');
       }
     }, CLOSE_DELAY);
   }
@@ -68,7 +63,6 @@
     // restore accessible label/title
     btn.setAttribute('aria-label', 'Open Navigation Menu');
     btn.setAttribute('title', 'Open Navigation Menu');
-    console.log('menu:closed');
   }
   function openMenu(){
     // clear any pending close timer when explicitly opening
@@ -82,7 +76,6 @@
     // update accessible label/title
     btn.setAttribute('aria-label', 'Close Navigation Menu');
     btn.setAttribute('title', 'Close Navigation Menu');
-    console.log('menu:opened');
   }
   btn.addEventListener('click', function(e){
     const expanded = btn.getAttribute('aria-expanded') === 'true';
@@ -97,8 +90,8 @@
   menu.addEventListener('keydown', function(e){ if(e.key === 'Escape') { btn.focus(); closeMenu(); } });
 
   // auto-close: use pointer events + focus events for robustness across input types
-  wrap.addEventListener('pointerenter', function(){ console.log('menu:pointerenter'); cancelClose(); }, {passive:true});
-  wrap.addEventListener('pointerleave', function(){ console.log('menu:pointerleave'); scheduleClose(); }, {passive:true});
+  wrap.addEventListener('pointerenter', function(){ cancelClose(); }, {passive:true});
+  wrap.addEventListener('pointerleave', function(){ scheduleClose(); }, {passive:true});
   btn.addEventListener('focus', cancelClose);
   btn.addEventListener('blur', scheduleClose);
   menu.addEventListener('focusin', cancelClose);
@@ -106,7 +99,12 @@
 
   // if user clicks/taps outside the menu, start the close timer (but don't close immediately)
   document.addEventListener('pointerdown', function(e){
-    console.log('menu:pointerdown', e.target);
+    // ignore clicks on the theme toggle (and other controls) so they don't trigger menu auto-close
+    if(e.target && e.target.closest && e.target.closest('[data-theme-toggle], .theme-toggle')){
+      cancelClose();
+      return;
+    }
+    // pointerdown on other elements may schedule/ cancel the menu
     if(!wrap.contains(e.target)) scheduleClose(); else cancelClose();
   }, {passive:true});
 })();
