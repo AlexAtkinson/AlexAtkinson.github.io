@@ -3,7 +3,9 @@
    - Applies it by setting `data-theme` on <html>.
    - Exposes `toggleTheme()` to switch and persist.
 */
+/* Make init idempotent: listeners attach only once while state is always applied */
 (function(){
+  let __theme_listeners_attached = false;
   function setButtonState(theme){
     const btns = document.querySelectorAll('[data-theme-toggle]');
     btns.forEach(btn => {
@@ -38,22 +40,24 @@
       const chosen = stored || prefers || 'dark';
       apply(chosen);
     }catch(e){ apply('dark'); }
+    // attach click handlers only once; re-running init will still apply state
+    if(!__theme_listeners_attached){
+      __theme_listeners_attached = true;
+      document.addEventListener('click', function(e){
+        const btn = e.target.closest && e.target.closest('[data-theme-toggle]');
+        if(btn){ toggleTheme(); return; }
 
-    // attach click handlers to any present toggle buttons
-    document.addEventListener('click', function(e){
-      const btn = e.target.closest && e.target.closest('[data-theme-toggle]');
-      if(btn){ toggleTheme(); return; }
-
-      // close avatar popups if clicking outside
-      const open = document.querySelectorAll('.avatar-popup.open');
-      if(open.length){
-        // if click inside an avatar-wrap, ignore
-        const inWrap = e.target.closest && e.target.closest('.avatar-wrap');
-        if(!inWrap){
-          open.forEach(p => p.classList.remove('open'));
+        // close avatar popups if clicking outside
+        const open = document.querySelectorAll('.avatar-popup.open');
+        if(open.length){
+          // if click inside an avatar-wrap, ignore
+          const inWrap = e.target.closest && e.target.closest('.avatar-wrap');
+          if(!inWrap){
+            open.forEach(p => p.classList.remove('open'));
+          }
         }
-      }
-    });
+      });
+    }
 
     // Avatar popup behavior: toggle on click, auto-close after delay on mouseleave (like the menu)
     document.querySelectorAll('.avatar-wrap').forEach(wrap => {
