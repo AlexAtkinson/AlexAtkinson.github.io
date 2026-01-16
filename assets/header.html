@@ -1,0 +1,62 @@
+<header>
+  <div class="header-left">
+    <div class="avatar-wrap">
+      <img class="avatar" src="assets/images/avatar-alex-in-summer_256.webp" srcset="assets/images/avatar-alex-in-summer_128.webp 128w, assets/images/avatar-alex-in-summer_256.webp 256w, assets/images/avatar-alex-in-summer_512.webp 512w" sizes="(max-width:600px) 64px, 128px" width="128" height="128" alt="Alex Atkinson" loading="eager" fetchpriority="high">
+    </div>
+    <div>
+      <h1>Alex Atkinson</h1>
+      <div class="sub">Dev*Ops, Infra, and Platform Engineering</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div style="display:flex;gap:8px;align-items:center">
+      <div class="menu-wrap">
+        <button class="hamburger" aria-expanded="false" aria-controls="top-nav" aria-label="Open menu">
+          <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="20" height="2" y="0" rx="1" fill="currentColor" />
+            <rect width="20" height="2" y="6" rx="1" fill="currentColor" />
+            <rect width="20" height="2" y="12" rx="1" fill="currentColor" />
+          </svg>
+        </button>
+        <nav id="top-nav" class="menu-dropdown" role="menu" hidden>
+          <a role="menuitem" href="/">Home</a>
+          <a role="menuitem" href="/articles.html">Articles</a>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+// Menu toggle behaviour (will be executed by header-loader after injection)
+(function(){
+  const wrap = document.querySelector('.menu-wrap');
+  if(!wrap) return;
+  const btn = wrap.querySelector('.hamburger');
+  const menu = wrap.querySelector('.menu-dropdown');
+  function closeMenu(){
+    btn.setAttribute('aria-expanded','false');
+    menu.hidden = true;
+    wrap.classList.remove('open');
+  }
+  function openMenu(){
+    btn.setAttribute('aria-expanded','true');
+    menu.hidden = false;
+    wrap.classList.add('open');
+    // focus first menu item if available
+    const first = menu.querySelector('[role="menuitem"]');
+    if(first) first.focus(); else menu.focus();
+  }
+  btn.addEventListener('click', function(e){
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    if(expanded) closeMenu(); else openMenu();
+  });
+  // close when clicking outside
+  document.addEventListener('click', function(e){
+    if(!wrap.contains(e.target)) closeMenu();
+  });
+  // keyboard support
+  btn.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
+  menu.addEventListener('keydown', function(e){ if(e.key === 'Escape') { btn.focus(); closeMenu(); } });
+})();
+</script>
