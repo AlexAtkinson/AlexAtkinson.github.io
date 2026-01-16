@@ -1,10 +1,10 @@
-/* header-loader.js — fetch and inject `assets/header.html` into pages
-   This enables a single header component maintained separately from static pages.
+/* header-loader.js — fetch and inject `assets/components/header.html` into pages
+  This enables a single header component maintained separately from static pages.
 */
 (async function(){
   try{
-    console.log('header-loader: fetching /assets/header.html');
-    const resp = await fetch('/assets/header.html', {cache: 'no-cache'});
+    console.log('header-loader: fetching /assets/components/header.html');
+    const resp = await fetch('/assets/components/header.html', {cache: 'no-cache'});
     if(!resp.ok){ console.warn('header-loader: fetch failed', resp.status); return; }
     const html = await resp.text();
     console.log('header-loader: fetched header, size', html.length);

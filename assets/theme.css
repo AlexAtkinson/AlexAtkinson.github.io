@@ -119,6 +119,21 @@ a.gist:focus-visible::before{
 }
 .meta{color:var(--muted);font-size:.9rem;margin-top:6px}
 .small{font-size:.85rem;color:var(--muted)}
+/* Ensure lists inside `.small` inherit the same sizing and color,
+   and provide consistent spacing comparable to paragraph text. */
+.small ul,
+.small ol{
+  margin: 0 0 8px 1.25rem;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+.small ul li,
+.small ol li{
+  margin: 0 0 6px 0;
+  font-size: inherit;
+  color: inherit;
+}
 .list-empty{color:var(--muted);padding:12px}
 
 #gists > p.small{margin:0 0 12px 0}

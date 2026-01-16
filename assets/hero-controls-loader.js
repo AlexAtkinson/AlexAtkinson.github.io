@@ -1,9 +1,9 @@
-/* hero-controls-loader.js — fetch and inject `assets/hero-controls.html` into pages
-   This mirrors header-loader behavior for the hero's top-right controls.
+/* hero-controls-loader.js — fetch and inject `assets/components/hero-controls.html` into pages
+  This mirrors header-loader behavior for the hero's top-right controls.
 */
 (async function(){
   try{
-    const resp = await fetch('/assets/hero-controls.html', {cache: 'no-cache'});
+    const resp = await fetch('/assets/components/hero-controls.html', {cache: 'no-cache'});
     if(!resp.ok){ console.warn('hero-controls-loader: fetch failed', resp.status); return; }
     const html = await resp.text();
 

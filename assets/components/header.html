@@ -42,55 +42,19 @@
     closeTimer = setTimeout(() => {
       const pointerOver = wrap.matches(':hover') || btn.matches(':hover') || menu.matches(':hover');
       const active = document.activeElement;
-      // only treat anchors or actual menuitem elements as interactive focus that should keep the menu open
       const interactiveFocused = !!(active && (active.tagName === 'A' || (active.closest && active.closest('[role="menuitem"]'))));
       const focusedInside = wrap.contains(active) && interactiveFocused;
-      if(!pointerOver && !focusedInside) {
-        closeMenu();
-      } else {
-      }
+      if(!pointerOver && !focusedInside) { closeMenu(); }
     }, CLOSE_DELAY);
   }
   function cancelClose(){ clearTimeout(closeTimer); closeTimer = null; }
 
-  function closeMenu(){
-    // cancel any pending auto-close timer and close
-    cancelClose();
-    btn.setAttribute('aria-expanded','false');
-    menu.hidden = true;
-    wrap.classList.remove('open');
-    // remove focus from the button so focus-outline/glow is cleared
-    if (document.activeElement === btn) btn.blur();
-    // restore accessible label/title
-    btn.setAttribute('aria-label', 'Open Navigation Menu');
-    btn.setAttribute('title', 'Open Navigation Menu');
-  }
-  function openMenu(){
-    // clear any pending close timer when explicitly opening
-    cancelClose();
-    btn.setAttribute('aria-expanded','true');
-    menu.hidden = false;
-    wrap.classList.add('open');
-    // do not move focus into the menu automatically (avoid blocking auto-close)
-    // keep focus where it was (button) so pointer/hover controls determine auto-close
-    btn.focus();
-    // update accessible label/title
-    btn.setAttribute('aria-label', 'Close Navigation Menu');
-    btn.setAttribute('title', 'Close Navigation Menu');
-  }
-  btn.addEventListener('click', function(e){
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    if(expanded) closeMenu(); else openMenu();
-  });
-  // close when clicking outside
-  document.addEventListener('click', function(e){
-    if(!wrap.contains(e.target)) closeMenu();
-  });
-  // keyboard support
+  function closeMenu(){ cancelClose(); btn.setAttribute('aria-expanded','false'); menu.hidden = true; wrap.classList.remove('open'); if (document.activeElement === btn) btn.blur(); btn.setAttribute('aria-label', 'Open Navigation Menu'); btn.setAttribute('title', 'Open Navigation Menu'); }
+  function openMenu(){ cancelClose(); btn.setAttribute('aria-expanded','true'); menu.hidden = false; wrap.classList.add('open'); btn.focus(); btn.setAttribute('aria-label', 'Close Navigation Menu'); btn.setAttribute('title', 'Close Navigation Menu'); }
+  btn.addEventListener('click', function(e){ const expanded = btn.getAttribute('aria-expanded') === 'true'; if(expanded) closeMenu(); else openMenu(); });
+  document.addEventListener('click', function(e){ if(!wrap.contains(e.target)) closeMenu(); });
   btn.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
   menu.addEventListener('keydown', function(e){ if(e.key === 'Escape') { btn.focus(); closeMenu(); } });
-
-  // auto-close: use pointer events + focus events for robustness across input types
   wrap.addEventListener('pointerenter', function(){ cancelClose(); }, {passive:true});
   wrap.addEventListener('pointerleave', function(){ scheduleClose(); }, {passive:true});
   btn.addEventListener('focus', cancelClose);
@@ -98,7 +62,6 @@
   menu.addEventListener('focusin', cancelClose);
   menu.addEventListener('focusout', scheduleClose);
 
-  // Mark the current page in the menu: make it visually indicated and non-clickable
   try{
     const links = menu.querySelectorAll('a[role="menuitem"]');
     const normalize = p => (p === '/index.html' ? '/' : (p.replace(/\/$/, '') || '/'));
@@ -106,26 +69,11 @@
     links.forEach(a => {
       try{
         const hrefPath = new URL(a.getAttribute('href'), window.location.origin).pathname;
-        if(normalize(hrefPath) === current){
-          a.classList.add('current');
-          a.setAttribute('aria-current','page');
-          // Remove navigation capability for the current page
-          a.removeAttribute('href');
-          a.tabIndex = -1;
-        }
+        if(normalize(hrefPath) === current){ a.classList.add('current'); a.setAttribute('aria-current','page'); a.removeAttribute('href'); a.tabIndex = -1; }
       }catch(e){}
     });
   }catch(e){}
 
-  // if user clicks/taps outside the menu, start the close timer (but don't close immediately)
-  document.addEventListener('pointerdown', function(e){
-    // ignore clicks on the theme toggle (and other controls) so they don't trigger menu auto-close
-    if(e.target && e.target.closest && e.target.closest('[data-theme-toggle], .theme-toggle')){
-      cancelClose();
-      return;
-    }
-    // pointerdown on other elements may schedule/ cancel the menu
-    if(!wrap.contains(e.target)) scheduleClose(); else cancelClose();
-  }, {passive:true});
+  document.addEventListener('pointerdown', function(e){ if(e.target && e.target.closest && e.target.closest('[data-theme-toggle], .theme-toggle')){ cancelClose(); return; } if(!wrap.contains(e.target)) scheduleClose(); else cancelClose(); }, {passive:true});
 })();
 </script>
