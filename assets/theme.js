@@ -61,6 +61,9 @@
 
     // Avatar popup behavior: toggle on click, auto-close after delay on mouseleave (like the menu)
     document.querySelectorAll('.avatar-wrap').forEach(wrap => {
+      // Avoid wiring the same wrap multiple times when `init()` is re-run after header injection
+      if(wrap.dataset.avatarInit) return;
+      wrap.dataset.avatarInit = '1';
       const img = wrap.querySelector('img.avatar');
       if(!img) return;
       // per-wrap auto-close timer so popup closes after pointer leaves
