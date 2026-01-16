@@ -44,7 +44,7 @@ h1{margin:0;font-size:1.5rem}
   max-height:calc(100vw - 48px);
   border-radius:50%;
   overflow:hidden;
-  box-shadow:0 8px 24px rgba(2,6,23,.6);
+  box-shadow:0 var(--popup-drop-offset-y) var(--popup-drop-blur) rgba(2,6,23,var(--popup-drop-alpha));
   display:block;
   opacity:0;
   transform:translateY(-6px);
@@ -63,7 +63,7 @@ h1{margin:0;font-size:1.5rem}
   border-radius:999px;
   pointer-events:none;
   opacity:0;
-  background:color-mix(in srgb, var(--gist-glow-soft) 35%, transparent);
+  background:color-mix(in srgb, var(--gist-glow-soft) 18%, transparent);
   transition:opacity 180ms ease;
 }
 
@@ -74,9 +74,9 @@ h1{margin:0;font-size:1.5rem}
 .avatar-wrap:focus-within .avatar{
   border-color:color-mix(in srgb, var(--accent) 28%, var(--tile-border));
   box-shadow:
-    0 0 0 3px var(--gist-glow-soft),
-    0 0 18px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
-    0 0 40px -16px var(--gist-glow);
+    0 0 0 var(--glow-ring-spread) var(--gist-glow-soft),
+    0 0 var(--glow-soft-blur) 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
+    0 0 var(--glow-strong-blur) var(--glow-strong-spread) var(--gist-glow);
 }
 
 .avatar:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 25%, transparent);outline-offset:2px}
@@ -108,9 +108,9 @@ h1{margin:0;font-size:1.5rem}
 .hamburger:hover, .menu-wrap.open .hamburger{
   border-color: color-mix(in srgb, var(--accent) 18%, transparent);
   box-shadow:
-    0 0 0 3px var(--gist-glow-soft),
-    0 0 18px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
-    0 0 40px -16px var(--gist-glow);
+    0 0 0 var(--glow-ring-spread) var(--gist-glow-soft),
+    0 0 var(--glow-soft-blur) 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
+    0 0 var(--glow-strong-blur) var(--glow-strong-spread) var(--gist-glow);
 }
 /* ensure clicks don't show an inner outline in some browsers */
 .hamburger:active{outline:none}
@@ -132,8 +132,8 @@ h1{margin:0;font-size:1.5rem}
 .menu-wrap.open .hamburger{
   border-color: color-mix(in srgb, var(--accent) 28%, var(--tile-border));
   box-shadow:
-    0 0 0 3px var(--gist-glow-soft),
-    0 0 18px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
-    0 0 40px -16px var(--gist-glow);
+    0 0 0 var(--glow-ring-spread) var(--gist-glow-soft),
+    0 0 var(--glow-soft-blur) 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
+    0 0 var(--glow-strong-blur) var(--glow-strong-spread) var(--gist-glow);
 }
 .menu-wrap.open .menu-dropdown{opacity:1;transform:translateY(0);pointer-events:auto}

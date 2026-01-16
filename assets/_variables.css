@@ -22,6 +22,16 @@
   /* Gist hover glow (dark mode) */
   --gist-glow: color-mix(in srgb, var(--accent) 10%, transparent);
   --gist-glow-soft: color-mix(in srgb, var(--accent) 4%, transparent);
+
+  /* Glow sizing tokens (can be tuned globally) */
+  --glow-ring-spread: 1px;        /* spread for thin ring */
+  --glow-soft-blur: 22px;        /* softer mid blur */
+  --glow-strong-blur: 52px;      /* strong outer blur */
+  --glow-strong-spread: -20px;   /* negative spread to pull outer blur in */
+  /* Popup drop shadow sizing */
+  --popup-drop-offset-y: 8px;
+  --popup-drop-blur: 24px;
+  --popup-drop-alpha: 0.45;
 }
 
 :root[data-theme="light"]{
@@ -40,6 +50,15 @@
   /* Gist hover glow (light mode) */
   --gist-glow: color-mix(in srgb, var(--accent) 40%, transparent);
   --gist-glow-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+
+  /* Glow sizing tokens (shared with dark theme) */
+  --glow-ring-spread: 1px;
+  --glow-soft-blur: 22px;
+  --glow-strong-blur: 52px;
+  --glow-strong-spread: -20px;
+  --popup-drop-offset-y: 8px;
+  --popup-drop-blur: 24px;
+  --popup-drop-alpha: 0.45;
 
   /* Footer text color (separate control from --muted) */
   --footer-text: #2c3a55;

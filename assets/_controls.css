@@ -24,9 +24,9 @@
 .theme-toggle:hover{
   border-color:color-mix(in srgb, var(--accent) 18%, transparent);
   box-shadow:
-    0 0 0 3px var(--gist-glow-soft),
-    0 0 18px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
-    0 0 40px -16px var(--gist-glow);
+    0 0 0 var(--glow-ring-spread) var(--gist-glow-soft),
+    0 0 var(--glow-soft-blur) 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
+    0 0 var(--glow-strong-blur) var(--glow-strong-spread) var(--gist-glow);
 }
 
 /* Keyboard users get a focus-visible outline instead of the glow */
