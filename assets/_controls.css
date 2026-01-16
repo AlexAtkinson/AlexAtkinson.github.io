@@ -5,9 +5,9 @@
   justify-content:center;
   width:40px;
   height:36px;
-  background:transparent;
-  border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
-  color:inherit;
+  background: color-mix(in srgb, var(--social-card) 18%, transparent);
+  border:1px solid color-mix(in srgb, var(--social-text) 8%, transparent);
+  color:var(--social-text);
   padding:4px;
   border-radius:8px;
   cursor:pointer;
@@ -15,23 +15,23 @@
 }
 
 .theme-toggle[aria-pressed="true"]{
-  color:var(--accent);
-  border-color:color-mix(in srgb, var(--accent) 18%, transparent);
+  color:var(--social-accent);
+  border-color:color-mix(in srgb, var(--social-accent) 18%, transparent);
 }
 .theme-toggle svg{width:18px;height:18px;display:block}
 
 /* Glow only on mouse hover to match hamburger/menu styling */
 .theme-toggle:hover{
-  border-color:color-mix(in srgb, var(--accent) 18%, transparent);
+  border-color:color-mix(in srgb, var(--social-accent) 18%, transparent);
   box-shadow:
-    0 0 0 var(--glow-ring-spread) var(--gist-glow-soft),
-    0 0 var(--glow-soft-blur) 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
-    0 0 var(--glow-strong-blur) var(--glow-strong-spread) var(--gist-glow);
+    0 0 0 var(--glow-ring-spread) var(--social-gist-glow-soft),
+    0 0 var(--glow-soft-blur) 0 color-mix(in srgb, var(--social-gist-glow) 55%, transparent),
+    0 0 var(--glow-strong-blur) var(--glow-strong-spread) var(--social-gist-glow);
 }
 
 /* Keyboard users get a focus-visible outline instead of the glow */
 .theme-toggle:focus-visible{
-  outline:2px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  outline:2px solid color-mix(in srgb, var(--social-accent) 25%, transparent);
   outline-offset:2px;
   box-shadow:none;
 }

@@ -27,6 +27,9 @@
   --social-accent: #d1d6e0;
   --social-gist-glow: color-mix(in srgb, #d1d6e0 10%, transparent);
   --social-gist-glow-soft: color-mix(in srgb, #d1d6e0 4%, transparent);
+  /* Social button surface and content colors (dark theme look) */
+  --social-card: #0f1720;
+  --social-text: #e6eef6;
 
   /* Glow sizing tokens (can be tuned globally) */
   --glow-ring-spread: 1px;        /* spread for thin ring */
@@ -60,6 +63,10 @@
   --social-accent: #d1d6e0;
   --social-gist-glow: color-mix(in srgb, #d1d6e0 10%, transparent);
   --social-gist-glow-soft: color-mix(in srgb, #d1d6e0 4%, transparent);
+
+  /* Social button surface and content colors (dark theme look) */
+  --social-card: #0f1720;
+  --social-text: #e6eef6;
 
   /* Glow sizing tokens (shared with dark theme) */
   --glow-ring-spread: 1px;

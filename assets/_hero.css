@@ -1,6 +1,6 @@
 /* Hero and hero-related controls */
 .hero-theme{position:absolute;top:16px;right:max(22px, calc((100% - var(--content-width)) / 2 + var(--gutter)));z-index:3}
-.hero-theme .theme-toggle{backdrop-filter:blur(1px);background:color-mix(in srgb, var(--card) 18%, transparent)}
+.hero-theme .theme-toggle{backdrop-filter:blur(1px);background:color-mix(in srgb, var(--social-card) 18%, transparent)}
 
 .hero{
   width:100%;
