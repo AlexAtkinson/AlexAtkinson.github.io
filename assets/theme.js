@@ -55,12 +55,27 @@
       }
     });
 
-    // Avatar popup behavior: toggle on click, close on mouseleave or outside click
+    // Avatar popup behavior: toggle on click, auto-close after delay on mouseleave (like the menu)
     document.querySelectorAll('.avatar-wrap').forEach(wrap => {
       const img = wrap.querySelector('img.avatar');
       if(!img) return;
+      // per-wrap auto-close timer so popup closes after pointer leaves
+      let closeTimer = null;
+      const AVATAR_CLOSE_DELAY = 2000; // ms
+      function scheduleClose(){
+        clearTimeout(closeTimer);
+        closeTimer = setTimeout(() => {
+          const p = wrap.querySelector('.avatar-popup');
+          // if pointer re-entered, do nothing
+          if(!p) return;
+          if (wrap.matches(':hover') || p.matches(':hover')) return;
+          p.classList.remove('open');
+        }, AVATAR_CLOSE_DELAY);
+      }
+      function cancelClose(){ clearTimeout(closeTimer); closeTimer = null; }
 
       function openPopup(){
+        cancelClose();
         let p = wrap.querySelector('.avatar-popup');
         if(!p){
           p = document.createElement('img');
@@ -77,6 +92,7 @@
       }
 
       function closePopup(){
+        cancelClose();
         const p = wrap.querySelector('.avatar-popup');
         if(p) p.classList.remove('open');
       }
@@ -87,7 +103,12 @@
         if(p && p.classList.contains('open')) closePopup(); else openPopup();
       });
 
-      wrap.addEventListener('mouseleave', function(){ closePopup(); });
+      // auto-close behavior: schedule on pointer leave, cancel on enter
+      wrap.addEventListener('pointerenter', cancelClose, {passive:true});
+      wrap.addEventListener('pointerleave', scheduleClose, {passive:true});
+      // also close if focus moves away from any controls inside the wrap
+      wrap.addEventListener('focusout', scheduleClose);
+      wrap.addEventListener('focusin', cancelClose);
     });
   }
 

@@ -40,6 +40,13 @@
           }
         }catch(e){ console.warn('failed to run header script', e); }
       });
+      // if a theme manager is present, re-run its init to bind handlers to injected elements
+      try{
+        if(window.theme && typeof window.theme.init === 'function'){
+          window.theme.init();
+          console.log('header-loader: re-ran window.theme.init()');
+        }
+      }catch(e){ console.warn('header-loader: theme.init() failed', e); }
     }
 
     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject); else inject();

@@ -125,29 +125,6 @@ a.gist:focus-visible::before{
 
 noscript.small{display:block;margin-top:12px;color:var(--muted)}
 
-/* Theme toggle */
-.theme-toggle{
-  display:inline-flex;
-  align-items:center;
-  justify-content:center;
-  width:40px;
-  height:36px;
-  background:transparent;
-  border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
-  color:#232324;
-  padding:4px;
-  border-radius:8px;
-  cursor:pointer;
-}
-
-.theme-toggle[aria-pressed="true"]{
-  color:#d1d6e0;
-  border-color:color-mix(in srgb, var(--accent) 18%, transparent);
-}
-
-/* .theme-toggle:focus{outline:2px solid color-mix(in srgb, var(--accent) 18%, transparent);outline-offset:2px} */
-.theme-toggle svg{width:18px;height:18px;display:block}
-
 /* Footer */
 footer{margin-top:28px;color:var(--footer-text);font-size:.85rem;text-align:center}
 

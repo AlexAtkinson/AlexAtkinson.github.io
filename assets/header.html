@@ -1,7 +1,7 @@
 <header>
   <div class="header-left">
     <div class="avatar-wrap">
-      <img class="avatar" src="assets/images/avatar-alex-in-summer_256.webp" srcset="assets/images/avatar-alex-in-summer_128.webp 128w, assets/images/avatar-alex-in-summer_256.webp 256w, assets/images/avatar-alex-in-summer_512.webp 512w" sizes="(max-width:600px) 64px, 128px" width="128" height="128" alt="Alex Atkinson" loading="eager" fetchpriority="high">
+      <img class="avatar" src="assets/images/avatar-alex-in-summer_512.webp" width="128" height="128" alt="Alex Atkinson" loading="eager" fetchpriority="high">
     </div>
     <div>
       <h1>Alex Atkinson</h1>
@@ -11,7 +11,7 @@
   <div class="header-right">
     <div style="display:flex;gap:8px;align-items:center">
       <div class="menu-wrap">
-        <button class="hamburger" aria-expanded="false" aria-controls="top-nav" aria-label="Open menu">
+        <button class="hamburger" aria-expanded="false" aria-controls="top-nav" aria-label="Open Navigation Menu" title="Open Navigation Menu">
           <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <rect width="20" height="1" y="1" rx="0.5" fill="currentColor" />
             <rect width="20" height="1" y="6" rx="0.5" fill="currentColor" />
@@ -65,6 +65,9 @@
     wrap.classList.remove('open');
     // remove focus from the button so focus-outline/glow is cleared
     if (document.activeElement === btn) btn.blur();
+    // restore accessible label/title
+    btn.setAttribute('aria-label', 'Open Navigation Menu');
+    btn.setAttribute('title', 'Open Navigation Menu');
     console.log('menu:closed');
   }
   function openMenu(){
@@ -76,6 +79,9 @@
     // do not move focus into the menu automatically (avoid blocking auto-close)
     // keep focus where it was (button) so pointer/hover controls determine auto-close
     btn.focus();
+    // update accessible label/title
+    btn.setAttribute('aria-label', 'Close Navigation Menu');
+    btn.setAttribute('title', 'Close Navigation Menu');
     console.log('menu:opened');
   }
   btn.addEventListener('click', function(e){
