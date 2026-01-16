@@ -13,9 +13,9 @@
       <div class="menu-wrap">
         <button class="hamburger" aria-expanded="false" aria-controls="top-nav" aria-label="Open menu">
           <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <rect width="20" height="2" y="0" rx="1" fill="currentColor" />
-            <rect width="20" height="2" y="6" rx="1" fill="currentColor" />
-            <rect width="20" height="2" y="12" rx="1" fill="currentColor" />
+            <rect width="20" height="1" y="1" rx="0.5" fill="currentColor" />
+            <rect width="20" height="1" y="6" rx="0.5" fill="currentColor" />
+            <rect width="20" height="1" y="11" rx="0.5" fill="currentColor" />
           </svg>
         </button>
         <nav id="top-nav" class="menu-dropdown" role="menu" hidden>
@@ -35,7 +35,7 @@
   const btn = wrap.querySelector('.hamburger');
   const menu = wrap.querySelector('.menu-dropdown');
   let closeTimer = null;
-  const CLOSE_DELAY = 2000; // ms to wait after mouse-off/blur
+  const CLOSE_DELAY = 1000; // ms to wait after mouse-off/blur
   function scheduleClose(){
     clearTimeout(closeTimer);
     console.log('menu:scheduleClose - scheduling in', CLOSE_DELAY);

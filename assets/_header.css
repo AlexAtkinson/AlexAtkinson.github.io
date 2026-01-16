@@ -97,7 +97,7 @@ h1{margin:0;font-size:1.5rem}
   padding:4px;
   border-radius:8px;
   cursor:pointer;
-  transition:border-color 180ms ease,box-shadow 180ms ease,transform 180ms ease;
+  transition:border-color 180ms ease,box-shadow 180ms ease;
   appearance: none;
   -webkit-appearance: none;
   background-clip: padding-box;
@@ -111,7 +111,6 @@ h1{margin:0;font-size:1.5rem}
     0 0 0 3px var(--gist-glow-soft),
     0 0 18px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
     0 0 40px -16px var(--gist-glow);
-  transform:translateY(-1px) scale(1.02);
 }
 /* ensure clicks don't show an inner outline in some browsers */
 .hamburger:active{outline:none}
@@ -136,6 +135,5 @@ h1{margin:0;font-size:1.5rem}
     0 0 0 3px var(--gist-glow-soft),
     0 0 18px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
     0 0 40px -16px var(--gist-glow);
-  transform:translateY(-1px) scale(1.02);
 }
 .menu-wrap.open .menu-dropdown{opacity:1;transform:translateY(0);pointer-events:auto}
