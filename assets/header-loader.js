@@ -3,9 +3,11 @@
 */
 (async function(){
   try{
+    console.log('header-loader: fetching /assets/header.html');
     const resp = await fetch('/assets/header.html', {cache: 'no-cache'});
-    if(!resp.ok) return;
+    if(!resp.ok){ console.warn('header-loader: fetch failed', resp.status); return; }
     const html = await resp.text();
+    console.log('header-loader: fetched header, size', html.length);
 
     function inject(){
       // replace existing <header> if present, otherwise prepend to .wrap
@@ -41,5 +43,6 @@
     }
 
     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', inject); else inject();
+    console.log('header-loader: scheduled inject');
   }catch(e){ console.warn('header-loader failed:', e); }
 })();
