@@ -97,6 +97,25 @@
   menu.addEventListener('focusin', cancelClose);
   menu.addEventListener('focusout', scheduleClose);
 
+  // Mark the current page in the menu: make it visually indicated and non-clickable
+  try{
+    const links = menu.querySelectorAll('a[role="menuitem"]');
+    const normalize = p => (p === '/index.html' ? '/' : (p.replace(/\/$/, '') || '/'));
+    const current = normalize(window.location.pathname || window.location.href);
+    links.forEach(a => {
+      try{
+        const hrefPath = new URL(a.getAttribute('href'), window.location.origin).pathname;
+        if(normalize(hrefPath) === current){
+          a.classList.add('current');
+          a.setAttribute('aria-current','page');
+          // Remove navigation capability for the current page
+          a.removeAttribute('href');
+          a.tabIndex = -1;
+        }
+      }catch(e){}
+    });
+  }catch(e){}
+
   // if user clicks/taps outside the menu, start the close timer (but don't close immediately)
   document.addEventListener('pointerdown', function(e){
     // ignore clicks on the theme toggle (and other controls) so they don't trigger menu auto-close

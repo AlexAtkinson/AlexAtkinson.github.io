@@ -120,16 +120,24 @@ h1{margin:0;font-size:1.5rem}
 .menu-dropdown{position:absolute;right:0;top:calc(100% + 8px);background:var(--card);border-radius:8px;padding:8px;box-shadow:0 8px 24px rgba(2,6,23,.6);display:flex;flex-direction:column;gap:6px;min-width:140px;z-index:80;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity 180ms ease,transform 180ms ease}
 .menu-dropdown a{color:var(--text);text-decoration:none;padding:8px;border-radius:6px}
 .menu-dropdown a:hover,.menu-dropdown a:focus{background:color-mix(in srgb, var(--accent) 8%, transparent);outline:none}
-
-/* keep menu small on narrow viewports */
-@media (max-width:520px){
-  .menu-dropdown{min-width:120px;right:8px}
+/* current page indicator */
+.menu-dropdown a.current,
+.menu-dropdown a[aria-current="page"]{
+  color:var(--accent);
+  font-weight:700;
+  background:color-mix(in srgb, var(--accent) 8%, transparent);
+  pointer-events:none;
+  position:relative;
+  padding-left:34px;
 }
 
-/* keep absolute positioning on all sizes to avoid wrapping */
-
-/* open state - use same style as avatar/card hover */
-.menu-wrap.open .hamburger{
+.menu-dropdown a.current::before,
+.menu-dropdown a[aria-current="page"]::before{
+  /* solid circular bullet */
+  content: '';
+  position: absolute;
+  left:14px;
+  width:10px;
   border-color: color-mix(in srgb, var(--accent) 28%, var(--tile-border));
   box-shadow:
     0 0 0 var(--glow-ring-spread) var(--gist-glow-soft),
