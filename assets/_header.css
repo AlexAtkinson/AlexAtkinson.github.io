@@ -121,6 +121,7 @@ h1{margin:0;font-size:1.5rem}
 .menu-dropdown a{color:var(--text);text-decoration:none;padding:8px;border-radius:6px}
 .menu-dropdown a:hover,.menu-dropdown a:focus{background:color-mix(in srgb, var(--accent) 8%, transparent);outline:none}
 /* current page indicator */
+/* Current page styling: remove decorative pseudo-element to avoid stray glyphs */
 .menu-dropdown a.current,
 .menu-dropdown a[aria-current="page"]{
   color:var(--accent);
@@ -128,20 +129,6 @@ h1{margin:0;font-size:1.5rem}
   background:color-mix(in srgb, var(--accent) 8%, transparent);
   pointer-events:none;
   position:relative;
-  padding-left:34px;
-}
-
-.menu-dropdown a.current::before,
-.menu-dropdown a[aria-current="page"]::before{
-  /* solid circular bullet */
-  content: '';
-  position: absolute;
-  left:14px;
-  width:10px;
-  border-color: color-mix(in srgb, var(--accent) 28%, var(--tile-border));
-  box-shadow:
-    0 0 0 var(--glow-ring-spread) var(--gist-glow-soft),
-    0 0 var(--glow-soft-blur) 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
-    0 0 var(--glow-strong-blur) var(--glow-strong-spread) var(--gist-glow);
+  padding-left:8px;
 }
 .menu-wrap.open .menu-dropdown{opacity:1;transform:translateY(0);pointer-events:auto}

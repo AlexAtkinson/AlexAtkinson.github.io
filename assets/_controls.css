@@ -36,6 +36,32 @@
   box-shadow:none;
 }
 
+/* Social link (e.g., Bluesky) styled to match theme-toggle */
+.social-link{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:40px;
+  height:36px;
+  background:transparent;
+  border:1px solid transparent; /* visually invisible by default */
+  color:inherit;
+  padding:4px;
+  border-radius:8px;
+  cursor:pointer;
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+  text-decoration:none;
+}
+.social-link .social-icon{display:block;width:18px;height:18px}
+.social-link .social-svg{display:block;width:18px;height:18px}
+.social-link:hover{
+  border-color:color-mix(in srgb, var(--social-accent) 18%, transparent);
+  box-shadow:
+    0 0 0 var(--glow-ring-spread) var(--social-gist-glow-soft),
+    0 0 var(--glow-soft-blur) 0 color-mix(in srgb, var(--social-gist-glow) 55%, transparent),
+    0 0 var(--glow-strong-blur) var(--glow-strong-spread) var(--social-gist-glow);
+}
+
 /* Footer and responsive tweaks */
 footer{margin-top:28px;color:var(--footer-text);font-size:.85rem;text-align:center}
 

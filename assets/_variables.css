@@ -23,6 +23,11 @@
   --gist-glow: color-mix(in srgb, var(--accent) 10%, transparent);
   --gist-glow-soft: color-mix(in srgb, var(--accent) 4%, transparent);
 
+  /* Social buttons use the dark-theme accent/glow regardless of selected theme */
+  --social-accent: #d1d6e0;
+  --social-gist-glow: color-mix(in srgb, #d1d6e0 10%, transparent);
+  --social-gist-glow-soft: color-mix(in srgb, #d1d6e0 4%, transparent);
+
   /* Glow sizing tokens (can be tuned globally) */
   --glow-ring-spread: 1px;        /* spread for thin ring */
   --glow-soft-blur: 22px;        /* softer mid blur */
@@ -50,6 +55,11 @@
   /* Gist hover glow (light mode) */
   --gist-glow: color-mix(in srgb, var(--accent) 40%, transparent);
   --gist-glow-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+
+  /* Keep social buttons styled with the dark-theme accent/glow */
+  --social-accent: #d1d6e0;
+  --social-gist-glow: color-mix(in srgb, #d1d6e0 10%, transparent);
+  --social-gist-glow-soft: color-mix(in srgb, #d1d6e0 4%, transparent);
 
   /* Glow sizing tokens (shared with dark theme) */
   --glow-ring-spread: 1px;
