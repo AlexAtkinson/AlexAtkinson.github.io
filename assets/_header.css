@@ -9,7 +9,7 @@ header{
 
 /* keep the right controls visually above the left block and prevent wrapping */
 header{position:relative}
-.header-right{position:absolute;right:0px;top:4px;z-index:70;align-self:auto;text-align:right;display:flex;align-items:center;justify-content:flex-end}
+.header-right{position:absolute;right:0px;top:2px;z-index:70;align-self:auto;text-align:right;display:flex;align-items:center;justify-content:flex-end}
 
 h1{margin:0;font-size:1.5rem}
 
@@ -98,9 +98,14 @@ h1{margin:0;font-size:1.5rem}
   border-radius:8px;
   cursor:pointer;
   transition:border-color 180ms ease,box-shadow 180ms ease,transform 180ms ease;
+  appearance: none;
+  -webkit-appearance: none;
+  background-clip: padding-box;
 }
 .hamburger:focus{outline:none}
-.hamburger:focus, .hamburger:active{
+.hamburger:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 30%, transparent);outline-offset:2px}
+/* glow only on hover or when menu is open (no click-specific style) */
+.hamburger:hover, .menu-wrap.open .hamburger{
   border-color: color-mix(in srgb, var(--accent) 18%, transparent);
   box-shadow:
     0 0 0 3px var(--gist-glow-soft),
@@ -108,6 +113,11 @@ h1{margin:0;font-size:1.5rem}
     0 0 40px -16px var(--gist-glow);
   transform:translateY(-1px) scale(1.02);
 }
+/* ensure clicks don't show an inner outline in some browsers */
+.hamburger:active{outline:none}
+
+/* Remove inner focus border in Firefox */
+.hamburger::-moz-focus-inner{border:0}
 .menu-dropdown{position:absolute;right:0;top:calc(100% + 8px);background:var(--card);border-radius:8px;padding:8px;box-shadow:0 8px 24px rgba(2,6,23,.6);display:flex;flex-direction:column;gap:6px;min-width:140px;z-index:80;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity 180ms ease,transform 180ms ease}
 .menu-dropdown a{color:var(--text);text-decoration:none;padding:8px;border-radius:6px}
 .menu-dropdown a:hover,.menu-dropdown a:focus{background:color-mix(in srgb, var(--accent) 8%, transparent);outline:none}

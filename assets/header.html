@@ -63,6 +63,8 @@
     btn.setAttribute('aria-expanded','false');
     menu.hidden = true;
     wrap.classList.remove('open');
+    // remove focus from the button so focus-outline/glow is cleared
+    if (document.activeElement === btn) btn.blur();
     console.log('menu:closed');
   }
   function openMenu(){
