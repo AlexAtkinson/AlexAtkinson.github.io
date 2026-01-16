@@ -39,13 +39,32 @@
   function scheduleClose(){
     clearTimeout(closeTimer);
     closeTimer = setTimeout(() => {
-      // only close if pointer not over the wrap and nothing inside has focus
-      const pointerOver = wrap.matches(':hover') || menu.matches(':hover') || btn.matches(':hover');
+      const pointerOver = wrap.matches(':hover') || btn.matches(':hover') || menu.matches(':hover');
       const focusedInside = wrap.contains(document.activeElement);
       if(!pointerOver && !focusedInside) closeMenu();
     }, CLOSE_DELAY);
   }
   function cancelClose(){ clearTimeout(closeTimer); closeTimer = null; }
+
+  // use document-level pointerover/pointerout for reliable enter/leave detection
+  let globalOver = null, globalOut = null;
+  function attachGlobalPointerWatcher(){
+    if(globalOver) return;
+    globalOver = function(e){ if(wrap.contains(e.target)) cancelClose(); else scheduleClose(); };
+    globalOut = function(e){
+      // pointerout fires before pointerover on new element; check current hovered element
+      const hovered = document.elementFromPoint && (document.elementFromPoint(e.clientX, e.clientY));
+      if(hovered && wrap.contains(hovered)) cancelClose(); else scheduleClose();
+    };
+    document.addEventListener('pointerover', globalOver);
+    document.addEventListener('pointerout', globalOut);
+  }
+  function detachGlobalPointerWatcher(){
+    if(!globalOver) return;
+    document.removeEventListener('pointerover', globalOver);
+    document.removeEventListener('pointerout', globalOut);
+    globalOver = null; globalOut = null;
+  }
   function closeMenu(){
     btn.setAttribute('aria-expanded','false');
     menu.hidden = true;
@@ -60,6 +79,7 @@
     if(first) first.focus(); else menu.focus();
     // start a scheduled close in case user moves away
     scheduleClose();
+    attachGlobalPointerWatcher();
   }
   btn.addEventListener('click', function(e){
     const expanded = btn.getAttribute('aria-expanded') === 'true';
@@ -80,5 +100,13 @@
   btn.addEventListener('blur', scheduleClose);
   menu.addEventListener('focusin', cancelClose);
   menu.addEventListener('focusout', scheduleClose);
+
+  // Ensure we detach the global watcher when menu closes
+  const origClose = closeMenu;
+  closeMenu = function(){
+    detachGlobalPointerWatcher();
+    cancelClose();
+    origClose();
+  };
 })();
 </script>

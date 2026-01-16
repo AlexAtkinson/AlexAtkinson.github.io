@@ -7,6 +7,10 @@ header{
   flex-wrap:wrap;
 }
 
+/* keep the right controls visually above the left block and prevent wrapping */
+header{position:relative}
+.header-right{position:absolute;right:var(--gutter);top:-8px;z-index:70;align-self:auto;text-align:right;display:flex;align-items:center;justify-content:flex-end}
+
 h1{margin:0;font-size:1.5rem}
 
 .header-left{
@@ -17,15 +21,7 @@ h1{margin:0;font-size:1.5rem}
   padding-bottom:10px;
 }
 
-.header-right{
-  align-self:flex-start;
-  text-align:right;
-  display:flex;
-  align-items:flex-start;
-  justify-content:flex-end;
-  gap:8px;
-  flex-wrap:wrap;
-}
+/* previous .header-right rules overridden by absolute positioning above */
 
 .header-left .avatar{
   width:var(--avatar-size);
@@ -99,6 +95,8 @@ h1{margin:0;font-size:1.5rem}
 @media (max-width:520px){
   .menu-dropdown{min-width:120px;right:8px}
 }
+
+/* keep absolute positioning on all sizes to avoid wrapping */
 
 /* open state - use same style as avatar/card hover */
 .menu-wrap.open .hamburger{
