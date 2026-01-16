@@ -9,7 +9,7 @@ header{
 
 /* keep the right controls visually above the left block and prevent wrapping */
 header{position:relative}
-.header-right{position:absolute;right:var(--gutter);top:-8px;z-index:70;align-self:auto;text-align:right;display:flex;align-items:center;justify-content:flex-end}
+.header-right{position:absolute;right:0px;top:-8px;z-index:70;align-self:auto;text-align:right;display:flex;align-items:center;justify-content:flex-end}
 
 h1{margin:0;font-size:1.5rem}
 
