@@ -34,6 +34,18 @@
   if(!wrap) return;
   const btn = wrap.querySelector('.hamburger');
   const menu = wrap.querySelector('.menu-dropdown');
+  let closeTimer = null;
+  const CLOSE_DELAY = 2000; // ms
+  function scheduleClose(){
+    clearTimeout(closeTimer);
+    closeTimer = setTimeout(() => {
+      // only close if pointer not over the wrap and nothing inside has focus
+      const pointerOver = wrap.matches(':hover') || menu.matches(':hover') || btn.matches(':hover');
+      const focusedInside = wrap.contains(document.activeElement);
+      if(!pointerOver && !focusedInside) closeMenu();
+    }, CLOSE_DELAY);
+  }
+  function cancelClose(){ clearTimeout(closeTimer); closeTimer = null; }
   function closeMenu(){
     btn.setAttribute('aria-expanded','false');
     menu.hidden = true;
@@ -46,6 +58,8 @@
     // focus first menu item if available
     const first = menu.querySelector('[role="menuitem"]');
     if(first) first.focus(); else menu.focus();
+    // start a scheduled close in case user moves away
+    scheduleClose();
   }
   btn.addEventListener('click', function(e){
     const expanded = btn.getAttribute('aria-expanded') === 'true';
@@ -58,5 +72,13 @@
   // keyboard support
   btn.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeMenu(); });
   menu.addEventListener('keydown', function(e){ if(e.key === 'Escape') { btn.focus(); closeMenu(); } });
+
+  // auto-close: cancel when mouse/focus enters, schedule when leaves
+  wrap.addEventListener('mouseenter', cancelClose);
+  wrap.addEventListener('mouseleave', scheduleClose);
+  btn.addEventListener('focus', cancelClose);
+  btn.addEventListener('blur', scheduleClose);
+  menu.addEventListener('focusin', cancelClose);
+  menu.addEventListener('focusout', scheduleClose);
 })();
 </script>
