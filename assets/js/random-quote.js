@@ -100,7 +100,7 @@
     '"I drink your milkshake!" - Daniel Plainview, There Will be Blood',
     '"You are what you do. A man is defined by his actions, not his memory." - Quaid, Total Recall',
     '"You are like a giant cock-blocking robot, like developed in a secret government lab!" - Columbus, Zombieland',
-    '"You won\t catch me dying. They\ll have to kill me before I die!" - Yellowbeard, Yellowbeard',
+    '"You won\t catch me dying. They\'ll have to kill me before I die!" - Yellowbeard, Yellowbeard',
     '"My name\'s Bobby Peru, like the country." - Bobby Peru, Wild at Heart',
     '"The medicine cabinet is now the Brundle Museum of Natural History." - Seth Brundle, The Fly',
     '"Oh, you idiot. You glued it on upside down!" - Mikey, The Goonies',

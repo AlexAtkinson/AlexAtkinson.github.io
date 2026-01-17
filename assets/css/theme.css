@@ -1,0 +1,160 @@
+/* Main theme imports (modular partials). Keep ordering stable to preserve cascade.
+   Partials:
+     1) _variables.css
+     2) _base.css
+     3) _layout.css
+     4) _header.css
+     5) _hero.css
+     6) _cards.css
+     7) _controls.css
+*/
+
+@import url('_variables.css');
+@import url('_base.css');
+@import url('_layout.css');
+@import url('_header.css');
+@import url('_hero.css');
+@import url('_cards.css');
+@import url('_controls.css');
+
+
+.hero .hero-inner{width:100%;z-index:2}
+
+.hero .hero-inner > .container{
+  padding-top:0;
+  padding-bottom:0;
+  text-align:left;
+  transform:translateY(18px);
+  will-change:transform;
+}
+
+.hero .hero-inner h2{
+  color:var(--hero-title);
+  font-size:clamp(1.75rem,4.5vw,2.75rem);
+  line-height:1.05;
+  margin:0 0 8px 0;
+  text-align:left;
+}
+
+.hero .hero-inner p.small{
+  color:var(--hero-subtext);
+  margin:0;
+  text-align:left;
+}
+
+/* Cards and lists */
+.card {
+  background:linear-gradient(180deg, color-mix(in srgb, var(--card) 8%, transparent), var(--card));
+  border:1px solid var(--tile-border);
+  padding: 18px;
+  border-radius:10px;
+  margin: 0px 0px 12px 0%;
+}
+
+.card .inner{
+  background:linear-gradient(180deg, color-mix(in srgb, var(--card) 8%, transparent), var(--card));
+  border:1px solid var(--tile-border);
+  padding: 18px;
+  border-radius:10px;
+  margin: 0px 0px 0px 0%;
+}
+
+/* Card typography */
+.card h1{color:var(--card-title);margin:0 0 8px 0;font-size:1.5rem}
+.card h2{color:var(--card-title);margin:12px 0 6px 0;font-size:1.25rem}
+.card h3{color:var(--card-title);margin:10px 0 6px 0;font-size:1.15rem}
+.card h4{color:var(--card-title);margin:8px 0 2px 0;font-size:1.1rem}
+.card h5{color:var(--card-title);margin:6px 0 2px 0;font-size:1.05rem}
+.card p.small{margin:8px 0 0 0;color:var(--muted);font-size:0.9rem}
+
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:720px){.grid{grid-template-columns:repeat(2,1fr)}}
+
+.gist{
+  display:flex;
+  flex-direction:column;
+  padding:12px;
+  border-radius:12px;
+  background:linear-gradient(180deg,color-mix(in srgb,var(--card) 8%, transparent),transparent);
+  border:1px solid var(--tile-border);
+  position:relative;
+  overflow:hidden;
+  transition:border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+/* Make entire card clickable when it is a link */
+a.gist{color:inherit;text-decoration:none;cursor:pointer}
+a.gist:hover{
+  border-color:color-mix(in srgb, var(--accent) 28%, var(--tile-border));
+  box-shadow:
+    0 0 0 1px var(--gist-glow-soft),
+    0 0 22px 0 color-mix(in srgb, var(--gist-glow) 55%, transparent),
+    0 0 52px -20px var(--gist-glow);
+}
+a.gist:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 25%, transparent);outline-offset:2px}
+
+.gist-title{color:var(--accent);text-decoration:none;font-weight:650}
+a.gist:hover .gist-title{text-decoration:underline}
+
+/* Soft glow wash on hover/focus */
+.gist::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  border-radius:inherit;
+  background:color-mix(in srgb, var(--gist-glow-soft) 35%, transparent);
+  transition:opacity 180ms ease;
+}
+
+a.gist:hover::before,
+a.gist:focus-visible::before{
+  opacity:1;
+}
+
+@media (prefers-reduced-motion: reduce){
+  .gist{transition:none}
+  .gist::before{transition:none}
+}
+.meta{color:var(--muted);font-size:.9rem;margin-top:6px}
+.small{font-size:.85rem;color:var(--muted)}
+/* Ensure lists inside `.small` inherit the same sizing and color,
+   and provide consistent spacing comparable to paragraph text. */
+.small ul,
+.small ol{
+  margin: 0 0 8px 1.25rem;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+}
+.small ul li,
+.small ol li{
+  margin: 0 0 6px 0;
+  font-size: inherit;
+  color: inherit;
+}
+.list-empty{color:var(--muted);padding:12px}
+
+#gists > p.small{margin:0 0 12px 0}
+
+noscript.small{display:block;margin-top:12px;color:var(--muted)}
+
+/* Footer */
+footer{
+  margin-top:28px;
+  color:var(--footer-text);
+  font-size:.85rem;
+  text-align:center;
+  height:60px; /* fixed footer height */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-top:1px solid var(--tile-border); /* divider between body and footer */
+}
+
+/* Responsive tweaks */
+@media (max-width:520px){
+  .header-left{--avatar-size:48px}
+  .header-left h1{font-size:1.125rem;line-height:1.1}
+}
