@@ -89,19 +89,20 @@ h1{margin:0;font-size:1.5rem}
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:40px;
-  height:36px;
+  width:34px; /* 15% smaller */
+  height:31px; /* 15% smaller */
   background:transparent;
   border:1px solid color-mix(in srgb, var(--text) 8%, transparent);
   color:inherit;
-  padding:4px;
-  border-radius:8px;
+  padding:3px; /* reduced */
+  border-radius:7px; /* slightly reduced */
   cursor:pointer;
   transition:border-color 180ms ease,box-shadow 180ms ease;
   appearance: none;
   -webkit-appearance: none;
   background-clip: padding-box;
 }
+.hamburger svg,.hamburger img{image-rendering:var(--hamburger-image-rendering,auto);shape-rendering:var(--hamburger-shape-rendering,auto)}
 .hamburger:focus{outline:none}
 .hamburger:focus-visible{outline:2px solid color-mix(in srgb, var(--accent) 30%, transparent);outline-offset:2px}
 /* glow only on hover or when menu is open (no click-specific style) */
@@ -118,7 +119,7 @@ h1{margin:0;font-size:1.5rem}
 /* Remove inner focus border in Firefox */
 .hamburger::-moz-focus-inner{border:0}
 .menu-dropdown{position:absolute;right:0;top:calc(100% + 8px);background:var(--card);border-radius:8px;padding:8px;box-shadow:0 8px 24px rgba(2,6,23,.6);display:flex;flex-direction:column;gap:6px;min-width:140px;z-index:80;opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity 180ms ease,transform 180ms ease}
-.menu-dropdown a{color:var(--text);text-decoration:none;padding:8px;border-radius:6px}
+.menu-dropdown a{color:var(--text);text-decoration:none;padding:8px;border-radius:6px;font-size:0.9em}
 .menu-dropdown a:hover,.menu-dropdown a:focus{background:color-mix(in srgb, var(--accent) 8%, transparent);outline:none}
 /* current page indicator */
 /* Current page styling: remove decorative pseudo-element to avoid stray glyphs */

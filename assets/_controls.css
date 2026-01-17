@@ -1,24 +1,37 @@
 /* Controls: theme toggle and small interactive controls */
+:root{
+  /* Per-control image/shape rendering controls. Set these where you load theme overrides. */
+  --hamburger-image-rendering: auto;
+  --hamburger-shape-rendering: auto;
+  --theme-image-rendering: auto;
+  --theme-shape-rendering: auto;
+  --social-image-rendering: auto;
+  --social-shape-rendering: auto;
+}
+
 .theme-toggle{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:40px;
-  height:36px;
+  width:34px;
+  height:31px;
   background: color-mix(in srgb, var(--social-card) 18%, transparent);
   border:1px solid color-mix(in srgb, var(--social-text) 8%, transparent);
   color:var(--social-text);
-  padding:4px;
-  border-radius:8px;
+  padding:3px;
+  border-radius:7px;
   cursor:pointer;
   transition: border-color 180ms ease, box-shadow 180ms ease;
+  vertical-align:middle;
+  line-height:0;
+  box-sizing:border-box;
 }
 
 .theme-toggle[aria-pressed="true"]{
   color:var(--social-accent);
   border-color:color-mix(in srgb, var(--social-accent) 18%, transparent);
 }
-.theme-toggle svg{width:18px;height:18px;display:block}
+.theme-toggle svg{width:19px;height:19px;display:inline-block;image-rendering:var(--theme-image-rendering,auto);shape-rendering:var(--theme-shape-rendering,auto);vertical-align:middle}
 
 /* Glow only on mouse hover to match hamburger/menu styling */
 .theme-toggle:hover{
@@ -41,19 +54,22 @@
   display:inline-flex;
   align-items:center;
   justify-content:center;
-  width:40px;
-  height:36px;
+  width:34px;
+  height:31px;
   background:transparent;
   border:1px solid transparent; /* visually invisible by default */
   color:inherit;
-  padding:4px;
-  border-radius:8px;
+  padding:3px;
+  border-radius:7px;
   cursor:pointer;
   transition: border-color 180ms ease, box-shadow 180ms ease;
   text-decoration:none;
+  vertical-align:middle;
+  line-height:0;
+  box-sizing:border-box;
 }
-.social-link .social-icon{display:block;width:18px;height:18px}
-.social-link .social-svg{display:block;width:18px;height:18px}
+.social-link .social-icon{display:inline-block;width:19px;height:19px;image-rendering:var(--social-image-rendering,auto);shape-rendering:var(--social-shape-rendering,auto);vertical-align:middle}
+.social-link .social-svg{display:inline-block;width:19px;height:19px;image-rendering:var(--social-image-rendering,auto);shape-rendering:var(--social-shape-rendering,auto);vertical-align:middle}
 .social-link:hover{
   border-color:color-mix(in srgb, var(--social-accent) 18%, transparent);
   box-shadow:
