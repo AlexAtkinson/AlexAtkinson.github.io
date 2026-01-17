@@ -18,6 +18,8 @@
     }catch(e){ /* silent */ }
   }
 
+  // This could be smarter, but a few KB of in-script data is fine. For now...
+  // TODO: Stub the quote with ""
   const QUOTES = [
     '"Warriors -- come out to play!" - Johnny, The Warriors',
     '"I am serious... and don\'t call me Shirley." - Dr. Rumack, Airplane!',
@@ -50,10 +52,10 @@
     '"Don\'t concentrate on the finger or you will miss all that heavenly glory." - Lee, Enter the Dragon',
     '"For God sakes, don\'t do it, Snake!" - Snake Plissken, Escape from L.A.',
     '"Look at her eyes! For God\'s sake, what happened to her eyes?" - Shelly, The Evil Dead',
-    '"Well if you\'re Sean Archer, I guess I\'m Castor Troy." - Caster Troy, Face Off',
+    '"Well if you\'re Sean Archer, I guess I\'m Castor Troy." - Caster Troy, Face/Off',
     '"What? No. We can\'t stop here. This is bat country." - Raoul Duke, Fear and Loathing in Las Vegas',
     '"No! Not the bore worms!" - Klytus, Flash Gordon",',
-    '"Try and shoot me, Colonel. Just try." - El ndio, For a Few Dollars More',
+    '"Try and shoot me, Colonel. Just try." - El Indio, For a Few Dollars More',
     '"You shouldn\'t lose your temper, Charley. It isn\'t polite." - Peter Vincent, Fright Night',
     '"If there\'s a steady paycheck in it, I\'ll believe anything you say." - Winston Zeddemore, Ghostbusters',
     '"I got a record! I was \'Zero Cool\'!" - Dade Murphy, Hackers',
@@ -117,10 +119,18 @@
     '"The door opened, you got in." - Johnnycab, Total Recall',
     '"I\'ve been in the van for 15 years, Harry..." - Albert Gibson, True Lies',
     '"Oh hidy-ho officer, we\'ve had a doozy of a day." - Tucker, Tucker & Dale vs. Evil',
-    '"I have become one. A vampire." - Peter Loew, Vampire\'s Kiss',
+    '"I have become one. A vampire. Oh God..." - Peter Loew, Vampire\'s Kiss',
     '"Outstanding. Now, let\'s bite all their heads off, and pile them up in the corner." - Venom, Venom',
     '"Blue Horseshoe loves Anacott Steel." - Bud Fox, Wall Street',
-    '"Were you rushing or were you dragging?" - Fletcher, Whiplash'
+    '"Were you rushing or were you dragging?" - Fletcher, Whiplash',
+    '"Some Things Are True Whether You Believe In Them Or Not." - Seth, City of Angels',
+    '"I Want To Take His Face... Off. Eyes, Nose, Skin, Teeth. It\'s Coming Off." - Caster Troy, Face/Off',
+    '"We don\'t get a lot of things to really care about." - Robin, Pig',
+    '"I\'ll probably get blamed for that." - Paul Hackett, After Hours',
+    '"Great, I just beat up Santa Claus." - Gus, The Ref    ',
+    '"I Have An Acronym For Myself. B.A.D. Balls, Attitude, Direction. You Should Give Yourself An Acronym..." - Little Junior Brown, Kiss of Death',
+    '"You mean, you\'ll put down your rock and I\'ll put down my sword, and we\'ll try and kill each other like civilized people?" - Man in Black, The Princess Bride',
+    '"Dear Diary, my teen-angst bullshit now has a body count." - Veronica Sawyer, Heathers'
   ];
 
   function chooseAndPlace(){
