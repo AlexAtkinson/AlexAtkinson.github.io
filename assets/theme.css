@@ -141,7 +141,17 @@ a.gist:focus-visible::before{
 noscript.small{display:block;margin-top:12px;color:var(--muted)}
 
 /* Footer */
-footer{margin-top:28px;color:var(--footer-text);font-size:.85rem;text-align:center}
+footer{
+  margin-top:28px;
+  color:var(--footer-text);
+  font-size:.85rem;
+  text-align:center;
+  height:60px; /* fixed footer height */
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  border-top:1px solid var(--tile-border); /* divider between body and footer */
+}
 
 /* Responsive tweaks */
 @media (max-width:520px){
