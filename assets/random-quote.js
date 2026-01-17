@@ -67,9 +67,19 @@
     }catch(e){ /* silent */ }
   }
 
+  const FALLBACKS = [
+    'Thanks for visiting.',
+    'Have a great day.',
+    'Enjoy your stay.'
+  ];
+
   function chooseAndPlace(rows){
     const candidates = rows.filter(r => isValidQuote(r['Quote 1']));
-    if(candidates.length === 0) return;
+    if(candidates.length === 0){
+      const fb = FALLBACKS[Math.floor(Math.random()*FALLBACKS.length)];
+      placeQuote(escapeHtml(fb));
+      return;
+    }
     const pick = candidates[Math.floor(Math.random()*candidates.length)];
     const quote = (pick['Quote 1'] || '').trim();
     const name = (pick['Name'] || pick['name'] || '').trim();
@@ -90,6 +100,9 @@
         const rows = parseCSV(txt);
         chooseAndPlace(rows);
       })
-      .catch(()=>{/* fail silently */});
+      .catch(()=>{ // ensure footer never shows "Stay Cool"
+        const fb = FALLBACKS[Math.floor(Math.random()*FALLBACKS.length)];
+        placeQuote(escapeHtml(fb));
+      });
   }
 })();
