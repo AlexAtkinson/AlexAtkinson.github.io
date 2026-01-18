@@ -158,3 +158,20 @@ footer{
   .header-left{--avatar-size:48px}
   .header-left h1{font-size:1.125rem;line-height:1.1}
 }
+
+/* Callout blocks: Note, Warning, Important, Tip, Caution */
+.callout{
+  padding:12px 16px;
+  border-radius:8px;
+  margin:0 0 16px 0;
+  display:block;
+  background:color-mix(in srgb, var(--card) 6%, transparent);
+  color:var(--text);
+  border-left:4px solid color-mix(in srgb, var(--accent) 18%, transparent);
+}
+.callout strong{font-weight:700;margin-right:8px}
+.callout--note{background:color-mix(in srgb, var(--accent) 4%, transparent);border-left-color:var(--accent)}
+.callout--important{background:color-mix(in srgb, var(--accent) 10%, transparent);border-left-color:var(--accent)}
+.callout--tip{background:color-mix(in srgb, #38b000 6%, transparent);border-left-color:#38b000}
+.callout--warning{background:color-mix(in srgb, #ffb020 6%, transparent);border-left-color:#ffb020;color:var(--text)}
+.callout--caution{background:color-mix(in srgb, #ff6b6b 6%, transparent);border-left-color:#ff6b6b}
