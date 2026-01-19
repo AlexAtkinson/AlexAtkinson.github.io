@@ -88,7 +88,9 @@
         if(!p){
           p = document.createElement('img');
           p.className = 'avatar-popup';
-          p.src = img.src;
+          // Always use the 512px avatar for the popup regardless of the small img's src
+          p.src = 'assets/images/avatar-alex-in-summer_512.webp';
+          p.srcset = 'assets/images/avatar-alex-in-summer_512.webp 512w';
           p.alt = img.alt || 'Avatar (large)';
           // popup is not critical for initial paint: mark as low priority
           p.setAttribute('fetchpriority', 'low');
