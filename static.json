@@ -2,16 +2,16 @@
   "headers": {
     "/service-worker.js": { "cache-control": "no-cache, no-store, must-revalidate" },
     "/index.html": { "cache-control": "public, max-age=0, must-revalidate" },
-    "/assets/gists.json": { "cache-control": "public, max-age=60" },
-    "/assets/css/_variables.css": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/css/_base.css": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/css/_layout.css": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/css/_header.css": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/css/_hero.css": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/css/_cards.css": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/css/_controls.css": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/theme.js": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/images/optimized/*": { "cache-control": "public, max-age=31536000, immutable" },
-    "/assets/images/*": { "cache-control": "public, max-age=604800" }
+    "/assets/gists.json": { "cache-control": "public, max-age=0, must-revalidate" },
+    "/assets/css/_variables.css": { "cache-control": "public, max-age=0, must-revalidate" },
+    "/assets/css/_base.css": { "cache-control": "public, max-age=0, must-revalidate" },
+    "/assets/css/_layout.css": { "cache-control": "public, max-age=0, must-revalidate" },
+    "/assets/css/_header.css": { "cache-control": "public, max-age=0, must-revalidate" },
+    "/assets/css/_hero.css": { "cache-control": "public, max-age=0, must-revalidate" },
+    "/assets/css/_cards.css": { "cache-control": "public, max-age=0, must-revalidate" },
+    "/assets/css/_controls.css": { "cache-control": "public, max-age=0, must-revalidate" },
+    "/assets/theme.js": { "cache-control": "public, max-age=600, immutable" },
+    "/assets/images/optimized/*": { "cache-control": "public, max-age=3600, immutable" },
+    "/assets/images/*": { "cache-control": "public, max-age=3600" }
   }
 }
