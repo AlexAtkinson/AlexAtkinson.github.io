@@ -6,7 +6,7 @@ Fetch curated GitHub Gist metadata and write a local JSON asset at
 `assets/gists.json` to avoid runtime API calls from the browser.
 
 Usage:
-  - Create a file named `curated_gists.txt` with one GIST ID per line, or
+    - Create a file named `assets/misc/curated_gists.txt` with one GIST ID per line, or
   - Pass GIST IDs on the command line:
       ./scripts/fetch_gists.py  id1 id2 id3
 
@@ -28,7 +28,7 @@ from urllib.error import HTTPError, URLError
 DEFAULT_OUTPUT = os.path.join('assets', 'gists.json')
 
 
-def read_ids_from_file(path='curated_gists.txt'):
+def read_ids_from_file(path='assets/misc/curated_gists.txt'):
     if not os.path.exists(path):
         return []
     with open(path, 'r', encoding='utf-8') as fh:
