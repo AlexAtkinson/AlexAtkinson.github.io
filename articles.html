@@ -77,8 +77,7 @@
             '37d64e4e0527f6e5f9d57280669ad055',
             '164c45f981355fba2dd59cf7632720a5',
             '31b5bc527b07406950618a7e6bd1ec81',
-            '7246dfafa76973c6cc60ac5fa5ce0858',
-            'f0bf8c89dda97ef42b5ba3575ab20363'
+            '7246dfafa76973c6cc60ac5fa5ce0858'
         ];
 
         const container = document.getElementById('gist-list');
@@ -93,6 +92,8 @@
             if(!fn) return '';
             let name = fn.replace(/^[^a-zA-Z0-9]+/, '');
             name = name.replace(/\.[^/.]+$/, '');
+            // replace underscores with spaces for display
+            name = name.replace(/_+/g, ' ').replace(/\s+/g, ' ').trim();
             return name || fn;
         }
 
@@ -118,12 +119,20 @@
                 if(res.ok){
                     const local = await res.json();
                     if(Array.isArray(local) && local.length){
-                        for(const gist of local){
+                        // Build a map of id -> gist for quick lookup, then render only
+                        // the gists listed in `curated` (preserving curated order).
+                        const map = new Map();
+                        for(const g of local){ if(g && g.id) map.set(g.id, g); }
+                        let rendered = false;
+                        for(const id of curated){
+                            const gist = map.get(id);
+                            if(!gist) continue;
                             const firstFile = Object.keys(gist.files || {})[0];
                             const title = titleFromFilename(firstFile) || gist.description || gist.id;
                             container.appendChild(gistCardLink(gist, title));
+                            rendered = true;
                         }
-                        return; // done
+                        if(rendered) return; // done (only curated displayed)
                     }
                 }
             }catch(e){
