@@ -78,15 +78,30 @@ def main(argv):
     outpath = DEFAULT_OUTPUT
     ids = []
 
-    # simple args parsing
-    args = [a for a in argv[1:] if not a.startswith('--')]
-    if '--output' in argv:
-        try:
-            idx = argv.index('--output')
-            outpath = argv[idx + 1]
-        except Exception:
-            print('Usage: --output <path>', file=sys.stderr)
-            return 2
+    # simple args parsing with support for -f/--force and --output
+    force = False
+    args = []
+    i = 1
+    while i < len(argv):
+        a = argv[i]
+        if a in ('-f', '--force'):
+            force = True
+            i += 1
+            continue
+        if a == '--output':
+            try:
+                outpath = argv[i + 1]
+                i += 2
+                continue
+            except Exception:
+                print('Usage: --output <path>', file=sys.stderr)
+                return 2
+        # ignore other flags
+        if a.startswith('-'):
+            i += 1
+            continue
+        args.append(a)
+        i += 1
 
     if args:
         ids = args
@@ -97,16 +112,50 @@ def main(argv):
         print('No gist IDs provided (pass IDs on the command line or create curated_gists.txt).')
         return 1
 
-    results = []
-    for i, gid in enumerate(ids, start=1):
-        print(f'[{i}/{len(ids)}] Fetching {gid}...')
+    # If not forcing, avoid refetching existing gists already present in outpath
+    existing_map = {}
+    if os.path.exists(outpath):
+        try:
+            with open(outpath, 'r', encoding='utf-8') as fh:
+                existing = json.load(fh)
+            for g in existing:
+                if isinstance(g, dict) and g.get('id'):
+                    existing_map[g['id']] = g
+        except Exception:
+            existing_map = {}
+
+    # Determine which IDs need fetching
+    ids_to_fetch = []
+    for gid in ids:
+        if force or gid not in existing_map:
+            ids_to_fetch.append(gid)
+
+    if not ids_to_fetch:
+        print('No new gists to fetch. Use -f/--force to re-fetch all.')
+        return 0
+
+    fetched_map = {}
+    for i, gid in enumerate(ids_to_fetch, start=1):
+        print(f'[{i}/{len(ids_to_fetch)}] Fetching {gid}...')
         gist = fetch_gist(gid, token=token)
         if gist:
-            results.append(prune_gist(gist))
+            pruned = prune_gist(gist)
+            fetched_map[pruned['id']] = pruned
         else:
             print(f'Failed to fetch gist {gid}', file=sys.stderr)
         # be polite to the API
         time.sleep(0.2)
+
+    # Build results preserving order from `ids` using existing entries when present
+    results = []
+    for gid in ids:
+        if not force and gid in existing_map:
+            results.append(existing_map[gid])
+        elif gid in fetched_map:
+            results.append(fetched_map[gid])
+        else:
+            # skipped or failed fetch; omit
+            pass
 
     # ensure output directory exists
     odir = os.path.dirname(outpath)

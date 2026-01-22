@@ -1,9 +1,0 @@
-# Curated Gist IDs for scripts/fetch_gists.py
-# One ID per line. Maintain manually.
-42d91031604aaedc0ec5a879afb3410f
-7be00d6be71fab970210006b9574e1e5
-37d64e4e0527f6e5f9d57280669ad055
-164c45f981355fba2dd59cf7632720a5
-31b5bc527b07406950618a7e6bd1ec81
-7246dfafa76973c6cc60ac5fa5ce0858
-f0bf8c89dda97ef42b5ba3575ab20363
