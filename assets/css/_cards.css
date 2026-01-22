@@ -69,6 +69,12 @@ a.gist:focus-visible::before{opacity:1}
 }
 
 .meta{color:var(--muted);font-size:.9rem;margin-top:6px}
+/* Prevent long descriptions from wrapping; show ellipsis when truncated */
+.meta{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
 .small{font-size:.85rem;color:var(--muted)}
 .list-empty{color:var(--muted);padding:12px}
 
