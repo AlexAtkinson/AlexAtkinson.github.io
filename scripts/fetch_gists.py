@@ -6,19 +6,25 @@ Fetch curated GitHub Gist metadata and write a local JSON asset at
 `assets/gists.json` to avoid runtime API calls from the browser.
 
 Usage:
-    - Create a file named `assets/misc/curated_gists.txt` with one GIST ID per line, or
-  - Pass GIST IDs on the command line:
-      ./scripts/fetch_gists.py  id1 id2 id3
+    - The curated gist IDs are read from the `const curated = [...]` array in
+        `articles.html`.
+    - Or pass GIST IDs on the command line:
+            ./scripts/fetch_gists.py  id1 id2 id3
+
+Options:
+    - `-f` / `--force` : re-fetch all listed IDs
+    - `-g` / `--gist`  : update specific gist ID(s) (can be used multiple times)
+    - `-d` / `--delete`: when present, only keep IDs listed (prune others)
+    - `--output <path>`: change output path (defaults to `assets/gists.json`)
 
 Optionally set `GITHUB_TOKEN` in the environment to increase rate limits.
-The output file defaults to `assets/gists.json` but can be changed with
-`--output`.
 
 This script is intended to be run manually by the maintainer; commit and
 push `assets/gists.json` into the site when ready.
 """
 import sys
 import os
+import re
 import json
 import time
 from urllib.request import Request, urlopen
@@ -29,11 +35,29 @@ DEFAULT_OUTPUT = os.path.join('assets', 'gists.json')
 
 
 def read_ids_from_file(path='assets/misc/curated_gists.txt'):
-    if not os.path.exists(path):
-        return []
-    with open(path, 'r', encoding='utf-8') as fh:
-        lines = [ln.strip() for ln in fh if ln.strip() and not ln.startswith('#')]
-    return lines
+    """
+    Read curated gist IDs.
+    Prefer extracting from `articles.html` by parsing the `const curated = [...]` JS array.
+    If that fails, fall back to reading a plain text file at `path` (one ID per line).
+    """
+    # Parse `articles.html` and extract the `const curated = [...]` array.
+    try:
+        a_path = os.path.join(os.path.dirname(__file__), '..', 'articles.html')
+        a_path = os.path.normpath(os.path.abspath(a_path))
+        if os.path.exists(a_path):
+            with open(a_path, 'r', encoding='utf-8') as fh:
+                content = fh.read()
+            m = re.search(r"const\s+curated\s*=\s*\[(.*?)\]\s*;", content, re.S)
+            if m:
+                inner = m.group(1)
+                # find quoted IDs inside the array
+                ids = re.findall(r"['\"]([0-9a-fA-F]{6,})['\"]", inner)
+                return ids
+    except Exception:
+        pass
+
+    # If parsing fails, return an empty list (no fallback file available).
+    return []
 
 
 def fetch_gist(id_, token=None):
@@ -78,15 +102,34 @@ def main(argv):
     outpath = DEFAULT_OUTPUT
     ids = []
 
-    # simple args parsing with support for -f/--force and --output
+    # simple args parsing with support for -f/--force, -d/--delete, -g/--gist and --output
     force = False
+    delete = False
     args = []
+    explicit_gists = []
     i = 1
     while i < len(argv):
         a = argv[i]
         if a in ('-f', '--force'):
             force = True
             i += 1
+            continue
+        if a in ('-d', '--delete'):
+            delete = True
+            i += 1
+            continue
+        if a in ('-g', '--gist'):
+            # accept multiple -g flags and comma-separated lists
+            try:
+                val = argv[i + 1]
+            except Exception:
+                print('Usage: -g <gist-id> (can be used multiple times)', file=sys.stderr)
+                return 2
+            for part in val.split(','):
+                p = part.strip()
+                if p:
+                    explicit_gists.append(p)
+            i += 2
             continue
         if a == '--output':
             try:
@@ -103,7 +146,9 @@ def main(argv):
         args.append(a)
         i += 1
 
-    if args:
+    if explicit_gists:
+        ids = explicit_gists
+    elif args:
         ids = args
     else:
         ids = read_ids_from_file()
@@ -112,31 +157,42 @@ def main(argv):
         print('No gist IDs provided (pass IDs on the command line or create curated_gists.txt).')
         return 1
 
-    # If not forcing, avoid refetching existing gists already present in outpath
+    # Safety: refuse to write HTML files. Output must be JSON (default: assets/gists.json).
+    if outpath.lower().endswith('.html'):
+        print('Refusing to write HTML file. Output must be a JSON file (e.g., assets/gists.json).', file=sys.stderr)
+        return 2
+
+    # Load existing data (if any) and build a map for quick lookup
     existing_map = {}
+    existing_list = []
     if os.path.exists(outpath):
         try:
             with open(outpath, 'r', encoding='utf-8') as fh:
-                existing = json.load(fh)
-            for g in existing:
+                existing_list = json.load(fh)
+            for g in existing_list:
                 if isinstance(g, dict) and g.get('id'):
                     existing_map[g['id']] = g
         except Exception:
             existing_map = {}
+            existing_list = []
 
     # Determine which IDs need fetching
     ids_to_fetch = []
-    for gid in ids:
-        if force or gid not in existing_map:
-            ids_to_fetch.append(gid)
+    if explicit_gists or args:
+        ids_to_fetch = ids[:]
+    else:
+        for gid in ids:
+            if force or gid not in existing_map:
+                ids_to_fetch.append(gid)
 
-    if not ids_to_fetch:
-        print('No new gists to fetch. Use -f/--force to re-fetch all.')
+    # If nothing to fetch and not deleting, do nothing
+    if not ids_to_fetch and not delete:
+        print('No new gists to fetch. Use -f/--force to re-fetch all or -d/--delete to prune.')
         return 0
 
     fetched_map = {}
-    for i, gid in enumerate(ids_to_fetch, start=1):
-        print(f'[{i}/{len(ids_to_fetch)}] Fetching {gid}...')
+    for idx, gid in enumerate(ids_to_fetch, start=1):
+        print(f'[{idx}/{len(ids_to_fetch)}] Fetching {gid}...')
         gist = fetch_gist(gid, token=token)
         if gist:
             pruned = prune_gist(gist)
@@ -146,16 +202,36 @@ def main(argv):
         # be polite to the API
         time.sleep(0.2)
 
-    # Build results preserving order from `ids` using existing entries when present
+    # Build final results
     results = []
-    for gid in ids:
-        if not force and gid in existing_map:
-            results.append(existing_map[gid])
-        elif gid in fetched_map:
-            results.append(fetched_map[gid])
-        else:
-            # skipped or failed fetch; omit
-            pass
+    if delete:
+        # Keep only the ids listed (in that order), using fetched data when available
+        for gid in ids:
+            if gid in fetched_map:
+                results.append(fetched_map[gid])
+            elif gid in existing_map:
+                results.append(existing_map[gid])
+            else:
+                # not found/failed fetch; skip
+                pass
+    else:
+        # Preserve all existing entries, but update any that were fetched.
+        seen = set()
+        for g in existing_list:
+            gid = g.get('id')
+            if gid in fetched_map:
+                results.append(fetched_map[gid])
+                seen.add(gid)
+            else:
+                results.append(g)
+                if gid:
+                    seen.add(gid)
+
+        # Append any newly fetched gists that weren't already present, in the order of `ids`.
+        for gid in ids:
+            if gid in fetched_map and gid not in seen:
+                results.append(fetched_map[gid])
+                seen.add(gid)
 
     # ensure output directory exists
     odir = os.path.dirname(outpath)
