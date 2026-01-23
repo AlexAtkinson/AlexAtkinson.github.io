@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Hacked — Again</title>
+  <link href="https://fonts.googleapis.com/css?family=Black+Ops+One" rel="stylesheet">
+  <style>
+    html,body{height:100%;margin:0}
+    body{background:#000;color:#fff;font-family:'Black Ops One',cursive;overflow:hidden}
+    #stage{position:fixed;left:0;top:0;width:100%;height:100%}
+    .line{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);opacity:0;white-space:nowrap;text-align:center}
+    .line{font-size:clamp(28px,6vw,96px)}
+
+    /* timing */
+    :root{--dur:2.4s}
+    .l1{animation:fadeInOut var(--dur) ease-in-out 0s forwards}
+    .l2{animation:fadeInOut var(--dur) ease-in-out 2.6s forwards}
+    .l3{animation:fadeInOut var(--dur) ease-in-out 5.2s forwards}
+    /* final: fade in and stay, stronger presentation */
+    .l4{animation:fadeIn 2.6s ease-out 7.8s forwards;color:#FF0B0A;font-weight:800;font-size:clamp(36px,8vw,120px);text-shadow:0 0 12px rgba(255,11,10,0.9)}
+
+    @keyframes fadeInOut{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.98)}
+      10%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+      80%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+      100%{opacity:0;transform:translate(-50%,-50%) scale(.98)}
+    }
+    @keyframes fadeIn{
+      0%{opacity:0;transform:translate(-50%,-50%) scale(.98)}
+      100%{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    }
+
+    /* small screens tweak */
+    @media (max-width:420px){
+      .line{font-size:6vw}
+      .l4{font-size:8vw}
+    }
+  </style>
+</head>
+<body>
+  <div id="stage">
+    <div class="line l1">All your base...</div>
+    <div class="line l2">Are belong to us!</div>
+    <div class="line l3">You have been hacked<br>by...</div>
+    <div class="line l4">Alex Atkinson</div>
+  </div>
+</body>
+</html>
