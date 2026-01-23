@@ -1,8 +1,20 @@
 [
   {
+    "id": "98efb3718e493abd263c32a0cd5032e6",
+    "html_url": "https://gist.github.com/AlexAtkinson/98efb3718e493abd263c32a0cd5032e6",
+    "description": "Create a CA & Cert (localhost)",
+    "files": {
+      "Setup_CA_Cert.sh": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/98efb3718e493abd263c32a0cd5032e6/raw/188acf9a52029d65f132dbe05305545716a57d5e/Setup_CA_Cert.sh",
+        "type": "application/x-sh",
+        "language": "Shell"
+      }
+    }
+  },
+  {
     "id": "42d91031604aaedc0ec5a879afb3410f",
     "html_url": "https://gist.github.com/AlexAtkinson/42d91031604aaedc0ec5a879afb3410f",
-    "description": "Domain Names, DNS, and URLs for DevOps & Friends",
+    "description": "Domains, DNS, and URLs for DevOps & Friends",
     "files": {
       "Domain Names, DNS & URLs.md": {
         "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/42d91031604aaedc0ec5a879afb3410f/raw/914e8f30eba5fc14fc71e477144e50d3ac105daa/Domain%20Names%2C%20DNS%20%26%20URLs.md",
@@ -200,6 +212,90 @@
         "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f0bf8c89dda97ef42b5ba3575ab20363/raw/799837929022b9cbb520c83d2745707e3ca1f0aa/zen-browser-icon.svg",
         "type": "image/svg+xml",
         "language": null
+      }
+    }
+  },
+  {
+    "id": "1487a84b54bb8774ee623c3e32924875",
+    "html_url": "https://gist.github.com/AlexAtkinson/1487a84b54bb8774ee623c3e32924875",
+    "description": "Scrum/SAFe/Basic Project Mgmt",
+    "files": {
+      "Project Management.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/1487a84b54bb8774ee623c3e32924875/raw/74affed9fd964d892cd1351a8f0c6a4b094330c5/Project%20Management.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "0ab1f69ad33d7fb068d566359953cd87",
+    "html_url": "https://gist.github.com/AlexAtkinson/0ab1f69ad33d7fb068d566359953cd87",
+    "description": "Adding Images to GISTs - The GIST Way",
+    "files": {
+      "Images In Gists.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/0ab1f69ad33d7fb068d566359953cd87/raw/adaef5d85953d8d21a34b9ea5656fe236dd252b3/Images%20In%20Gists.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "fb113e9001058b459d8a69bb52b7a18d",
+    "html_url": "https://gist.github.com/AlexAtkinson/fb113e9001058b459d8a69bb52b7a18d",
+    "description": "Jenkinsfile - Populate input field with Docker tags (ECR)",
+    "files": {
+      "Jenkins_Dynamic_User_Input.groovy": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/fb113e9001058b459d8a69bb52b7a18d/raw/38b5c615c6a7d71897a7810758c7a06c0577493b/Jenkins_Dynamic_User_Input.groovy",
+        "type": "text/plain",
+        "language": "Groovy"
+      }
+    }
+  },
+  {
+    "id": "5864dd20a58e40235ae66b4ac3d6713a",
+    "html_url": "https://gist.github.com/AlexAtkinson/5864dd20a58e40235ae66b4ac3d6713a",
+    "description": "BASH from the PAST: Provision AWS Fargate cluster",
+    "files": {
+      "Launch_Fargate.sh": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/5864dd20a58e40235ae66b4ac3d6713a/raw/beccc47f10519242399ec751f7c6305e07e1ece9/Launch_Fargate.sh",
+        "type": "application/x-sh",
+        "language": "Shell"
+      }
+    }
+  },
+  {
+    "id": "1cd0323af90640c9b0e705b04e7e0a05",
+    "html_url": "https://gist.github.com/AlexAtkinson/1cd0323af90640c9b0e705b04e7e0a05",
+    "description": "Docker Example: Building Artifacts",
+    "files": {
+      "Docker_Assets.Dockerfile": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/1cd0323af90640c9b0e705b04e7e0a05/raw/87c633e51c55770f1784c935db5de42f8d3af0cc/Docker_Assets.Dockerfile",
+        "type": "text/plain",
+        "language": "Dockerfile"
+      }
+    }
+  },
+  {
+    "id": "21d047579247f2e0d14b4382a2faac16",
+    "html_url": "https://gist.github.com/AlexAtkinson/21d047579247f2e0d14b4382a2faac16",
+    "description": "Docker ProTips",
+    "files": {
+      "Docker ProTips.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/21d047579247f2e0d14b4382a2faac16/raw/928f4a9cfd376f3ec1eea17b665f919aecc01f4e/Docker%20ProTips.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "73ea6369877210f4969fcc0028b93769",
+    "html_url": "https://gist.github.com/AlexAtkinson/73ea6369877210f4969fcc0028b93769",
+    "description": "Security For Everyone",
+    "files": {
+      "Security_Intro.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/73ea6369877210f4969fcc0028b93769/raw/bb840a1747507864dd0d7f6b5a6dbae0492f32cf/Security_Intro.md",
+        "type": "text/markdown",
+        "language": "Markdown"
       }
     }
   }
