@@ -33,6 +33,9 @@
 }
 .theme-toggle svg{width:19px;height:19px;display:inline-block;image-rendering:var(--theme-image-rendering,auto);shape-rendering:var(--theme-shape-rendering,auto);vertical-align:middle}
 
+/* Slight vertical nudge for the crescent moon so it visually centers on the button */
+.theme-toggle.icon-moon svg{transform:translateY(1.5px);}
+
 /* Glow only on mouse hover to match hamburger/menu styling */
 .theme-toggle:hover{
   border-color:color-mix(in srgb, var(--social-accent) 18%, transparent);

@@ -25,6 +25,8 @@
 
       // Show the action icon: if currently dark, show sun (action: switch to light); if currently light, show moon
       btn.innerHTML = isDark ? sunSVG : moonSVG;
+      // add a helper class when the moon icon is shown so we can nudge it with CSS
+      if(!isDark) btn.classList.add('icon-moon'); else btn.classList.remove('icon-moon');
     });
   }
 
@@ -48,13 +50,28 @@
         const btn = e.target.closest && e.target.closest('[data-theme-toggle]');
         if(btn){ toggleTheme(); return; }
 
-        // close avatar popups if clicking outside
+        // close avatar popups if clicking outside and clean up bubbles/tails
         const open = document.querySelectorAll('.avatar-popup.open');
         if(open.length){
           // if click inside an avatar-wrap, ignore
           const inWrap = e.target.closest && e.target.closest('.avatar-wrap');
           if(!inWrap){
-            open.forEach(p => p.classList.remove('open'));
+            open.forEach(p => {
+              try{ p.classList.remove('open'); }catch(e){}
+              try{
+                const wrap = p.closest && p.closest('.avatar-wrap');
+                if(wrap){
+                  if(wrap._bubbleEl){ try{ if(wrap._bubbleEl.parentNode) wrap._bubbleEl.parentNode.removeChild(wrap._bubbleEl); }catch(e){} wrap._bubbleEl = null; }
+                  if(wrap._bubbleTail){ try{ if(wrap._bubbleTail.parentNode) wrap._bubbleTail.parentNode.removeChild(wrap._bubbleTail); }catch(e){} wrap._bubbleTail = null; }
+                  if(wrap._bubbleEarlyTimer){ try{ clearTimeout(wrap._bubbleEarlyTimer); }catch(e){} wrap._bubbleEarlyTimer = null; }
+                  if(wrap._bubbleTimer){ try{ clearTimeout(wrap._bubbleTimer); }catch(e){} wrap._bubbleTimer = null; }
+                  if(wrap._bubbleRemoveTimer){ try{ clearTimeout(wrap._bubbleRemoveTimer); }catch(e){} wrap._bubbleRemoveTimer = null; }
+                  if(wrap._bubbleTailReposition){ try{ window.removeEventListener('resize', wrap._bubbleTailReposition); window.removeEventListener('scroll', wrap._bubbleTailReposition); }catch(e){} wrap._bubbleTailReposition = null; }
+                  if(wrap._bubbleTailObserver){ try{ wrap._bubbleTailObserver.disconnect(); }catch(e){} wrap._bubbleTailObserver = null; }
+                  if(wrap._bubbleTailRaf){ try{ wrap._bubbleTailRaf(); }catch(e){} wrap._bubbleTailRaf = null; }
+                }
+              }catch(e){}
+            });
           }
         }
       });
@@ -69,9 +86,15 @@
       if(!img) return;
       // per-wrap auto-close timer so popup closes after pointer leaves
       let closeTimer = null;
-      const AVATAR_CLOSE_DELAY = 2000; // ms
+      // how long before the avatar popup auto-closes
+      const AVATAR_CLOSE_DELAY = 3500; // ms
+      // how much earlier the speech bubble should hide before the popup closes (at least 100ms)
+      const BUBBLE_LEAD_MS = 100;
+      // timer used to fade bubble slightly before popup closes
+      let bubbleEarlyTimer = null;
       function scheduleClose(){
         clearTimeout(closeTimer);
+        if(bubbleEarlyTimer){ clearTimeout(bubbleEarlyTimer); bubbleEarlyTimer = null; }
         closeTimer = setTimeout(() => {
           const p = wrap.querySelector('.avatar-popup');
           // if pointer re-entered, do nothing
@@ -79,12 +102,28 @@
           if (wrap.matches(':hover') || p.matches(':hover')) return;
           p.classList.remove('open');
         }, AVATAR_CLOSE_DELAY);
+        // schedule early fade for bubble/tail
+        const earlyDelay = Math.max(0, AVATAR_CLOSE_DELAY - BUBBLE_LEAD_MS);
+        bubbleEarlyTimer = setTimeout(() => {
+          try{ if(wrap._bubbleEl) wrap._bubbleEl.style.opacity = '0'; }catch(e){}
+          try{ if(wrap._bubbleTail) wrap._bubbleTail.style.opacity = '0'; }catch(e){}
+        }, earlyDelay);
+        wrap._bubbleEarlyTimer = bubbleEarlyTimer;
       }
-      function cancelClose(){ clearTimeout(closeTimer); closeTimer = null; }
+      function cancelClose(){
+        clearTimeout(closeTimer); closeTimer = null;
+        if(bubbleEarlyTimer){ clearTimeout(bubbleEarlyTimer); bubbleEarlyTimer = null; }
+        // restore bubble opacity if it was faded
+        try{ if(wrap._bubbleEl) wrap._bubbleEl.style.opacity = '1'; }catch(e){}
+        try{ if(wrap._bubbleTail) wrap._bubbleTail.style.opacity = '1'; }catch(e){}
+      }
 
       function openPopup(){
         cancelClose();
         let p = wrap.querySelector('.avatar-popup');
+        // bubble timer and element per-wrap
+        let bubbleTimer = wrap._bubbleTimer || null;
+        let bubbleEl = wrap._bubbleEl || null;
         if(!p){
           p = document.createElement('img');
           p.className = 'avatar-popup';
@@ -99,12 +138,111 @@
           p.addEventListener('click', e => { e.stopPropagation(); p.classList.remove('open'); });
         }
         p.classList.add('open');
+
+        // schedule a speech bubble 450ms after popup opens
+        clearTimeout(bubbleTimer);
+        bubbleTimer = setTimeout(() => {
+          // don't recreate if already present
+          if(!wrap._bubbleEl){
+            bubbleEl = document.createElement('div');
+            bubbleEl.className = 'avatar-bubble';
+            // visible text
+            const text = document.createElement('div');
+            text.textContent = 'Oh, hi there.';
+            // tail element (use inline SVG like the moon icon for crisp rendering)
+            const tail = document.createElementNS('http://www.w3.org/2000/svg','svg');
+            tail.setAttribute('class','avatar-bubble-tail');
+            tail.setAttribute('width','32');
+            tail.setAttribute('height','32');
+            tail.setAttribute('viewBox','0 0 32 32');
+            // append to body so it layers above header contexts
+            document.body.appendChild(bubbleEl);
+            bubbleEl.appendChild(text);
+            bubbleEl.appendChild(tail);
+            // style bubble: enlarge ~60%, upper-left of popup, high z-index
+            Object.assign(bubbleEl.style, {
+              position: 'fixed',
+              left: '20px',
+              top: '50px',
+              background: 'rgba(255,255,255,0.98)',
+              color: '#111',
+              padding: '16px 22px',
+              borderRadius: '26px',
+              fontSize: '28px',
+              whiteSpace: 'nowrap',
+              boxShadow: '0 14px 56px rgba(0,0,0,0.6)',
+              opacity: '0',
+              transition: 'opacity 200ms ease, transform 240ms ease',
+              zIndex: '99999',
+              pointerEvents: 'none',
+              transform: 'translateY(-6px)'
+            });
+            // create triangular tail path and style the svg so it points down-right
+            const tri = document.createElementNS('http://www.w3.org/2000/svg','path');
+            tri.setAttribute('d','M0 0 L32 0 L32 32 Z');
+            // fill will be set to the bubble's computed background color so they match exactly
+            tri.setAttribute('fill','rgba(255,255,255,0.98)');
+            tail.appendChild(tri);
+            Object.assign(tail.style, {
+              position: 'absolute',
+              right: '68px',
+              bottom: '-22px',
+              overflow: 'visible',
+              pointerEvents: 'none'
+            });
+            // position bubble near popup (upper-left) if popup rect available
+            try{
+              const rect = p.getBoundingClientRect();
+              const bx = Math.max(8, rect.left + 8); // small inset from left edge
+              const by = Math.max(8, rect.top + 8);  // small inset from top edge
+              bubbleEl.style.left = bx + 'px';
+              bubbleEl.style.top = by + 'px';
+            }catch(e){ /* fallback kept */ }
+            // show bubble
+            void bubbleEl.offsetWidth;
+            bubbleEl.style.opacity = '1';
+            bubbleEl.style.transform = 'translateY(0)';
+            // make the triangle exactly match the bubble's computed background color
+            try{
+              const bg = window.getComputedStyle(bubbleEl).backgroundColor;
+              tri.setAttribute('fill', bg);
+            }catch(e){}
+            wrap._bubbleEl = bubbleEl;
+
+            // schedule removal: make speech bubble disappear slightly before the avatar popup
+            const bubbleVisibleMs = Math.max(120, AVATAR_CLOSE_DELAY - BUBBLE_LEAD_MS);
+            const removeTimer = setTimeout(() => {
+              if(wrap._bubbleEl){
+                // fade out only (no translate) so it disappears in place
+                try{ wrap._bubbleEl.style.opacity = '0'; }catch(e){}
+                // also fade tail
+                try{ if(wrap._bubbleTail) wrap._bubbleTail.style.opacity = '0'; }catch(e){}
+                setTimeout(() => {
+                  if(wrap._bubbleEl && wrap._bubbleEl.parentNode) wrap._bubbleEl.parentNode.removeChild(wrap._bubbleEl);
+                  wrap._bubbleEl = null;
+                }, 240);
+              }
+            }, bubbleVisibleMs);
+            wrap._bubbleRemoveTimer = removeTimer;
+          }
+        }, 450);
+        wrap._bubbleTimer = bubbleTimer;
       }
 
       function closePopup(){
         cancelClose();
         const p = wrap.querySelector('.avatar-popup');
         if(p) p.classList.remove('open');
+        // remove bubble immediately (with fade) and clear timers
+        const bubble = wrap._bubbleEl;
+        if(bubble){
+          try{ bubble.style.opacity = '0'; bubble.style.transform = 'translateY(-6px)'; }catch(e){}
+          setTimeout(() => { if(bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 240);
+          wrap._bubbleEl = null;
+        }
+        if(wrap._bubbleEarlyTimer){ try{ clearTimeout(wrap._bubbleEarlyTimer); }catch(e){} wrap._bubbleEarlyTimer = null; }
+        if(wrap._bubbleTimer){ clearTimeout(wrap._bubbleTimer); wrap._bubbleTimer = null; }
+        if(wrap._bubbleRemoveTimer){ clearTimeout(wrap._bubbleRemoveTimer); wrap._bubbleRemoveTimer = null; }
       }
 
       wrap.addEventListener('click', function(e){

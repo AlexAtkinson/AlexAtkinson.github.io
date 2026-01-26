@@ -19,23 +19,23 @@
   /* Footer text color (separate control from --muted) */
   --footer-text: #e6eef6;
 
-  /* Gist hover glow (dark mode) */
-  --gist-glow: color-mix(in srgb, var(--accent) 10%, transparent);
-  --gist-glow-soft: color-mix(in srgb, var(--accent) 4%, transparent);
+  /* Gist hover glow (dark mode) - reduced intensity */
+  --gist-glow: color-mix(in srgb, var(--accent) 6%, transparent);
+  --gist-glow-soft: color-mix(in srgb, var(--accent) 2.5%, transparent);
 
   /* Social buttons use the dark-theme accent/glow regardless of selected theme */
   --social-accent: #d1d6e0;
-  --social-gist-glow: color-mix(in srgb, #d1d6e0 10%, transparent);
-  --social-gist-glow-soft: color-mix(in srgb, #d1d6e0 4%, transparent);
+  --social-gist-glow: color-mix(in srgb, #d1d6e0 6%, transparent);
+  --social-gist-glow-soft: color-mix(in srgb, #d1d6e0 2.5%, transparent);
   /* Social button surface and content colors (dark theme look) */
   --social-card: #0f1720;
   --social-text: #e6eef6;
 
   /* Glow sizing tokens (can be tuned globally) */
-  --glow-ring-spread: 1px;        /* spread for thin ring */
-  --glow-soft-blur: 22px;        /* softer mid blur */
-  --glow-strong-blur: 52px;      /* strong outer blur */
-  --glow-strong-spread: -20px;   /* negative spread to pull outer blur in */
+  --glow-ring-spread: 0.5px;      /* spread for thin ring (reduced) */
+  --glow-soft-blur: 12px;         /* softer mid blur (reduced) */
+  --glow-strong-blur: 8px;       /* strong outer blur (reduced) */
+  --glow-strong-spread: -10px;    /* negative spread to pull outer blur in (reduced) */
   /* Popup drop shadow sizing */
   --popup-drop-offset-y: 8px;
   --popup-drop-blur: 24px;
@@ -55,9 +55,9 @@
   --card-title: #242f45;
   --tile-border: color-mix(in srgb, var(--text) 67%, transparent);
 
-  /* Gist hover glow (light mode) */
-  --gist-glow: color-mix(in srgb, var(--accent) 40%, transparent);
-  --gist-glow-soft: color-mix(in srgb, var(--accent) 16%, transparent);
+  /* Gist hover glow (light mode) - reduced intensity */
+  --gist-glow: color-mix(in srgb, var(--accent) 20%, transparent);
+  --gist-glow-soft: color-mix(in srgb, var(--accent) 6%, transparent);
 
   /* Keep social buttons styled with the dark-theme accent/glow */
   --social-accent: #d1d6e0;
@@ -69,10 +69,10 @@
   --social-text: #e6eef6;
 
   /* Glow sizing tokens (shared with dark theme) */
-  --glow-ring-spread: 1px;
-  --glow-soft-blur: 22px;
-  --glow-strong-blur: 52px;
-  --glow-strong-spread: -20px;
+  --glow-ring-spread: 0.5px;
+  --glow-soft-blur: 12px;
+  --glow-strong-blur: 8px;
+  --glow-strong-spread: -10px;
   --popup-drop-offset-y: 8px;
   --popup-drop-blur: 24px;
   --popup-drop-alpha: 0.45;
