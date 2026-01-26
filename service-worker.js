@@ -18,8 +18,8 @@ const IMAGES = CACHE_VERSION + '::images';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
-  '/assets/theme.css',
-  '/assets/theme.js'
+  '/assets/css/theme.css',
+  '/assets/js/theme.js'
 ];
 
 // Simple cache trimming: keep only `maxItems` entries in the given cache
@@ -35,10 +35,24 @@ async function trimCache(cacheName, maxItems) {
 
 self.addEventListener('install', event => {
   self.skipWaiting();
-  event.waitUntil(
-    caches.open(PRECACHE)
-      .then(cache => cache.addAll(PRECACHE_URLS))
-  );
+  // Robust precache: fetch and store each resource individually so a single
+  // missing/failed asset doesn't reject the entire install (avoids addAll
+  // throwing "Request failed").
+  event.waitUntil((async () => {
+    const cache = await caches.open(PRECACHE);
+    for (const url of PRECACHE_URLS) {
+      try {
+        const res = await fetch(url, {cache: 'no-cache'});
+        if (res && res.ok) {
+          await cache.put(url, res.clone());
+        } else {
+          console.warn('SW precache: non-ok response', url, res && res.status);
+        }
+      } catch (err) {
+        console.warn('SW precache failed for', url, err);
+      }
+    }
+  })());
 });
 
 self.addEventListener('activate', event => {
