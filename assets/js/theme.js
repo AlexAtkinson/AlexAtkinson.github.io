@@ -114,7 +114,7 @@
       // per-wrap auto-close timer so popup closes after pointer leaves
       let closeTimer = null;
       // how long before the avatar popup auto-closes
-      const AVATAR_CLOSE_DELAY = 3500; // ms
+      const AVATAR_CLOSE_DELAY = 3000; // ms (reduced by 500ms)
       // how much earlier the speech bubble should hide before the popup closes (at least 100ms)
       const BUBBLE_LEAD_MS = 100;
       // timer used to fade bubble slightly before popup closes
