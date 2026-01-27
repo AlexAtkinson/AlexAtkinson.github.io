@@ -5,6 +5,18 @@
 */
 /* Make init idempotent: listeners attach only once while state is always applied */
 (function(){
+  // Set a CSS variable `--vh` representing 1% of the viewport height. This helps
+  // avoid `100vh` issues on mobile where the browser chrome (address bar) toggles.
+  function setVh() {
+    try{
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }catch(e){}
+  }
+  setVh();
+  window.addEventListener('resize', setVh, {passive:true});
+  window.addEventListener('orientationchange', setVh, {passive:true});
+
   let __theme_listeners_attached = false;
   function setButtonState(theme){
     const btns = document.querySelectorAll('[data-theme-toggle]');
