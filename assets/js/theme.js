@@ -85,7 +85,10 @@
       // handle interactions (pointerdown/click/touchstart) to toggle theme or close popups
       function docInteractionHandler(e){
         const btn = e.target && e.target.closest && e.target.closest('[data-theme-toggle]');
-        if(btn){ toggleTheme(); return; }
+        // Only toggle theme on explicit 'click' events. This avoids double-toggles
+        // caused by pointerdown/touchstart firing in addition to click, which made
+        // the button feel unreliable when clicking near the border.
+        if(btn){ if(e.type === 'click') toggleTheme(); return; }
         // if interaction occurs inside an avatar-wrap, ignore (user interacting with avatar)
         const inWrap = e.target && e.target.closest && e.target.closest('.avatar-wrap');
         if(!inWrap) closeAllAvatarPopups();
