@@ -55,38 +55,53 @@
       const chosen = stored || prefers || 'dark';
       apply(chosen);
     }catch(e){ apply('dark'); }
-    // attach click handlers only once; re-running init will still apply state
+    // attach global listeners only once; re-running init will still apply state
     if(!__theme_listeners_attached){
       __theme_listeners_attached = true;
-      document.addEventListener('click', function(e){
-        const btn = e.target.closest && e.target.closest('[data-theme-toggle]');
-        if(btn){ toggleTheme(); return; }
-
-        // close avatar popups if clicking outside and clean up bubbles/tails
+      // helper to close all open avatar popups and cleanup per-wrap resources
+      function closeAllAvatarPopups(){
         const open = document.querySelectorAll('.avatar-popup.open');
-        if(open.length){
-          // if click inside an avatar-wrap, ignore
-          const inWrap = e.target.closest && e.target.closest('.avatar-wrap');
-          if(!inWrap){
-            open.forEach(p => {
-              try{ p.classList.remove('open'); }catch(e){}
-              try{
-                const wrap = p.closest && p.closest('.avatar-wrap');
-                if(wrap){
-                  if(wrap._bubbleEl){ try{ if(wrap._bubbleEl.parentNode) wrap._bubbleEl.parentNode.removeChild(wrap._bubbleEl); }catch(e){} wrap._bubbleEl = null; }
-                  if(wrap._bubbleTail){ try{ if(wrap._bubbleTail.parentNode) wrap._bubbleTail.parentNode.removeChild(wrap._bubbleTail); }catch(e){} wrap._bubbleTail = null; }
-                  if(wrap._bubbleEarlyTimer){ try{ clearTimeout(wrap._bubbleEarlyTimer); }catch(e){} wrap._bubbleEarlyTimer = null; }
-                  if(wrap._bubbleTimer){ try{ clearTimeout(wrap._bubbleTimer); }catch(e){} wrap._bubbleTimer = null; }
-                  if(wrap._bubbleRemoveTimer){ try{ clearTimeout(wrap._bubbleRemoveTimer); }catch(e){} wrap._bubbleRemoveTimer = null; }
-                  if(wrap._bubbleTailReposition){ try{ window.removeEventListener('resize', wrap._bubbleTailReposition); window.removeEventListener('scroll', wrap._bubbleTailReposition); }catch(e){} wrap._bubbleTailReposition = null; }
-                  if(wrap._bubbleTailObserver){ try{ wrap._bubbleTailObserver.disconnect(); }catch(e){} wrap._bubbleTailObserver = null; }
-                  if(wrap._bubbleTailRaf){ try{ wrap._bubbleTailRaf(); }catch(e){} wrap._bubbleTailRaf = null; }
-                }
-              }catch(e){}
-            });
-          }
-        }
-      });
+        if(!open.length) return;
+        open.forEach(p => {
+          try{ p.classList.remove('open'); }catch(e){}
+          try{
+            const wrap = p.closest && p.closest('.avatar-wrap');
+            if(wrap){
+              if(wrap._bubbleEl){ try{ if(wrap._bubbleEl.parentNode) wrap._bubbleEl.parentNode.removeChild(wrap._bubbleEl); }catch(e){} wrap._bubbleEl = null; }
+              if(wrap._bubbleTail){ try{ if(wrap._bubbleTail.parentNode) wrap._bubbleTail.parentNode.removeChild(wrap._bubbleTail); }catch(e){} wrap._bubbleTail = null; }
+              if(wrap._overlayEl){ try{ if(wrap._overlayEl.parentNode) wrap._overlayEl.parentNode.removeChild(wrap._overlayEl); }catch(e){} wrap._overlayEl = null; }
+              if(wrap._bubbleEarlyTimer){ try{ clearTimeout(wrap._bubbleEarlyTimer); }catch(e){} wrap._bubbleEarlyTimer = null; }
+              if(wrap._bubbleTimer){ try{ clearTimeout(wrap._bubbleTimer); }catch(e){} wrap._bubbleTimer = null; }
+              if(wrap._bubbleRemoveTimer){ try{ clearTimeout(wrap._bubbleRemoveTimer); }catch(e){} wrap._bubbleRemoveTimer = null; }
+              if(wrap._bubbleReposition){ try{ window.removeEventListener('scroll', wrap._bubbleReposition); window.removeEventListener('resize', wrap._bubbleReposition); }catch(e){} wrap._bubbleReposition = null; }
+              if(wrap._bubbleTailReposition){ try{ window.removeEventListener('scroll', wrap._bubbleTailReposition); window.removeEventListener('resize', wrap._bubbleTailReposition); }catch(e){} wrap._bubbleTailReposition = null; }
+              if(wrap._bubbleTailObserver){ try{ wrap._bubbleTailObserver.disconnect(); }catch(e){} wrap._bubbleTailObserver = null; }
+              if(wrap._bubbleTailRaf){ try{ wrap._bubbleTailRaf(); }catch(e){} wrap._bubbleTailRaf = null; }
+            }
+          }catch(e){}
+        });
+      }
+
+      // handle interactions (pointerdown/click/touchstart) to toggle theme or close popups
+      function docInteractionHandler(e){
+        const btn = e.target && e.target.closest && e.target.closest('[data-theme-toggle]');
+        if(btn){ toggleTheme(); return; }
+        // if interaction occurs inside an avatar-wrap, ignore (user interacting with avatar)
+        const inWrap = e.target && e.target.closest && e.target.closest('.avatar-wrap');
+        if(!inWrap) closeAllAvatarPopups();
+      }
+
+      document.addEventListener('pointerdown', docInteractionHandler, {passive:true});
+      document.addEventListener('touchstart', docInteractionHandler, {passive:true});
+      document.addEventListener('click', docInteractionHandler);
+
+      // Do not close popups on scroll; keep them open while the user scrolls.
+      // Keep pointercancel and visibilitychange handlers to handle aborted gestures
+      // and backgrounding the page.
+      document.addEventListener('pointercancel', function(){ closeAllAvatarPopups(); }, {passive:true});
+      document.addEventListener('visibilitychange', function(){ if(document.hidden) closeAllAvatarPopups(); });
+      // close when focus moves outside avatar wraps (keyboard or programmatic focus)
+      document.addEventListener('focusin', function(e){ if(! (e.target && e.target.closest && e.target.closest('.avatar-wrap')) ) closeAllAvatarPopups(); });
     }
 
     // Avatar popup behavior: toggle on click, auto-close after delay on mouseleave (like the menu)
@@ -150,6 +165,8 @@
           p.addEventListener('click', e => { e.stopPropagation(); p.classList.remove('open'); });
         }
         p.classList.add('open');
+        // No overlay: rely on document-level handlers to close popups so taps
+        // are not intercepted and other controls remain clickable on first tap.
 
         // schedule a speech bubble 450ms after popup opens
         clearTimeout(bubbleTimer);
@@ -171,9 +188,10 @@
             document.body.appendChild(bubbleEl);
             bubbleEl.appendChild(text);
             bubbleEl.appendChild(tail);
-            // style bubble: enlarge ~60%, upper-left of popup, high z-index
+            // style bubble: enlarge ~60%, position absolutely in document so it
+            // moves with the avatar popup (we update position on scroll/resize)
             Object.assign(bubbleEl.style, {
-              position: 'fixed',
+              position: 'absolute',
               left: '20px',
               top: '50px',
               background: 'rgba(255,255,255,0.98)',
@@ -207,9 +225,26 @@
               const rect = p.getBoundingClientRect();
               const bx = Math.max(8, rect.left + 8); // small inset from left edge
               const by = Math.max(8, rect.top + 8);  // small inset from top edge
-              bubbleEl.style.left = bx + 'px';
-              bubbleEl.style.top = by + 'px';
+              // position absolute must account for page scroll
+              bubbleEl.style.left = (window.scrollX + bx) + 'px';
+              bubbleEl.style.top = (window.scrollY + by) + 'px';
             }catch(e){ /* fallback kept */ }
+            // reposition handler keeps the bubble aligned to the avatar popup
+            const reposition = () => {
+              try{
+                const rect = p.getBoundingClientRect();
+                const bx = Math.max(8, rect.left + 8);
+                const by = Math.max(8, rect.top + 8);
+                bubbleEl.style.left = (window.scrollX + bx) + 'px';
+                bubbleEl.style.top = (window.scrollY + by) + 'px';
+              }catch(e){}
+            };
+            // listen to scroll/resize so bubble follows the avatar
+            window.addEventListener('scroll', reposition, {passive:true});
+            window.addEventListener('resize', reposition, {passive:true});
+            // store references for cleanup (existing cleanup looks for _bubbleTailReposition)
+            wrap._bubbleReposition = reposition;
+            wrap._bubbleTailReposition = reposition;
             // show bubble
             void bubbleEl.offsetWidth;
             bubbleEl.style.opacity = '1';
@@ -221,8 +256,8 @@
             }catch(e){}
             wrap._bubbleEl = bubbleEl;
 
-            // schedule removal: make speech bubble disappear slightly before the avatar popup
-            const bubbleVisibleMs = Math.max(120, AVATAR_CLOSE_DELAY - BUBBLE_LEAD_MS);
+            // schedule removal: show speech bubble for a fixed duration (2000ms)
+            const bubbleVisibleMs = 2000;
             const removeTimer = setTimeout(() => {
               if(wrap._bubbleEl){
                 // fade out only (no translate) so it disappears in place
@@ -230,8 +265,15 @@
                 // also fade tail
                 try{ if(wrap._bubbleTail) wrap._bubbleTail.style.opacity = '0'; }catch(e){}
                 setTimeout(() => {
-                  if(wrap._bubbleEl && wrap._bubbleEl.parentNode) wrap._bubbleEl.parentNode.removeChild(wrap._bubbleEl);
+                  // remove reposition listeners
+                  try{
+                    if(wrap._bubbleReposition){ window.removeEventListener('scroll', wrap._bubbleReposition); window.removeEventListener('resize', wrap._bubbleReposition); }
+                    if(wrap._bubbleTailReposition){ window.removeEventListener('scroll', wrap._bubbleTailReposition); window.removeEventListener('resize', wrap._bubbleTailReposition); }
+                  }catch(e){}
+                  try{ if(wrap._bubbleEl && wrap._bubbleEl.parentNode) wrap._bubbleEl.parentNode.removeChild(wrap._bubbleEl); }catch(e){}
                   wrap._bubbleEl = null;
+                  wrap._bubbleReposition = null;
+                  wrap._bubbleTailReposition = null;
                 }, 240);
               }
             }, bubbleVisibleMs);
@@ -245,12 +287,30 @@
         cancelClose();
         const p = wrap.querySelector('.avatar-popup');
         if(p) p.classList.remove('open');
+        // remove overlay immediately so it doesn't block taps while bubble fades
+        if(wrap._overlayEl){
+          try{ if(wrap._overlayEl.parentNode) wrap._overlayEl.parentNode.removeChild(wrap._overlayEl); }catch(e){}
+          try{ if(wrap._overlayEl && wrap._overlayHandler){ wrap._overlayEl.removeEventListener('pointerdown', wrap._overlayHandler); wrap._overlayEl.removeEventListener('touchstart', wrap._overlayHandler); wrap._overlayEl.removeEventListener('click', wrap._overlayHandler); } }catch(e){}
+          wrap._overlayEl = null; wrap._overlayHandler = null;
+        }
         // remove bubble immediately (with fade) and clear timers
         const bubble = wrap._bubbleEl;
         if(bubble){
           try{ bubble.style.opacity = '0'; bubble.style.transform = 'translateY(-6px)'; }catch(e){}
-          setTimeout(() => { if(bubble.parentNode) bubble.parentNode.removeChild(bubble); }, 240);
+          setTimeout(() => {
+            try{
+              if(wrap._bubbleReposition){ window.removeEventListener('scroll', wrap._bubbleReposition); window.removeEventListener('resize', wrap._bubbleReposition); }
+              if(wrap._bubbleTailReposition){ window.removeEventListener('scroll', wrap._bubbleTailReposition); window.removeEventListener('resize', wrap._bubbleTailReposition); }
+            }catch(e){}
+            if(bubble.parentNode) bubble.parentNode.removeChild(bubble);
+            // remove overlay if present
+            try{ if(wrap._overlayEl && wrap._overlayEl.parentNode) wrap._overlayEl.parentNode.removeChild(wrap._overlayEl); }catch(e){}
+            try{ if(wrap._overlayEl && wrap._overlayHandler){ wrap._overlayEl.removeEventListener('pointerdown', wrap._overlayHandler); wrap._overlayEl.removeEventListener('touchstart', wrap._overlayHandler); wrap._overlayEl.removeEventListener('click', wrap._overlayHandler); } }catch(e){}
+            wrap._overlayEl = null; wrap._overlayHandler = null;
+          }, 240);
           wrap._bubbleEl = null;
+          wrap._bubbleReposition = null;
+          wrap._bubbleTailReposition = null;
         }
         if(wrap._bubbleEarlyTimer){ try{ clearTimeout(wrap._bubbleEarlyTimer); }catch(e){} wrap._bubbleEarlyTimer = null; }
         if(wrap._bubbleTimer){ clearTimeout(wrap._bubbleTimer); wrap._bubbleTimer = null; }
