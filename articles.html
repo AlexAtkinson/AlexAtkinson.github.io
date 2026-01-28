@@ -71,18 +71,46 @@
         // The site will prefer a pre-generated `assets/gists.json` (created by
         // `scripts/fetch_gists.py`) if present to avoid live API calls.
         const curated = [
-            '73ea6369877210f4969fcc0028b93769',
-            '42d91031604aaedc0ec5a879afb3410f',
-            '7be00d6be71fab970210006b9574e1e5',
-            '37d64e4e0527f6e5f9d57280669ad055',
-            '164c45f981355fba2dd59cf7632720a5',
-            '31b5bc527b07406950618a7e6bd1ec81',
-            '7246dfafa76973c6cc60ac5fa5ce0858',
-            'fb113e9001058b459d8a69bb52b7a18d',
-            '0ab1f69ad33d7fb068d566359953cd87',
-            '21d047579247f2e0d14b4382a2faac16',
-            '1cd0323af90640c9b0e705b04e7e0a05',
-            '5864dd20a58e40235ae66b4ac3d6713a'
+            '1487a84b54bb8774ee623c3e32924875', // Project Management
+            '7be00d6be71fab970210006b9574e1e5', // Versioning
+            '37d64e4e0527f6e5f9d57280669ad055', // Artifacting
+            '73ea6369877210f4969fcc0028b93769', // Security Intro
+            '42d91031604aaedc0ec5a879afb3410f', // Domain Names, DNS & URLs
+            '28d694866ce134a10d1a356ada244558', // CORS
+            '3ebd9f867a0dbe817b8f1e4fa27943af', // Dockerization/Modernization
+            '9749eda071841f18931bafd7070e43f4', // API Design Tips
+            'b3f18301d9dea5c2eb3f452260a03591', // DNS Propagation Checker
+            '48bc61232d6367ed3f898df58bb07acc', // Trace Redirects
+            '1739c6f63b4c93c2cf98eb9878e2af5d', // JIRA Workflows
+            'd37462adb758e91404f4ee5b32db877d', // REGEX
+            '99e7eb85fdc95b36a1978e4e7e8e92ac', // Password Generator (v2)
+            'ae06555d6356ac3c1e787827624e349c', // Fancy Headers
+            '49078eb9a2dcff17b28371eb92964cca', // Old Version of Fancy Headers
+            '54caf9cf424debffc6438d5ef5d56c9a', // Truecolor Demo
+            '5c828d0852c391527ebf3d8f7721cda9', // Evernote Alternative
+            '164c45f981355fba2dd59cf7632720a5', // Markdown Cheat
+            'd5d92bb2b21a5e7c14b089f225fc25bd', // Linux Redirects
+            '53f2d75d2f1da3c83e8dcd68150367cc', // File Watch
+            '31b5bc527b07406950618a7e6bd1ec81', // iptables
+            'd74df51311c27fb787de0c78ca46aa76', // Constat
+            '7246dfafa76973c6cc60ac5fa5ce0858', // Fastly
+            '08703f759dd6f1b1c1ba146efb082395', // Kong API Gateway Scripts
+            '2ecac393e0d4cbd10b53d70fc9e4d91c', // GH Actions Constructed Secrets
+            'f9086c4a88a28cfdce5dbb1b15e947ea', // FOO_ENV variables
+            'fb113e9001058b459d8a69bb52b7a18d', // Jenkins Dynamic User Input
+            '2bf5c315a7895193ddc3fe647ef3976b', // CI Detection
+            '0ab1f69ad33d7fb068d566359953cd87', // Images in GISTs
+            '21d047579247f2e0d14b4382a2faac16', // Docker ProTips
+            '1cd0323af90640c9b0e705b04e7e0a05', // Docker Assets
+            '11f2a22511b09b0c241d59e9ebfe66ec', // Terraform Variables
+            '199748aabd22e6dfc5868fa54c80685f', // Global Tags in Terraform
+            'fa4ee968b5ed422eb35435a82ca37b8e', // Ansible Tips
+            '197cc65007d164c9494d4f5e46ff3f10', // MongoDB Setup
+            '5864dd20a58e40235ae66b4ac3d6713a', // Launch Fargate
+            '3c1dac858d81a71f317c30a72fc4ac52', // DHCP Failover Check
+            'db0437c4dc0b3219ba470029ef7a1af4', // AWS ELB Logs & GoAccess
+            'a7a8bd17e0b0d6b4d89f836e6f81d421', // Randomness
+            '8fafe6d827942097a038c127ee49022d'  // PDF Attachment Extractor
         ];
 
         const container = document.getElementById('gist-list');

@@ -14,7 +14,8 @@ Usage:
 Options:
     - `-f` / `--force` : re-fetch all listed IDs
     - `-g` / `--gist`  : update specific gist ID(s) (can be used multiple times)
-    - `-d` / `--delete`: when present, only keep IDs listed (prune others)
+    - `-d` / `--delete`: delete specific gist ID(s) from gists.json (requires -g)
+    - `--sync`         : keep only IDs from articles.html (prune all others)
     - `--output <path>`: change output path (defaults to `assets/gists.json`)
 
 Optionally set `GITHUB_TOKEN` in the environment to increase rate limits.
@@ -102,9 +103,10 @@ def main(argv):
     outpath = DEFAULT_OUTPUT
     ids = []
 
-    # simple args parsing with support for -f/--force, -d/--delete, -g/--gist and --output
+    # simple args parsing with support for -f/--force, -d/--delete, --sync, -g/--gist and --output
     force = False
     delete = False
+    sync = False
     args = []
     explicit_gists = []
     i = 1
@@ -116,6 +118,10 @@ def main(argv):
             continue
         if a in ('-d', '--delete'):
             delete = True
+            i += 1
+            continue
+        if a == '--sync':
+            sync = True
             i += 1
             continue
         if a in ('-g', '--gist'):
@@ -146,15 +152,22 @@ def main(argv):
         args.append(a)
         i += 1
 
-    if explicit_gists:
+    # Handle delete mode
+    if delete:
+        if not explicit_gists:
+            print('Error: -d/--delete requires specific gist IDs via -g flag', file=sys.stderr)
+            return 2
+        # In delete mode, we remove the specified IDs
+        ids = explicit_gists
+    elif explicit_gists:
         ids = explicit_gists
     elif args:
         ids = args
     else:
         ids = read_ids_from_file()
 
-    if not ids:
-        print('No gist IDs provided (pass IDs on the command line or create curated_gists.txt).')
+    if not delete and not ids:
+        print('No gist IDs provided (pass IDs on the command line or update articles.html).')
         return 1
 
     # Safety: refuse to write HTML files. Output must be JSON (default: assets/gists.json).
@@ -176,6 +189,17 @@ def main(argv):
             existing_map = {}
             existing_list = []
 
+    # Handle delete mode - remove specified IDs and exit
+    if delete:
+        results = [g for g in existing_list if g.get('id') not in set(ids)]
+        odir = os.path.dirname(outpath)
+        if odir and not os.path.exists(odir):
+            os.makedirs(odir, exist_ok=True)
+        with open(outpath, 'w', encoding='utf-8') as fh:
+            json.dump(results, fh, indent=2, ensure_ascii=False)
+        print(f'Deleted {len(existing_list) - len(results)} gist(s). {len(results)} gists remaining in {outpath}')
+        return 0
+
     # Determine which IDs need fetching
     ids_to_fetch = []
     if explicit_gists or args:
@@ -185,10 +209,14 @@ def main(argv):
             if force or gid not in existing_map:
                 ids_to_fetch.append(gid)
 
-    # If nothing to fetch and not deleting, do nothing
-    if not ids_to_fetch and not delete:
-        print('No new gists to fetch. Use -f/--force to re-fetch all or -d/--delete to prune.')
-        return 0
+    # If nothing to fetch and not syncing, still update order if needed
+    if not ids_to_fetch and not sync:
+        # Check if we need to update the order
+        current_order = [g.get('id') for g in existing_list if g.get('id') in set(ids)]
+        if current_order == [gid for gid in ids if gid in existing_map]:
+            print('All gists are up-to-date. Use -f/--force to re-fetch all or --sync to prune.')
+            return 0
+        # Fall through to update the order
 
     fetched_map = {}
     for idx, gid in enumerate(ids_to_fetch, start=1):
@@ -215,22 +243,27 @@ def main(argv):
                 # not found/failed fetch; skip
                 pass
     else:
-        # Preserve all existing entries, but update any that were fetched.
+        # Always respect the order from articles.html (ids list)
+        # For each ID in the curated list, use fetched data if available, else existing data
+        ids_set = set(ids)
         seen = set()
-        for g in existing_list:
-            gid = g.get('id')
+        
+        # First, add all IDs from the curated list in order
+        for gid in ids:
             if gid in fetched_map:
                 results.append(fetched_map[gid])
                 seen.add(gid)
-            else:
+            elif gid in existing_map:
+                results.append(existing_map[gid])
+                seen.add(gid)
+            # If not in either map, skip (failed fetch or invalid ID)
+        
+        # Then append any existing gists that are NOT in the curated list
+        # (preserve them at the end so manual additions aren't lost)
+        for g in existing_list:
+            gid = g.get('id')
+            if gid and gid not in ids_set and gid not in seen:
                 results.append(g)
-                if gid:
-                    seen.add(gid)
-
-        # Append any newly fetched gists that weren't already present, in the order of `ids`.
-        for gid in ids:
-            if gid in fetched_map and gid not in seen:
-                results.append(fetched_map[gid])
                 seen.add(gid)
 
     # ensure output directory exists
