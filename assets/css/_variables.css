@@ -19,6 +19,10 @@
   /* Footer text color (separate control from --muted) */
   --footer-text: #e6eef6;
 
+  /* Link colors (dark theme) */
+  --link-color: #7fb3d5;
+  --link-hover: #a8c9e1;
+
   /* Gist hover glow (dark mode) - reduced intensity */
   --gist-glow: color-mix(in srgb, var(--accent) 6%, transparent);
   --gist-glow-soft: color-mix(in srgb, var(--accent) 2.5%, transparent);
@@ -79,4 +83,8 @@
 
   /* Footer text color (separate control from --muted) */
   --footer-text: #2c3a55;
+
+  /* Link colors (light theme) */
+  --link-color: #12335e;
+  --link-hover: #082041;
 }
