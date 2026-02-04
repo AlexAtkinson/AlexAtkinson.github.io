@@ -48,6 +48,18 @@
     }
   },
   {
+    "id": "ea23d6b290a3cf1b3e11fad6897c9a65",
+    "html_url": "https://gist.github.com/AlexAtkinson/ea23d6b290a3cf1b3e11fad6897c9a65",
+    "description": "An overview of the SDLC, ALM, and CICD",
+    "files": {
+      "SDLC.md": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/ea23d6b290a3cf1b3e11fad6897c9a65/raw/4eef8adba76c6337073d192431a34859fa89b279/SDLC.md",
+        "type": "text/markdown",
+        "language": "Markdown"
+      }
+    }
+  },
+  {
     "id": "73ea6369877210f4969fcc0028b93769",
     "html_url": "https://gist.github.com/AlexAtkinson/73ea6369877210f4969fcc0028b93769",
     "description": "Security For Everyone",
