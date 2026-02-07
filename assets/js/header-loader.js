@@ -133,18 +133,82 @@
         try{
           const dismiss = toInsert.querySelector('.site-notice-dismiss');
           if(dismiss){
+            // capture any existing title text for the custom tooltip,
+            // then remove the native title to avoid the browser tooltip.
+            const titleText = dismiss.getAttribute('title') || 'Dismiss for 24 hours';
+            dismiss.removeAttribute('title');
+
+            // Create tooltip element but don't attach yet.
+            const tip = document.createElement('div');
+            tip.className = 'site-notice-tooltip';
+            tip.textContent = titleText;
+
+            let attached = false;
+            function attachTip(){ if(!attached){ document.body.appendChild(tip); attached = true; } }
+            function detachTip(){ if(attached && tip.parentNode){ tip.parentNode.removeChild(tip); attached = false; } }
+
+            // Position tooltip so its bottom-left is aligned near the cursor,
+            // and clamp to viewport so it stays visible.
+            function positionTipAtCursor(ev){
+              const padding = 8; // small offset from cursor
+              // ensure element is attached so we can measure it
+              attachTip();
+              const tw = tip.offsetWidth;
+              const th = tip.offsetHeight;
+              let left = ev.clientX - tw + 12; // bottom-left => shift left by tooltip width
+              let top = ev.clientY + 12; // below the cursor
+              // clamp to viewport
+              const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+              const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+              if(left < padding) left = padding;
+              if(left + tw > vw - padding) left = vw - tw - padding;
+              if(top + th > vh - padding) top = ev.clientY - th - 12; // try above cursor if would overflow
+              tip.style.left = left + 'px';
+              tip.style.top = top + 'px';
+            }
+
+            // For keyboard focus (no cursor), position near the button's bottom-left.
+            function positionTipAtElement(){
+              attachTip();
+              const rect = dismiss.getBoundingClientRect();
+              const tw = tip.offsetWidth;
+              const th = tip.offsetHeight;
+              const padding = 8;
+              let left = rect.left - tw + rect.width + 6; // align bottom-left near cursor equivalent
+              let top = rect.bottom + 6;
+              const vw = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+              const vh = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+              if(left < padding) left = padding;
+              if(left + tw > vw - padding) left = vw - tw - padding;
+              if(top + th > vh - padding) top = rect.top - th - 6;
+              tip.style.left = left + 'px';
+              tip.style.top = top + 'px';
+            }
+
+            // Show tooltip on hover and follow cursor; hide on leave.
+            const onMove = (ev) => positionTipAtCursor(ev);
+            const onEnter = (ev) => { attachTip(); positionTipAtCursor(ev); document.addEventListener('mousemove', onMove, {passive:true}); };
+            const onLeave = () => { document.removeEventListener('mousemove', onMove); detachTip(); };
+
+            dismiss.addEventListener('mouseenter', onEnter, {passive:true});
+            dismiss.addEventListener('mouseleave', onLeave, {passive:true});
+
+            // keyboard accessibility: show tooltip on focus, hide on blur
+            dismiss.addEventListener('focus', function(){ positionTipAtElement(); }, {passive:true});
+            dismiss.addEventListener('blur', function(){ detachTip(); }, {passive:true});
+
+            // click behavior: persist dismissal for 24 hours
             dismiss.addEventListener('click', function(){
-              // persist dismissal for 24 hours
               try{
                 if(window.localStorage){
                   const until = Date.now() + (24 * 60 * 60 * 1000);
                   localStorage.setItem('siteNoticeDismissedUntil', String(until));
-                  // record the component hash so we know dismissal applies to this version
                   if(compHash) localStorage.setItem('siteNoticeComponentHash', compHash);
                 }
               }catch(e){}
               try{ toInsert.setAttribute('aria-hidden','true'); }catch(e){}
-              // small delay to allow any CSS fade before removal
+              // remove any tooltip immediately
+              detachTip();
               setTimeout(() => { try{ if(toInsert.parentNode) toInsert.parentNode.removeChild(toInsert); }catch(e){} }, 180);
             }, {passive:true});
           }

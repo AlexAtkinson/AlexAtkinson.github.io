@@ -128,3 +128,22 @@ footer{margin-top:28px;color:var(--footer-text);font-size:.85rem;text-align:cent
   .header-left{--avatar-size:48px}
   .header-left h1{font-size:1.125rem;line-height:1.1}
 }
+
+/* Tooltip shown for the site-notice dismiss button. Positioned and
+   placed via JS to appear at the bottom-left of the cursor so it
+   remains visible and doesn't get clipped by viewport edges. */
+.site-notice-tooltip{
+  position:fixed;
+  z-index:9999;
+  pointer-events:none;
+  background:color-mix(in srgb, var(--social-card) 94%, black);
+  color:var(--social-text);
+  padding:6px 8px;
+  border-radius:6px;
+  border:1px solid color-mix(in srgb, var(--social-text) 6%, transparent);
+  font-size:0.85rem;
+  line-height:1;
+  box-shadow:0 6px 18px rgba(0,0,0,0.18);
+  white-space:nowrap;
+}
+
