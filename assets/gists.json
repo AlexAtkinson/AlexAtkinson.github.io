@@ -5,7 +5,7 @@
     "description": "AI Prompt Primers",
     "files": {
       "AI_Prompt_Primers.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/0967496361367d0279d1b70843e7b0e3/raw/79b55d8e98d08019045fb0415055f78e45bc62a3/AI_Prompt_Primers.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/0967496361367d0279d1b70843e7b0e3/raw/0118bf0511e837e3242cf8c1f352e5322cfbee8c/AI_Prompt_Primers.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -17,7 +17,7 @@
     "description": "Scrum/SAFe/Basic Project Mgmt",
     "files": {
       "Project Management.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/1487a84b54bb8774ee623c3e32924875/raw/74affed9fd964d892cd1351a8f0c6a4b094330c5/Project%20Management.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/1487a84b54bb8774ee623c3e32924875/raw/0bd1b58fc140bbb69a3facf288316984d384c00f/Project%20Management.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -29,7 +29,7 @@
     "description": "DevOps Primer: Versioning",
     "files": {
       "Versioning.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/7be00d6be71fab970210006b9574e1e5/raw/cd59b3a46f82aa459fc3c33515fbd8d294873dc6/Versioning.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/7be00d6be71fab970210006b9574e1e5/raw/53153f0a25dc29eff1d9ee4b875ae1d725d37910/Versioning.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -41,7 +41,7 @@
     "description": "DevOps Primer: Artifacting",
     "files": {
       "Artifacting.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/37d64e4e0527f6e5f9d57280669ad055/raw/29b62c2d8bbff7c5933748f7b4a69cfb0b3c6ca0/Artifacting.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/37d64e4e0527f6e5f9d57280669ad055/raw/03c340d685ef8527f0a39ad5c4d10d715b5c2b4c/Artifacting.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -53,7 +53,7 @@
     "description": "An actionable overview of branching strategies.",
     "files": {
       "Git_Branching_Strategies.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/7db2eb20b0edd93a550f90bcac2c2c0f/raw/068f26a3ad71999363a454854667397df2f401fd/Git_Branching_Strategies.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/7db2eb20b0edd93a550f90bcac2c2c0f/raw/823492d5017917f4e5442e98ee9e9708bb5cbac3/Git_Branching_Strategies.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -65,7 +65,7 @@
     "description": "An overview of the SDLC, ALM, and CICD",
     "files": {
       "SDLC.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/ea23d6b290a3cf1b3e11fad6897c9a65/raw/4eef8adba76c6337073d192431a34859fa89b279/SDLC.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/ea23d6b290a3cf1b3e11fad6897c9a65/raw/0ce6bdb5008714862d05c1021c7db107ee16c240/SDLC.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -77,7 +77,7 @@
     "description": "Security For Everyone",
     "files": {
       "Security_Intro.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/73ea6369877210f4969fcc0028b93769/raw/bb840a1747507864dd0d7f6b5a6dbae0492f32cf/Security_Intro.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/73ea6369877210f4969fcc0028b93769/raw/98a199bebeb3957185d0b62637483a773999f7f2/Security_Intro.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -89,9 +89,21 @@
     "description": "Compliance & InfoSec Primer",
     "files": {
       "COMPLIANCE.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/db3f2057f329b9743c298a73f212ddac/raw/d4cd9825b1b0a7fe34b1dac89b6eba7b6522d0ac/COMPLIANCE.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/db3f2057f329b9743c298a73f212ddac/raw/5eb765e9b94d8ca7d0c1d28f4747a93df985a2a7/COMPLIANCE.md",
         "type": "text/markdown",
         "language": "Markdown"
+      }
+    }
+  },
+  {
+    "id": "98efb3718e493abd263c32a0cd5032e6",
+    "html_url": "https://gist.github.com/AlexAtkinson/98efb3718e493abd263c32a0cd5032e6",
+    "description": "Create a CA & Cert (localhost)",
+    "files": {
+      "Setup_CA_Cert.sh": {
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/98efb3718e493abd263c32a0cd5032e6/raw/188acf9a52029d65f132dbe05305545716a57d5e/Setup_CA_Cert.sh",
+        "type": "application/x-sh",
+        "language": "Shell"
       }
     }
   },
@@ -101,7 +113,7 @@
     "description": "Domains, DNS, and URLs for DevOps & Friends",
     "files": {
       "Domain Names, DNS & URLs.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/42d91031604aaedc0ec5a879afb3410f/raw/914e8f30eba5fc14fc71e477144e50d3ac105daa/Domain%20Names%2C%20DNS%20%26%20URLs.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/42d91031604aaedc0ec5a879afb3410f/raw/540accdb0217c793d0c4606cec4e7be1358a3d9a/Domain%20Names%2C%20DNS%20%26%20URLs.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -113,7 +125,7 @@
     "description": "A CORS Cheat...",
     "files": {
       "CORS.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/28d694866ce134a10d1a356ada244558/raw/fb4483a4c28e76c182b93146fa09affc09465f47/CORS.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/28d694866ce134a10d1a356ada244558/raw/50b604ea7e61bdffac2212be5af7f26e355801a5/CORS.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -125,7 +137,7 @@
     "description": "Modernization/Dockerization Enablement",
     "files": {
       "docker|modern..ization_Enablement.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/3ebd9f867a0dbe817b8f1e4fa27943af/raw/3cb90c8557a41a7a79cf74a55d683601ebd0f3ea/docker%7Cmodern..ization_Enablement.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/3ebd9f867a0dbe817b8f1e4fa27943af/raw/e60b886e4c447a043010e095d79b022ff16758de/docker%7Cmodern..ization_Enablement.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -137,7 +149,7 @@
     "description": "API Design Tips for beginners and professionals alike.",
     "files": {
       "API Design Tips.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/9749eda071841f18931bafd7070e43f4/raw/ae058918808a2c3316fde0572df47abb4856d442/API%20Design%20Tips.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/9749eda071841f18931bafd7070e43f4/raw/327229f72c60e25331aee4d2d8125f2cb41d5b60/API%20Design%20Tips.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -173,7 +185,7 @@
     "description": "Jira Workflow Examples",
     "files": {
       "JIRA_Workflows.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/1739c6f63b4c93c2cf98eb9878e2af5d/raw/a6be0446d242d44c80c3382dc47cb1d623658338/JIRA_Workflows.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/1739c6f63b4c93c2cf98eb9878e2af5d/raw/afc234f22b3406826696054dd5997154f8354a1a/JIRA_Workflows.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -185,7 +197,7 @@
     "description": "REGEX Cheat",
     "files": {
       "REGEX.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/d37462adb758e91404f4ee5b32db877d/raw/80d77bb3e9e96d1656925e55c5ea37b05fa107aa/REGEX.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/d37462adb758e91404f4ee5b32db877d/raw/ccbc4291cad12e5bea804212d7b08b357b110bc2/REGEX.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -245,7 +257,7 @@
     "description": "Free Evernote Alternative",
     "files": {
       "Evernote_Alternative.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/5c828d0852c391527ebf3d8f7721cda9/raw/e23996295becb75a0e5d31e4e17e598b560e2955/Evernote_Alternative.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/5c828d0852c391527ebf3d8f7721cda9/raw/3b4645f54ba468c317f24dfaa739b0d4e8c3d27f/Evernote_Alternative.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -257,7 +269,7 @@
     "description": "Advanced Markdown Usage Cheatsheet",
     "files": {
       "Markdown Cheat.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/164c45f981355fba2dd59cf7632720a5/raw/ad978750633fdb42e03b9017fcc3d3fac32c32fd/Markdown%20Cheat.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/164c45f981355fba2dd59cf7632720a5/raw/19b94c07d074b22bc009c3d784432314fd91487b/Markdown%20Cheat.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -269,7 +281,7 @@
     "description": "Adding Images to GISTs - The GIST Way",
     "files": {
       "Images In Gists.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/0ab1f69ad33d7fb068d566359953cd87/raw/adaef5d85953d8d21a34b9ea5656fe236dd252b3/Images%20In%20Gists.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/0ab1f69ad33d7fb068d566359953cd87/raw/a4759e32cff77317e663ca906f10bf2f53c273f3/Images%20In%20Gists.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -281,7 +293,7 @@
     "description": "Linux Redirects",
     "files": {
       "Linux_Redirects.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/d5d92bb2b21a5e7c14b089f225fc25bd/raw/0f4edfea72b916a3c1eaf56f7a609df0d6a187bb/Linux_Redirects.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/d5d92bb2b21a5e7c14b089f225fc25bd/raw/ee3cb38bd15846a07ca1ebed0c384c47d3b40614/Linux_Redirects.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -305,7 +317,7 @@
     "description": "Guide: iptables",
     "files": {
       "iptables.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/31b5bc527b07406950618a7e6bd1ec81/raw/de708953171aa151153d8810cffdc68352d0d678/iptables.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/31b5bc527b07406950618a7e6bd1ec81/raw/fda3a57698221572333784ab0d15e99ab4c11d1d/iptables.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -329,7 +341,7 @@
     "description": "Some Fastly ProTips",
     "files": {
       "Fastly.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/7246dfafa76973c6cc60ac5fa5ce0858/raw/98018b2840d147a5997feea71c2cc66681b3946d/Fastly.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/7246dfafa76973c6cc60ac5fa5ce0858/raw/cf9fac6b9d37df65b533948d4e5dad95a7fc85ae/Fastly.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -341,7 +353,7 @@
     "description": "Some Kong MGMT Scripts.",
     "files": {
       "Kong-Scripts.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/08703f759dd6f1b1c1ba146efb082395/raw/404944981774ccdc04c67a800abac11ea01d68db/Kong-Scripts.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/08703f759dd6f1b1c1ba146efb082395/raw/8aaebf311bd49dbea0c3e04391900c690c259458/Kong-Scripts.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -365,7 +377,7 @@
     "description": "$FOO_ENV envars",
     "files": {
       "FOO_ENV.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f9086c4a88a28cfdce5dbb1b15e947ea/raw/dfb41d339eaf7f53eb20a53a8a0407c3c7962b4a/FOO_ENV.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/f9086c4a88a28cfdce5dbb1b15e947ea/raw/0048e15ef45fb79aceaec1c8f956cdcf38f0bc22/FOO_ENV.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -377,7 +389,7 @@
     "description": "Jenkinsfile - Populate input field with Docker tags (ECR)",
     "files": {
       "Jenkins_Dynamic_User_Input.groovy": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/fb113e9001058b459d8a69bb52b7a18d/raw/38b5c615c6a7d71897a7810758c7a06c0577493b/Jenkins_Dynamic_User_Input.groovy",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/fb113e9001058b459d8a69bb52b7a18d/raw/de187940235604eeb24cb2ad35fbdc282aeb280a/Jenkins_Dynamic_User_Input.groovy",
         "type": "text/plain",
         "language": "Groovy"
       }
@@ -398,10 +410,10 @@
   {
     "id": "21d047579247f2e0d14b4382a2faac16",
     "html_url": "https://gist.github.com/AlexAtkinson/21d047579247f2e0d14b4382a2faac16",
-    "description": "Docker ProTips",
+    "description": "Gotchas and various callouts",
     "files": {
       "Docker ProTips.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/21d047579247f2e0d14b4382a2faac16/raw/928f4a9cfd376f3ec1eea17b665f919aecc01f4e/Docker%20ProTips.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/21d047579247f2e0d14b4382a2faac16/raw/0ab4f69c592ad1fb9237381ac3794f3f6c12c3e1/Docker%20ProTips.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -449,7 +461,7 @@
     "description": "Ansible Cheat",
     "files": {
       "Ansible.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/fa4ee968b5ed422eb35435a82ca37b8e/raw/5492058df98606a444110f47d299fe9eb8ef5bd4/Ansible.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/fa4ee968b5ed422eb35435a82ca37b8e/raw/8807882ed433e47d2acf013595338f1f779f2dc9/Ansible.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -497,7 +509,7 @@
     "description": "Analyze ELB logs (s3) with goaccess",
     "files": {
       "GoAccess_AWS_ELB_Logs.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/db0437c4dc0b3219ba470029ef7a1af4/raw/cad283fb19597d783ed1d951a8a5aa3b9f3ded3a/GoAccess_AWS_ELB_Logs.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/db0437c4dc0b3219ba470029ef7a1af4/raw/b1dc0ebe4380e399d32b3e76ea31481df15d8ac3/GoAccess_AWS_ELB_Logs.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
@@ -509,7 +521,7 @@
     "description": "The League of Entropy (The WHAT!?)",
     "files": {
       "Randomness.md": {
-        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/a7a8bd17e0b0d6b4d89f836e6f81d421/raw/48ed11975043bd6cd5a2adf5c183f4e0f0f137f2/Randomness.md",
+        "raw_url": "https://gist.githubusercontent.com/AlexAtkinson/a7a8bd17e0b0d6b4d89f836e6f81d421/raw/828af2d04f319dca1a5cd2ab67986e483466fc68/Randomness.md",
         "type": "text/markdown",
         "language": "Markdown"
       }
