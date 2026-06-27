@@ -18,7 +18,7 @@ const IMAGES = CACHE_VERSION + '::images';
 const PRECACHE_URLS = [
   '/',
   '/index.html',
-  '/assets/css/theme.css',
+  '/assets/css/_variables.css',
   '/assets/js/theme.js'
 ];
 
